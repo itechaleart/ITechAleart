@@ -70,6 +70,8 @@
 
     <link rel="stylesheet" href="{{asset('frontend/assets/css/venobox.min.css')}}">
 
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom/home_scoped.css') }}">
+
     @stack('style')
     @toastr_css
     @include('frontend.layouts.dynamic-style')

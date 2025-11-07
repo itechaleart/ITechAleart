@@ -161,7 +161,7 @@
 
 .sign-up-top-logo>a>img {
     /* Limit logo size on home/login left panel while keeping aspect ratio */
-    max-width: 180px;
+    max-width: auto;
     /* don't let logo grow too wide */
     max-height: 100px;
     /* cap visible height */
@@ -175,7 +175,7 @@
 @media (max-width: 576px) {
     .sign-up-top-logo>a>img {
         /* tighten on very small screens */
-        max-width: 140px;
+        max-width: auto;
         max-height: 80px;
         margin-bottom: 16px;
     }
