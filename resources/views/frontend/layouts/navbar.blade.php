@@ -547,3 +547,38 @@ $appBlackLogo = getImageFile(get_option('app_black_logo') ?: get_option('app_log
 {{-- Navbar scroll JS moved into resources/js/app.js for consistent loading and caching --}}
 
 {{-- Navbar logo-swap styles moved to public/frontend/assets/css/style.css for central management --}}
+
+<!-- Ensure navbar logo swap script runs on every page: toggles .scrolled and switches logos -->
+<script>
+    (function() {
+        const SCROLL_THRESHOLD = 60; // px
+
+        function getNav() {
+            return document.getElementById("mainNav");
+        }
+
+        function updateNavScrolled() {
+            const nav = getNav();
+            if (!nav) return;
+
+            const logoDefault = nav.querySelector('.logo-default');
+            const logoScrolled = nav.querySelector('.logo-scrolled');
+
+            if (window.scrollY > SCROLL_THRESHOLD) {
+                nav.classList.add("scrolled");
+                if (logoDefault) logoDefault.style.display = 'none';
+                if (logoScrolled) logoScrolled.style.display = 'inline-block';
+            } else {
+                nav.classList.remove("scrolled");
+                if (logoDefault) logoDefault.style.display = 'inline-block';
+                if (logoScrolled) logoScrolled.style.display = 'none';
+            }
+        }
+
+        window.addEventListener("scroll", updateNavScrolled, {
+            passive: true
+        });
+        document.addEventListener("DOMContentLoaded", updateNavScrolled);
+        updateNavScrolled();
+    })();
+</script>

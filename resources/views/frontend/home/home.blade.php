@@ -892,37 +892,5 @@ $metaData = getMeta('home');
 <!-- Video Player js -->
 
 <!-- Navbar logo swap fix for Home page -->
-<script>
-    (function() {
-        const SCROLL_THRESHOLD = 60; // px
-
-        function getNav() {
-            return document.getElementById("mainNav");
-        }
-
-        function updateNavScrolled() {
-            const nav = getNav();
-            if (!nav) return;
-
-            const logoDefault = nav.querySelector('.logo-default');
-            const logoScrolled = nav.querySelector('.logo-scrolled');
-
-            if (window.scrollY > SCROLL_THRESHOLD) {
-                nav.classList.add("scrolled");
-                if (logoDefault) logoDefault.style.display = 'none';
-                if (logoScrolled) logoScrolled.style.display = 'inline-block';
-            } else {
-                nav.classList.remove("scrolled");
-                if (logoDefault) logoDefault.style.display = 'inline-block';
-                if (logoScrolled) logoScrolled.style.display = 'none';
-            }
-        }
-
-        window.addEventListener("scroll", updateNavScrolled, {
-            passive: true
-        });
-        document.addEventListener("DOMContentLoaded", updateNavScrolled);
-        updateNavScrolled();
-    })();
-</script>
+<!-- Navbar logo swap is handled globally via the navbar include to ensure it runs on all pages -->
 @endpush
