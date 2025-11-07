@@ -10,6 +10,7 @@
     background: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .hm-navbar .navbar-brand img.logo-scrolled {
     max-height: 48px;
 }
@@ -20,7 +21,8 @@
 
 .hm-navbar .navbar-brand img {
     transition: opacity 0.2s ease, transform 0.2s ease;
-    height: 60px; /* from style_new.css for base logo height */
+    height: 60px;
+    /* from style_new.css for base logo height */
 }
 
 /* When scrolled (JS toggles .scrolled on #mainNav), set solid background */
@@ -147,10 +149,18 @@
 
 /* Footer (scoped) */
 .hm-footer .footer-about img,
-.hm-footer .footer-widget > h6 {
-    margin-bottom: 15px; /* match style_new.css visuals */
+.hm-footer .footer-widget>h6 {
+    margin-bottom: 15px;
+    /* match style_new.css visuals */
 }
 
 .hm-footer .footer-about img {
-    height: 60px; /* match style_new.css */
+    height: 60px;
+    /* match style_new.css */
+}
+
+.sign-up-top-logo>a>img {
+    height: 100px;
+    width: auto;
+    margin-bottom: 30px;
 }
