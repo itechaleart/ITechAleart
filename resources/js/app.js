@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue').default;
+window.Vue = require("vue").default;
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +19,10 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component(
+    "example-component",
+    require("./components/ExampleComponent.vue").default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +31,43 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
 });
+
+// Navbar scroll toggler moved here from inline Blade to ensure it runs from the compiled asset
+(function () {
+    const SCROLL_THRESHOLD = 60; // px
+
+    function getNav() {
+        return document.getElementById("mainNav");
+    }
+
+    function updateNavScrolled() {
+        const nav = getNav();
+        if (!nav) return;
+
+        // Try to find logo elements inside the nav. Use class names so we don't
+        // depend on exact markup; these will be present in the navbar markup:
+        // - .logo-default
+        // - .logo-scrolled
+        const logoDefault = nav.querySelector('.logo-default');
+        const logoScrolled = nav.querySelector('.logo-scrolled');
+
+        if (window.scrollY > SCROLL_THRESHOLD) {
+            nav.classList.add("scrolled");
+            // Explicitly show/hide logos via inline style to avoid cascade conflicts
+            if (logoDefault) logoDefault.style.display = 'none';
+            if (logoScrolled) logoScrolled.style.display = 'inline-block';
+        } else {
+            nav.classList.remove("scrolled");
+            if (logoDefault) logoDefault.style.display = 'inline-block';
+            if (logoScrolled) logoScrolled.style.display = 'none';
+        }
+    }
+
+    // Listen on scroll and run once on DOM ready
+    window.addEventListener("scroll", updateNavScrolled, { passive: true });
+    document.addEventListener("DOMContentLoaded", updateNavScrolled);
+    // run immediately in case the script loads after DOM is ready
+    updateNavScrolled();
+})();

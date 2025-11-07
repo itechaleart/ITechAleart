@@ -1,12 +1,20 @@
-@php 
-    $authUser = @auth()->user();
+@php
+$authUser = @auth()->user();
+// Prepare logo variables: fallback to app_logo when app_black_logo not provided
+$appLogo = getImageFile(get_option('app_logo'));
+$appBlackLogo = getImageFile(get_option('app_black_logo') ?: get_option('app_logo'));
 @endphp
 
 <section class="menu-section-area @auth isLoginMenu @endauth">
     <!-- Navigation -->
-    <nav class="navbar sticky-header navbar-expand-lg" id="mainNav">
+    <nav class="navbar sticky-header navbar-expand-lg hm-navbar" id="mainNav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ getImageFile(get_option('app_logo')) }}" alt="Logo"></a>
+            <a class="navbar-brand" href="{{ url('/') }}">
+                {{-- Default (top) logo: prefer app_black_logo, fallback to app_logo --}}
+                <img src="{{ $appBlackLogo }}" alt="Logo" class="logo-default" />
+                {{-- Scrolled logo: show when navbar has .scrolled class --}}
+                <img src="{{ $appLogo }}" alt="Logo" class="logo-scrolled" />
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -201,7 +209,8 @@
                                                         <div
                                                             class="flex-grow-1 {{$selectedLanguage->rtl == 1 ? 'me-2' : 'ms-2' }}">
                                                             <h6 class="color-heading font-14">
-                                                                {{$student_notification->sender->name}}</h6>
+                                                                {{$student_notification->sender->name}}
+                                                            </h6>
                                                             <p class="font-13">{{$student_notification->text}}</p>
                                                             <div class="font-11 color-gray mt-1">
                                                                 {{@$student_notification->created_at->diffForHumans()}}
@@ -244,7 +253,8 @@
                                                         <div
                                                             class="flex-grow-1 {{$selectedLanguage->rtl == 1 ? 'me-2' : 'ms-2' }}">
                                                             <h6 class="color-heading font-14">
-                                                                {{@$instructor_notification->sender->name}}</h6>
+                                                                {{@$instructor_notification->sender->name}}
+                                                            </h6>
                                                             <p class="font-13">{{$instructor_notification->text}}</p>
                                                             <div class="font-11 color-gray mt-1">
                                                                 {{@$instructor_notification->created_at->diffForHumans()}}
@@ -290,12 +300,14 @@
                         @endif
                         @if (Route::has('login'))
                         @auth
-                        
-                        @if(isEnableOpenAI()) 
-                         <!-- AI Option Start -->
-                         <li class="nav-item menu-round-btn">
+
+                        @if(isEnableOpenAI())
+                        <!-- AI Option Start -->
+                        <li class="nav-item menu-round-btn">
                             <a id="ai-content-toggle" class="nav-link" aria-current="page">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.356 5H7.01L5 13h1.028l.464-1.875h2.316L9.26 13h1.062Zm-1.729 5.322L7.644 5.95h.045l.984 4.373ZM11.238 13V5h1v8Zm.187 1H4V4h10v4.78a5.504 5.504 0 0 1 4-.786V6h-2V4a2.006 2.006 0 0 0-2-2h-2V0h-2v2H8V0H6v2H4a2.006 2.006 0 0 0-2 2v2H0v2h2v2H0v2h2v2a2.006 2.006 0 0 0 2 2h2v2h2v-2h2v2h2v-1.992A5.547 5.547 0 0 1 11.425 14Zm2.075-.5A3.5 3.5 0 1 1 17 17a3.499 3.499 0 0 1-3.5-3.5ZM17 19c-2.336 0-7 1.173-7 3.5V24h14v-1.5c0-2.328-4.664-3.5-7-3.5Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M8.356 5H7.01L5 13h1.028l.464-1.875h2.316L9.26 13h1.062Zm-1.729 5.322L7.644 5.95h.045l.984 4.373ZM11.238 13V5h1v8Zm.187 1H4V4h10v4.78a5.504 5.504 0 0 1 4-.786V6h-2V4a2.006 2.006 0 0 0-2-2h-2V0h-2v2H8V0H6v2H4a2.006 2.006 0 0 0-2 2v2H0v2h2v2H0v2h2v2a2.006 2.006 0 0 0 2 2h2v2h2v-2h2v2h2v-1.992A5.547 5.547 0 0 1 11.425 14Zm2.075-.5A3.5 3.5 0 1 1 17 17a3.499 3.499 0 0 1-3.5-3.5ZM17 19c-2.336 0-7 1.173-7 3.5V24h14v-1.5c0-2.328-4.664-3.5-7-3.5Z" />
+                                </svg>
                             </a>
                         </li>
                         <!-- AI Option End -->
@@ -403,7 +415,7 @@
                                             {{ __('Device Control') }}</a>
                                     </li>
                                     @endif
-                                    
+
                                     @if(Auth::user()->role == USER_ROLE_STUDENT || Auth::user()->is_affiliator == AFFILIATOR || (Auth::user()->role == USER_ROLE_INSTRUCTOR &&
                                     @$authUser->instructor->status == STATUS_APPROVED) || (Auth::user()->role == USER_ROLE_ORGANIZATION &&
                                     @$authUser->organization->status == STATUS_APPROVED))
@@ -506,6 +518,10 @@
     <!-- Navigation -->
 </section>
 
-@if(isEnableOpenAI()) 
+@if(isEnableOpenAI())
 @include('addon.AI.content-generation')
 @endif
+
+{{-- Navbar scroll JS moved into resources/js/app.js for consistent loading and caching --}}
+
+{{-- Navbar logo-swap styles moved to public/frontend/assets/css/style.css for central management --}}

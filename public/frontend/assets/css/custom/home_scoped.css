@@ -1,0 +1,156 @@
+/*
+  Home-only, conflict-free styles
+  Scope: hm-navbar (logo swap) and hm-* instructor cards.
+  Loaded only on Home via @push('style').
+*/
+
+/* Navbar: logo swap (scoped) */
+.hm-navbar {
+    transition: all 0.6s ease;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hm-navbar .navbar-brand img.logo-scrolled {
+    max-height: 48px;
+}
+
+.hm-navbar .navbar-brand img.logo-default {
+    max-height: 48px;
+}
+
+.hm-navbar .navbar-brand img {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    height: 60px; /* from style_new.css for base logo height */
+}
+
+/* When scrolled (JS toggles .scrolled on #mainNav), set solid background */
+.hm-navbar.scrolled {
+    background-color: var(--navbar-bg-color);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    border-bottom-color: transparent;
+}
+
+/* Instructor cards (hm-*) */
+.hm-glass-card {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hm-glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+.hm-glass-card:hover {
+    transform: scale(1.04) rotate(0.3deg) skewX(0.5deg);
+    box-shadow: 0 20px 40px 0 rgba(31, 38, 135, 0.6);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.5);
+    filter: brightness(1.08);
+}
+
+.hm-glass-card:hover::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+    opacity: 0.85;
+}
+
+.hm-instructor-image {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+}
+
+.hm-instructor-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.hm-instructor-overlay {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
+}
+
+.hm-glass-card:hover .hm-instructor-overlay {
+    opacity: 1;
+}
+
+.hm-glass-card:hover .hm-instructor-img {
+    transform: scale(1.08);
+}
+
+.hm-instructor-rating {
+    justify-content: center;
+}
+
+.hm-hover-reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.hm-glass-card:hover .hm-hover-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hm-badge-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.hm-instructor-price .new-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.hm-instructor-price .old-price {
+    font-size: 0.85rem;
+}
+
+.hm-glass-card .instructor-action .btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.hm-glass-card .instructor-action .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hm-text-white-80 {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.hm-text-white-70 {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.hm-text-white-60 {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Footer (scoped) */
+.hm-footer .footer-about img,
+.hm-footer .footer-widget > h6 {
+    margin-bottom: 15px; /* match style_new.css visuals */
+}
+
+.hm-footer .footer-about img {
+    height: 60px; /* match style_new.css */
+}

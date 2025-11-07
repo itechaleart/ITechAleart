@@ -95,12 +95,12 @@ Will Get area start
     margin-bottom: 58px;
 }
 
-.single-get-item .feature-content > h6 {
+.single-get-item .feature-content>h6 {
     color: var(--white-color);
     margin-bottom: 12px;
 }
 
-.single-get-item .feature-content > p {
+.single-get-item .feature-content>p {
     color: var(--text-neutral-color);
 }
 
@@ -138,6 +138,55 @@ Will Get area end
 
 .courses-area-section {
     padding-top: 96px;
+    position: relative;
+    overflow: hidden;
+}
+
+.courses-area-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(94, 61, 215, 0.04) 0%, transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(252, 134, 104, 0.03) 0%, transparent 22%),
+        radial-gradient(circle at 25% 75%, rgba(69, 200, 129, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 75% 85%, rgba(255, 193, 7, 0.02) 0%, transparent 18%),
+        radial-gradient(circle at 50% 50%, rgba(156, 39, 176, 0.03) 0%, transparent 24%);
+    filter: blur(25px) saturate(1.2);
+    opacity: 0.6;
+    transform: translateZ(0);
+    background-size: 300% 300%, 250% 250%, 200% 200%, 180% 180%, 220% 220%;
+    background-repeat: no-repeat;
+    animation: floatingElements 20s ease-in-out infinite;
+}
+
+@keyframes floatingElements {
+    0% {
+        background-position: 0% 0%, 100% 100%, 50% 100%, 100% 0%, 50% 50%;
+        transform: translateZ(0) rotate(0deg);
+    }
+
+    25% {
+        background-position: 25% 25%, 75% 75%, 75% 25%, 25% 75%, 75% 25%;
+        transform: translateZ(0) rotate(90deg);
+    }
+
+    50% {
+        background-position: 50% 50%, 50% 50%, 100% 0%, 0% 100%, 100% 100%;
+        transform: translateZ(0) rotate(180deg);
+    }
+
+    75% {
+        background-position: 75% 75%, 25% 25%, 25% 75%, 75% 25%, 25% 25%;
+        transform: translateZ(0) rotate(270deg);
+    }
+
+    100% {
+        background-position: 0% 0%, 100% 100%, 50% 100%, 100% 0%, 50% 50%;
+        transform: translateZ(0) rotate(360deg);
+    }
 }
 
 .mb-la-24 {
@@ -275,6 +324,7 @@ Will Get area end
     -o-object-fit: cover;
     margin: auto;
 }
+
 /*----------------------
  Extensive area end
 ------------------------- */
@@ -286,6 +336,7 @@ Will Get area end
     padding-bottom: 154px;
     padding-top: 154px;
 }
+
 .sf-pt-188 {
     padding-top: 188px !important;
 }
@@ -306,6 +357,7 @@ Personalized section area start
     margin-bottom: 11px;
     color: var(--white-color);
 }
+
 .trainer-name a {
     color: var(--white-color);
 }
@@ -339,10 +391,12 @@ Personalized section area start
     opacity: 0;
     transition: all 0.3s;
 }
+
 .training-card {
     min-height: 428px;
     max-height: 428px;
 }
+
 .trainer-img {
     height: 428px;
     width: 100%;
@@ -452,7 +506,7 @@ price section area end
     padding-left: 0;
 }
 
-.price-title-body th > p {
+.price-title-body th>p {
     text-align: left;
     padding-left: 75px;
 }
@@ -498,11 +552,13 @@ price section area end
     line-height: 100%;
     max-width: 364px;
 }
+
 @media screen and (max-width: 1023px) {
     .our-plan {
         left: 0;
     }
 }
+
 @media screen and (max-width: 1023px) {
     .our-plan::after {
         display: none;
@@ -623,12 +679,14 @@ footer  section area star
     background-color: var(--page-bg);
     border-radius: 50%;
 }
+
 @media screen and (max-width: 991px) {
     .landing-footer .section-overlay:after {
         top: -30%;
         width: 120%;
     }
 }
+
 @media screen and (max-width: 767px) {
     .landing-footer .section-overlay:after {
         top: -32%;
@@ -636,12 +694,14 @@ footer  section area star
         display: none;
     }
 }
+
 @media screen and (max-width: 575px) {
     .landing-footer .section-overlay:after {
         top: -35%;
         width: 170%;
     }
 }
+
 .landing-footer .section-overlay {
     padding-top: 100px;
     position: relative;
@@ -696,6 +756,7 @@ responsive css add section area start
         padding: 0;
         background: none;
     }
+
     .landing-banner-title {
         font-size: 50px;
     }
@@ -758,6 +819,7 @@ responsive css add section area start
     .landing-banner-img-3 {
         left: 0;
     }
+
     .landing-banner-img-4 {
         right: 0;
     }
@@ -844,6 +906,7 @@ responsive css add section area start
     .landing-hero-area img {
         display: none;
     }
+
     .overflow-x-scroll {
         overflow-x: scroll;
     }
@@ -874,7 +937,7 @@ responsive css add section area start
         width: 100% !important;
     }
 
-    .course-landing-card > div {
+    .course-landing-card>div {
         width: 100%;
         display: block;
     }
@@ -940,6 +1003,7 @@ responsive css add section area start
     .landing-footer .section-overlay {
         padding-top: 80px;
     }
+
     .sf-landing-footer .section-overlay {
         padding-top: 0;
     }
@@ -974,38 +1038,47 @@ responsive css add section area end
     background-repeat: no-repeat;
     background-position: center center;
 }
+
 .sf-section-landing-hero {
     position: relative;
 }
+
 @media screen and (min-width: 1200px) {
     .sf-section-landing-hero {
         padding-top: 170px !important;
     }
 }
+
 @media screen and (min-width: 992px) {
     .sf-section-landing-hero {
         padding-top: 150px !important;
     }
 }
+
 .sf-section-landing-hero .container {
     max-width: 1550px;
 }
+
 .sf-landing-hero-area {
     padding: 128px 0 46px;
 }
+
 @media screen and (max-width: 1199px) {
     .sf-landing-hero-area {
         padding: 46px 0;
     }
+
     .sf-landing-hero-area[data-background] {
         background-size: contain;
     }
 }
+
 @media screen and (max-width: 991px) {
     .sf-landing-hero-area[data-background] {
         background-image: none !important;
     }
 }
+
 /* .sf-section-landing-hero::before {
     content: "";
     position: absolute;
@@ -1025,7 +1098,90 @@ responsive css add section area end
     .sf-section-landing-hero .landing-banner-text {
         padding-top: 0;
     }
+
     /* .sf-section-landing-hero::before {
         display: none;
     } */
+}
+
+/* Course Cards Redesign */
+.course-item {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(21, 3, 89, 0.12);
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.2, 1),
+        box-shadow 0.4s ease,
+        background 0.4s ease,
+        border 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    padding: 12px;
+    margin-bottom: 30px;
+    min-height: 420px;
+}
+
+.course-item:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(21, 3, 89, 0.18);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+.course-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(94, 61, 215, 0.04) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(252, 134, 104, 0.03) 0%, transparent 22%);
+    filter: blur(15px) saturate(1.1);
+    opacity: 0.3;
+    transform: translateZ(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    background-size: 150% 150%, 120% 120%;
+    background-repeat: no-repeat;
+    animation: cardFloat 12s ease-in-out infinite;
+}
+
+.course-item:hover::after {
+    opacity: 0.6;
+    transform: scale(1.05);
+}
+
+@keyframes cardFloat {
+    0% {
+        background-position: 0% 0%, 100% 100%;
+    }
+
+    33% {
+        background-position: 50% 50%, 50% 50%;
+    }
+
+    66% {
+        background-position: 100% 0%, 0% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%, 100% 100%;
+    }
+}
+
+.course-item .card-body {
+    position: relative;
+    z-index: 1;
+    padding: 25px 20px 20px;
+}
+
+.course-item .course-img-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }

@@ -1,4 +1,4 @@
-<footer class="footer-area footer-gradient-bg position-relative">
+<footer class="footer-area footer-gradient-bg position-relative hm-footer">
     <div class="section-overlay">
         <div class="container">
             <!-- footer-widget-area -->
