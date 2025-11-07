@@ -54,11 +54,11 @@
     pointer-events: none;
     z-index: 0;
     background-image:
-        radial-gradient(circle at 20% 30%, rgba(94, 61, 215, 0.06) 0%, transparent 35%),
-        radial-gradient(circle at 80% 20%, rgba(252, 134, 104, 0.05) 0%, transparent 30%),
-        radial-gradient(circle at 40% 70%, rgba(69, 200, 129, 0.04) 0%, transparent 28%),
-        radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.03) 0%, transparent 25%),
-        radial-gradient(circle at 60% 40%, rgba(156, 39, 176, 0.04) 0%, transparent 32%);
+        radial-gradient(circle at 20% 30%, rgba(94, 61, 215, 0.6) 0%, transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(252, 134, 104, 0.5) 0%, transparent 30%),
+        radial-gradient(circle at 40% 70%, rgba(69, 200, 129, 0.4) 0%, transparent 28%),
+        radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.3) 0%, transparent 25%),
+        radial-gradient(circle at 60% 40%, rgba(156, 39, 176, 0.4) 0%, transparent 32%);
     filter: blur(35px) saturate(1.4);
     opacity: 0.8;
     transform: translateZ(0);

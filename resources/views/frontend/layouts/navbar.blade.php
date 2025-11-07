@@ -8,6 +8,28 @@ $appBlackLogo = getImageFile(get_option('app_black_logo') ?: get_option('app_log
 <section class="menu-section-area @auth isLoginMenu @endauth">
     <!-- Navigation -->
     <nav class="navbar sticky-header navbar-expand-lg hm-navbar" id="mainNav">
+        {{-- Ensure scrolled logo is hidden by default and only shown when #mainNav has .scrolled.
+           This is a small, safe override to avoid duplicate visible logos on pages that
+           don't load the home-specific JS/CSS that handles the swap. --}}
+        <style>
+            /* Default: show the top logo, hide the scrolled variant */
+            #mainNav .navbar-brand img.logo-scrolled {
+                display: none !important;
+            }
+
+            #mainNav .navbar-brand img.logo-default {
+                display: inline-block !important;
+            }
+
+            /* When navbar has .scrolled, swap visibility */
+            #mainNav.scrolled .navbar-brand img.logo-default {
+                display: none !important;
+            }
+
+            #mainNav.scrolled .navbar-brand img.logo-scrolled {
+                display: inline-block !important;
+            }
+        </style>
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{-- Default (top) logo: prefer app_black_logo, fallback to app_logo --}}
