@@ -273,7 +273,7 @@ $selectedLanguage = selectedLanguage();
     @if (@$errors->any())
     <script>
         "use strict";
-        @foreach($errors - > all() as $error)
+        @foreach($errors->all() as $error)
         toastr.options.positionClass = 'toast-bottom-right';
         toastr.error("{{ $error }}")
         @endforeach
