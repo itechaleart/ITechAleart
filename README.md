@@ -1,64 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# ITechAleart — AI-powered Learning Management System (LMS)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+ITechAleart is a modern, production-ready Learning Management System (LMS) built with Laravel. It combines a familiar course marketplace and instructor workflows with AI-powered tools to help create, market, and personalize online learning experiences.
 
-## About Laravel
+This repository contains the full application code for the ITechAleart platform, including the frontend UI, instructor and student flows, course & bundle management, and integrations for payments and analytics.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Key Highlights
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Modern, responsive frontend built with Laravel Blade and Bootstrap.
+-   Course marketplace with support for single courses, bundles, and product add-ons.
+-   Instructor onboarding and dashboard for course creation and management.
+-   Student dashboard, cart, wishlist and learning progress tracking.
+-   AI-powered features: content generation, course suggestions, and assistant tools to speed up course creation and personalization.
+-   Scoped, modular CSS for home page theming (under `public/frontend/assets/css/custom/home_scoped.css`).
+-   Integration-ready: payments (PayPal, Stripe, Paystack, Razorpay, etc.), analytics hooks, and optional add-ons.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Repo Layout (top-level)
 
-## Learning Laravel
+-   `app/` — Laravel application code (Controllers, Models, Providers, etc.)
+-   `resources/views/` — Blade views and front-end templates
+-   `public/frontend/` — Compiled frontend assets, images, CSS and JS
+-   `routes/` — All route definitions for web and api
+-   `database/` — Migrations and seeders
+-   `tests/` — PHPUnit tests
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Quick local setup (Windows / XAMPP)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Prerequisites
 
-## Laravel Sponsors
+    - PHP 8.x (matching project's composer.json)
+    - Composer
+    - Node.js (for frontend asset tooling)
+    - MySQL (or MariaDB) — XAMPP includes this
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+2. Create project `.env`
 
-### Premium Partners
+    Copy the example and update DB/APP keys:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+    ```powershell
+    copy .env.example .env
+    php artisan key:generate
+    ```
+
+    Edit `.env` and set the database credentials used by XAMPP (commonly `DB_USERNAME=root` and an empty `DB_PASSWORD`), and other settings like `APP_URL`.
+
+3. Install dependencies
+
+    ```powershell
+    composer install --no-interaction --prefer-dist
+    npm install
+    ```
+
+4. Database
+
+    Create a database in MySQL (phpMyAdmin or CLI) and update `.env` accordingly.
+
+    Then run migrations and seeders:
+
+    ```powershell
+    php artisan migrate --seed
+    ```
+
+5. Storage & permissions
+
+    ```powershell
+    php artisan storage:link
+    ```
+
+6. Build frontend assets (development)
+
+    ```powershell
+    npm run dev
+    ```
+
+7. Start the application (development)
+
+    If you use XAMPP, put this project under `htdocs` and enable Apache/MySQL. Alternatively run the local server:
+
+    ```powershell
+    php artisan serve
+    ```
+
+8. Visit
+
+    Open `http://localhost:8000` (or your XAMPP host) in a browser.
+
+## Important files to know
+
+-   `resources/views/frontend/home/home.blade.php` — Home page layout and sections (special features, course sliders, testimonials, etc.)
+-   `public/frontend/assets/css/custom/home_scoped.css` — Scoped home-only styles (logo sizing, glass effects, course-card overrides)
+-   `resources/views/frontend/partials/course.blade.php` — Course card partial used in sliders and listings
+-   `resources/views/frontend/layouts/navbar.blade.php` — Global navbar include (logo swap JS placed here to make it work site-wide)
+-   `storage/logs/laravel.log` — Check here for runtime errors (useful when diagnosing HTTP 500s)
+
+## AI features
+
+ITechAleart ships with optional AI-powered features and add-ons (when enabled):
+
+-   Content generation helpers to draft course descriptions, lesson outlines, and promo copy.
+-   Course suggestion engine that uses learner signals and metadata to recommend courses.
+-   Assistant tools in the instructor dashboard to speed up content creation.
+
+These features are gated by configuration flags and rely on environment variables for API keys (e.g., OpenAI or other providers). See the app configuration for `isEnableOpenAI()` and add-on toggles.
+
+## Troubleshooting tips
+
+-   500 Errors: check `storage/logs/laravel.log` for the root cause. Common causes are missing `.env` values (DB credentials) or Blade syntax errors.
+-   Assets not reflecting changes: clear caches and rebuild assets:
+
+```powershell
+php artisan view:clear; php artisan config:clear; php artisan cache:clear; php artisan route:clear; php artisan optimize:clear
+npm run dev
+```
+
+-   If navbar logo swap isn't working on a page, verify `resources/views/frontend/layouts/navbar.blade.php` contains both `.logo-default` and `.logo-scrolled` images and that the swap script runs (it should be included in the navbar include by default).
+
+## Tests
+
+Run PHPUnit tests:
+
+```powershell
+vendor\\bin\\phpunit
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+We welcome contributions. Please follow these steps:
 
-## Code of Conduct
+1. Fork the repository and create a topic branch.
+2. Keep changes small and focused, with descriptive commit messages.
+3. Open a Pull Request describing the change and include any necessary migration or config notes.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+If you're adding or modifying styles, prefer scoped styles (for example `home_scoped.css`) so changes don't unexpectedly affect other pages.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Architecture & Diagrams
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+See `docs/ARCHITECTURE.md` for a compact ASCII architecture diagram, component responsibilities, deployment checklist, and integration notes. If you'd like a visual diagram (Mermaid, PlantUML, or PNG), tell me which format you prefer and I can add one.
