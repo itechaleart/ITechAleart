@@ -35,21 +35,25 @@ class PaymentApiController extends Controller
         $payer_id = $request->input('PayerID', '-1');
         $im_payment_id = $request->input('payment_id', '-1');
         $this->logger->log('Payment Start', '==========');
-        $this->logger->log('Payment paymentId', $payment_id);
-        $this->logger->log('Payment PayerID', $payer_id);
+        // Do not log raw user-controlled payment identifiers. Log presence only.
+        $this->logger->log('Payment paymentId_present', $payment_id !== '-1' ? 'yes' : 'no');
+        $this->logger->log('Payment PayerID_present', $payer_id !== '-1' ? 'yes' : 'no');
         $order = Order::where(['uuid' => $id, 'payment_status' => ORDER_PAYMENT_STATUS_DUE])->first();
         if (is_null($order)) {
             $this->showToastrMessage('error', __(SWR));
             return redirect()->route('student.cartList');
         }
-        Log::info($order);
+        // Log only safe, non-user-controlled order attributes
+        Log::info('Order loaded', ['order_uuid' => $order->uuid, 'payment_status' => $order->payment_status, 'payment_method' => $order->payment_method]);
 
-        if($order->payment_method == MERCADOPAGO){
+        if ($order->payment_method == MERCADOPAGO) {
             $order->payment_id = $im_payment_id;
             $order->save();
         }
 
-        $this->logger->log('Payment verify request : ', json_encode($request->all()));
+        // Avoid logging request values (user-controlled). Log only keys and count.
+        $requestData = $request->all();
+        $this->logger->log('Payment verify request meta', json_encode(['count' => count($requestData), 'keys' => array_values(array_keys($requestData))]));
 
         $payment_id = $order->payment_id;
         $data = ['id' => $order->uuid, 'payment_method' => getPaymentMethodId($order->payment_method), 'currency' => $order->payment_currency];
@@ -62,8 +66,9 @@ class PaymentApiController extends Controller
             $payment_data = $getWay->paymentConfirmation($payment_id);
         }
 
-        $this->logger->log('Payment done for order', json_encode($order));
-        $this->logger->log('Payment details', json_encode($payment_data));
+        // Log limited, non-sensitive details about the order and payment result.
+        $this->logger->log('Payment done for order', json_encode(['order_uuid' => $order->uuid, 'order_id' => $order->id ?? null, 'payment_status' => $order->payment_status]));
+        $this->logger->log('Payment details', json_encode(['success' => $payment_data['success'] ?? null, 'payment_status' => $payment_data['data']['payment_status'] ?? null]));
 
         if ($payment_data['success']) {
             if ($payment_data['data']['payment_status'] == 'success') {
@@ -82,32 +87,30 @@ class PaymentApiController extends Controller
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
-                    $this->logger->log('End with Exception', $e->getMessage());
+                    // Avoid logging exception messages that may contain user-controlled data. Log class and code only.
+                    $this->logger->log('End with Exception', 'Exception:' . get_class($e) . ' code:' . $e->getCode());
                 }
                 $text = __("New student enrolled");
                 $target_url = route('instructor.all-student');
                 foreach ($order->items as $item) {
                     if ($item->course) {
                         $this->send($text, 2, $target_url, $item->course->user_id);
-                    }
-                    elseif(!is_null($item->product_id)){
+                    } elseif (!is_null($item->product_id)) {
                         Product::where('id', $item->product_id)->decrement('quantity', $item->unit);
 
                         $text = __("Your have purchase product.");
                         $target_url = route('lms_product.student.purchase_list');
-        
+
                         /** ====== Send notification to instructor =========*/
                         $text2 = "New product sold";
                         $target_url2 = route('lms_product.instructor.product.my-product');
                         $this->send($text2, 2, $target_url2, @$item->product->user_id);
                         /** ====== Send notification to instructor =========*/
-        
                     } else {
                         $text = __("Your bank payment has been cancelled.");
                         $target_url = route('lms_product.student.purchase_list');
                         $this->send($text, 3, $target_url, $order->user_id);
                     }
-            
                 }
 
                 $text = __("Item has been sold");
@@ -127,8 +130,8 @@ class PaymentApiController extends Controller
         $payer_id = $request->input('PayerID', '-1');
         $im_payment_id = $request->input('payment_id', '-1');
         $this->logger->log('Payment Start', '==========');
-        $this->logger->log('Payment paymentId', $payment_id);
-        $this->logger->log('Payment PayerID', $payer_id);
+        $this->logger->log('Payment paymentId_present', $payment_id !== '-1' ? 'yes' : 'no');
+        $this->logger->log('Payment PayerID_present', $payer_id !== '-1' ? 'yes' : 'no');
         $order = Payment::where(['uuid' => $id, 'payment_status' => ORDER_PAYMENT_STATUS_DUE])->first();
         if (is_null($order)) {
             $this->showToastrMessage('error', SWR);
@@ -143,8 +146,8 @@ class PaymentApiController extends Controller
             $payment_data = $getWay->paymentConfirmation($payment_id);
         }
 
-        $this->logger->log('s-Payment done for order', json_encode($order));
-        $this->logger->log('s-Payment details', json_encode($payment_data));
+        $this->logger->log('s-Payment done for order', json_encode(['payment_uuid' => $order->uuid, 'payment_id' => $order->payment_id]));
+        $this->logger->log('s-Payment details', json_encode(['success' => $payment_data['success'] ?? null, 'payment_status' => $payment_data['data']['payment_status'] ?? null]));
 
         if ($payment_data['success']) {
             if ($payment_data['data']['payment_status'] == 'success') {
@@ -169,12 +172,12 @@ class PaymentApiController extends Controller
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
-                    $this->logger->log('End with Exception', $e->getMessage());
+                    $this->logger->log('End with Exception', 'Exception:' . get_class($e) . ' code:' . $e->getCode());
                 }
 
                 /** ====== Send notification =========*/
                 $text = __("Subscription purchase completed");
-                $this->send($text, 3, null , auth()->id());
+                $this->send($text, 3, null, auth()->id());
 
                 $text = __("Subscription has been sold");
                 $package_id = json_decode($order->payment_details, true)['package_id'];
@@ -191,15 +194,15 @@ class PaymentApiController extends Controller
         $this->showToastrMessage('error', __('Payment has been declined'));
         return redirect()->route('main.index');
     }
-   
+
     public function paymentWalletRechargeNotifier(Request $request, $id)
     {
         $payment_id = $request->input('paymentId', '-1');
         $payer_id = $request->input('PayerID', '-1');
         $im_payment_id = $request->input('payment_id', '-1');
         $this->logger->log('Payment Start', '==========');
-        $this->logger->log('Payment paymentId', $payment_id);
-        $this->logger->log('Payment PayerID', $payer_id);
+        $this->logger->log('Payment paymentId_present', $payment_id !== '-1' ? 'yes' : 'no');
+        $this->logger->log('Payment PayerID_present', $payer_id !== '-1' ? 'yes' : 'no');
         $order = Payment::where(['uuid' => $id, 'payment_status' => ORDER_PAYMENT_STATUS_DUE])->first();
         if (is_null($order)) {
             $this->showToastrMessage('error', SWR);
@@ -214,8 +217,8 @@ class PaymentApiController extends Controller
             $payment_data = $getWay->paymentConfirmation($payment_id);
         }
 
-        $this->logger->log('s-Payment done for order', json_encode($order));
-        $this->logger->log('s-Payment details', json_encode($payment_data));
+        $this->logger->log('s-Payment done for order', json_encode(['payment_uuid' => $order->uuid, 'payment_id' => $order->payment_id]));
+        $this->logger->log('s-Payment details', json_encode(['success' => $payment_data['success'] ?? null, 'payment_status' => $payment_data['data']['payment_status'] ?? null]));
 
         if ($payment_data['success']) {
             if ($payment_data['data']['payment_status'] == 'success') {
@@ -241,12 +244,12 @@ class PaymentApiController extends Controller
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
-                    $this->logger->log('End with Exception', $e->getMessage());
+                    $this->logger->log('End with Exception', 'Exception:' . get_class($e) . ' code:' . $e->getCode());
                 }
 
                 /** ====== Send notification =========*/
                 $text = __("Wallet recharge completed");
-                $this->send($text, 3, null , auth()->id());
+                $this->send($text, 3, null, auth()->id());
 
                 $text = __("Wallet recharge");
                 $this->send($text, 1, null, null);
@@ -261,7 +264,8 @@ class PaymentApiController extends Controller
         return redirect()->route('main.index');
     }
 
-    public function paymentCancel(Request $request){
+    public function paymentCancel(Request $request)
+    {
         $this->showToastrMessage('error', __('Payment has been canceled'));
         return redirect()->route('main.index');
     }
