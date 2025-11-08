@@ -85,6 +85,15 @@ UPDATE `metas` SET `meta_title` = 'ITechAleart — AI-powered LMS' , `meta_descr
 UPDATE `metas` SET `meta_title` = 'About ITechAleart' , `meta_description` = 'Learn about ITechAleart — our mission, team, and how we use AI to improve learning outcomes.' WHERE `slug` = 'about_us';
 UPDATE `metas` SET `meta_title` = 'Contact ITechAleart' , `meta_description` = 'Contact our support and partnerships team at ITechAleart for help, instructor onboarding, and collaborations.' WHERE `slug` = 'contact_us';
 
+-- Additional SEO/meta updates for forum and FAQ pages
+START TRANSACTION;
+UPDATE `metas` SET `meta_title` = 'ITechAleart Community Forum', `meta_description` = 'Join the ITechAleart community to ask questions, share knowledge, and discover AI-powered learning resources.' WHERE `slug` = 'forum';
+UPDATE `metas` SET `meta_title` = 'ITechAleart FAQ', `meta_description` = 'Common questions about AI features, personalization and instructor tools at ITechAleart.' WHERE `slug` = 'faq';
+
+-- Add/update a couple of forum-related settings if present in settings table
+UPDATE `settings` SET `option_value` = 'ITechAleart Community Forum' WHERE `option_key` = 'forum_title';
+UPDATE `settings` SET `option_value` = 'Ask questions, share answers, and learn from the community and AI-curated resources.' WHERE `option_key` = 'forum_subtitle';
+
 COMMIT;
 
 -- End of script

@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-12 col-md-7">
                             <div class="page-banner-content forum-banner-content">
-                                <h3 class="page-banner-heading text-white pb-15">{{ __('Forum') }}</h3>
+                                <h3 class="page-banner-heading text-white pb-15">{{ __('ITechAleart Community Forum') }}</h3>
                                 <div class="forum-banner-search-ask-wrap d-flex align-items-center">
                                     <div class="input-group position-relative">
                                         <input class="form-control border-0 bg-transparent searchForumBar" type="search"
@@ -72,7 +72,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title ">
-                            <h3 class="section-heading">{{ __('Forum Categories') }}</h3>
+                            <h3 class="section-heading">{{ __('Community Topics') }}</h3>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                                         alt="feature">
                                 </div>
                                 <div class="flex-grow-1 ms-3 feature-content">
-                                    <h6 class="text-white">{{ __('Categories') }}</h6>
+                                    <h6 class="text-white">{{ __('Topics') }}</h6>
                                     <p>{{ count($forumCategories) }}</p>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                         alt="feature">
                                 </div>
                                 <div class="flex-grow-1 ms-3 feature-content">
-                                    <h6 class="text-white">{{ __('Post Topic') }}</h6>
+                                    <h6 class="text-white">{{ __('Discussions') }}</h6>
                                     <p>{{ $totalForumPost }}</p>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                     <!-- Forum Categories Left Start -->
                     <div class="col-12 col-md-12 col-xl-8">
                         <div class="forum-categories-left">
-                            <h3 class="mb-4">{{ __('Recent Discussions') }}</h3>
+                            <h3 class="mb-4">{{ __('Latest Community Discussions') }}</h3>
 
                             <div class="forum-categories-filter-box d-flex align-items-center">
                                 <select id="inputState" class="form-select color-heading forumCategory">
@@ -191,7 +191,7 @@
                     <div class="col-12 col-md-12 col-xl-4">
                         <div class="forum-categories-right">
                             <a href="{{ route('forum.askQuestion') }}"
-                                class="w-100 theme-btn theme-button1 theme-button3 forum-ask-question-btn">{{ __('Ask a Question') }}</a>
+                                class="w-100 theme-btn theme-button1 theme-button3 forum-ask-question-btn">{{ __('Ask the Community') }}</a>
 
                             <ul class="forum-link-box radius-4 border-1 mt-4">
                                 <li class="forum-link-box-title font-20 color-heading font-medium">
@@ -248,7 +248,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="section-title text-center">
-                                <h3 class="section-heading">{{ __('Community Blog Articles') }}</h3>
+                                <h3 class="section-heading">{{ __('ITechAleart Insights') }}</h3>
                             </div>
                         </div>
                     </div>
@@ -289,7 +289,7 @@
                         @endforeach
                         <!-- section button start-->
                         <div class="col-12 text-center section-btn">
-                            <a href="{{ route('blogs') }}" class="theme-btn theme-button1">{{ __('All Blogs') }} <i
+                            <a href="{{ route('blogs') }}" class="theme-btn theme-button1">{{ __('All Insights') }} <i
                                     data-feather="arrow-right"></i></a>
                         </div>
                         <!-- section button end-->
