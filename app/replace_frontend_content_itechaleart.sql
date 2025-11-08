@@ -94,6 +94,28 @@ UPDATE `metas` SET `meta_title` = 'ITechAleart FAQ', `meta_description` = 'Commo
 UPDATE `settings` SET `option_value` = 'ITechAleart Community Forum' WHERE `option_key` = 'forum_title';
 UPDATE `settings` SET `option_value` = 'Ask questions, share answers, and learn from the community and AI-curated resources.' WHERE `option_key` = 'forum_subtitle';
 
+-- Home page hero banner updates (assuming homes table with id=1)
+UPDATE `homes` SET `banner_first_line_title` = 'Build your skills' WHERE `id` = 1;
+UPDATE `homes` SET `banner_second_line_title` = 'Master' WHERE `id` = 1;
+UPDATE `homes` SET `banner_third_line_title` = 'and launch your career' WHERE `id` = 1;
+UPDATE `homes` SET `banner_subtitle` = 'ITechAleart helps learners and instructors accelerate outcomes with AI-driven course recommendations, automated content tools, and practical projects.' WHERE `id` = 1;
+UPDATE `homes` SET `banner_second_line_changeable_words` = '["AI","Data Science","Machine Learning"]' WHERE `id` = 1;
+
+-- FAQ Questions and Answers for ITechAleart AI-powered LMS
+-- Clear existing FAQ questions first
+DELETE FROM `faq_questions`;
+
+-- Insert new FAQ questions relevant to AI-powered learning
+INSERT INTO `faq_questions` (`id`, `question`, `answer`, `created_at`, `updated_at`) VALUES
+(1, 'How does ITechAleart use AI to personalize learning?', 'ITechAleart leverages advanced AI algorithms to analyze your learning patterns, preferences, and goals. Our system recommends courses, adjusts difficulty levels, and suggests personalized learning paths to help you master skills faster and more effectively.', NOW(), NOW()),
+(2, 'What makes ITechAleart different from other LMS platforms?', 'ITechAleart stands out with its AI-powered features including automated course recommendations, intelligent content generation tools for instructors, real-time progress analytics, and adaptive learning paths that evolve based on student performance.', NOW(), NOW()),
+(3, 'Can instructors use AI tools to create course content?', 'Yes! ITechAleart provides instructors with AI-powered content generation tools that help create engaging quizzes, assignments, and learning materials. Our system can suggest relevant examples, generate practice questions, and even help structure course modules.', NOW(), NOW()),
+(4, 'How does the certification process work?', 'Upon completing a course, you\'ll receive an AI-verified certificate that validates your skills. Our system tracks your progress, assesses your understanding through adaptive quizzes, and ensures you\'ve mastered the key concepts before certification.', NOW(), NOW()),
+(5, 'Is my learning data secure and private?', 'Absolutely. ITechAleart prioritizes data privacy and security. Your learning data is encrypted, stored securely, and never shared with third parties. We use your data solely to improve your learning experience and provide personalized recommendations.', NOW(), NOW()),
+(6, 'What types of courses are available on ITechAleart?', 'ITechAleart offers courses in AI, Data Science, Machine Learning, Web Development, Cybersecurity, and more. Our platform features both self-paced courses and instructor-led programs, with content ranging from beginner to advanced levels.', NOW(), NOW()),
+(7, 'How does the AI recommendation system work?', 'Our AI analyzes your current skill level, learning history, career goals, and industry trends to recommend the most relevant courses. As you progress, the system continuously refines its recommendations to keep you on the optimal learning path.', NOW(), NOW()),
+(8, 'Can I track my learning progress and get insights?', 'Yes! ITechAleart provides detailed analytics and insights into your learning journey. You can view progress charts, identify knowledge gaps, compare your performance with peers, and receive AI-generated study recommendations.', NOW(), NOW());
+
 COMMIT;
 
 -- End of script
