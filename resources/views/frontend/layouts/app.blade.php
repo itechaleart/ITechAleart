@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="{{ get_option('app_copyright') }}">
-    <meta name="robots" content="index, follow">
+    <!-- Allow templates to override robots via @section('robots') -->
+    <meta name="robots" content="@yield('robots', 'index, follow')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="msapplication-TileImage" content="{{ getImageFile(get_option('app_logo')) }}">
     <meta name="msapplication-TileColor" content="rgba(103, 20, 222,.55)">
@@ -22,6 +23,7 @@
     <meta name="keywords" content="{{ $defaultMeta['meta_keyword'] }}">
 
     <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:locale" content="{{ app()->getLocale() }}">
     <meta property="og:type" content="Learning">
     <meta property="og:title" content="{{ $defaultMeta['meta_title'] }}">
     <meta property="og:description" content="{{ $defaultMeta['meta_description'] }}">
@@ -29,6 +31,9 @@
     <meta property="og:url" content="{{ url()->current() }}">
 
     <meta property="og:site_name" content="{{ get_option('app_name') }}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request()->url() }}" />
 
     <!-- Twitter Card meta tags for Twitter sharing -->
     <meta name="twitter:card" content="Learning">
@@ -38,6 +43,30 @@
     @endif
 
     <title>{{ get_option('app_name') }} - {{ __(@$pageTitle) }}</title>
+
+    <!-- Structured data: Organization + WebSite -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [{
+                    "@type": "Organization",
+                    "name": "{{ e(get_option('app_name')) }}",
+                    "url": "{{ config('app.url') }}",
+                    "logo": "{{ getImageFile(get_option('app_logo')) }}"
+                },
+                {
+                    "@type": "WebSite",
+                    "url": "{{ config('app.url') }}",
+                    "name": "{{ e(get_option('app_name')) }}",
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "target": "{{ rtrim(config('app.url'), '/') }}?s={search_term_string}",
+                        "query-input": "required name=search_term_string"
+                    }
+                }
+            ]
+        }
+    </script>
 
     <!--=======================================
       All Css Style link
@@ -273,7 +302,7 @@ $selectedLanguage = selectedLanguage();
     @if (@$errors->any())
     <script>
         "use strict";
-        @foreach($errors->all() as $error)
+        @foreach($errors - > all() as $error)
         toastr.options.positionClass = 'toast-bottom-right';
         toastr.error("{{ $error }}")
         @endforeach

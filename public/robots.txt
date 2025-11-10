@@ -1,2 +1,17 @@
 User-agent: *
+# Prevent crawler access to admin and sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_debugbar/
+Disallow: /_ignition/
+Disallow: /install/
+Disallow: /storage/
+Disallow: /vendor/
+
+# Allow everything else
+Allow: /
+
+# Sitemap (absolute URL based on APP_URL)
+Sitemap: https://itechaleart.com/sitemap.xml
+User-agent: *
 Disallow:
