@@ -4,16 +4,16 @@
 
         <div class="meet-instructor-item-wrap">
             @foreach ($course->course_instructors->where('status', STATUS_APPROVED) as $course_instructor)
-
+            @if($course_instructor->user)
             <div class="col-12">
                 <div class="meet-instructor-item theme-border mb-25 pb-20 radius-8">
                     @php
-                        if($course_instructor->user->role == USER_ROLE_INSTRUCTOR){
-                            $userType = 'instructor';
-                        }
-                        else{
-                            $userType = 'organization';
-                        }
+                    if($course_instructor->user->role == USER_ROLE_INSTRUCTOR){
+                    $userType = 'instructor';
+                    }
+                    else{
+                    $userType = 'organization';
+                    }
                     @endphp
 
                     <div class="meet-instructor-top-title mb-25 p-20 bg-light border-bottom radius-8">
@@ -23,9 +23,9 @@
                         <div class="col-md-7 col-lg-12 col-xl-7">
                             <div class="meet-your-instructor-left d-flex">
                                 <div class="meet-instructor-img-wrap flex-shrink-0">
-                                <a href="{{ route('userProfile',$course_instructor->user->id) }}">
-                                    <img src="{{ getImageFile(@$course_instructor->user->image_path) }}" alt="img">
-                                </a>
+                                    <a href="{{ route('userProfile',$course_instructor->user->id) }}">
+                                        <img src="{{ getImageFile(@$course_instructor->user->image_path) }}" alt="img">
+                                    </a>
                                 </div>
                                 <div class="flex-grow-1">
                                     {{-- <p class="font-medium color-heading mb-1">{{ @$course_instructor->user->name }}</p> --}}
@@ -40,8 +40,8 @@
                                 <div class="d-flex">
                                     <div>
                                         @php
-                                            $total_instructor_course =  count($course_instructor->user->$userType->courses);
-                                            $total_instructor_students = $course_instructor->user->$userType->enrollments->count();
+                                        $total_instructor_course = count($course_instructor->user->$userType->courses);
+                                        $total_instructor_students = $course_instructor->user->$userType->enrollments->count();
                                         @endphp
                                         <div class="meet-instructor-extra-info-item color-heading"><span class="iconify"
                                                 data-icon="bi:star"></span>{{ number_format(getUserAverageRating($course_instructor->instructor_id), 1) }} {{
@@ -71,6 +71,7 @@
                 </div>
             </div>
 
+            @endif
             @endforeach
         </div>
 
