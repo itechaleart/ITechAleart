@@ -30,9 +30,9 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main", "content"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main", "content"]
   workflow_dispatch:
 
 permissions:
@@ -40,33 +40,59 @@ permissions:
   contents: read
   security-events: write
 
-
 jobs:
   Analysis:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Checkout code
-       uses: actions/checkout@v3
-       with:
-         fetch-depth: 0
-         
-     - name: Analyze with SonarCloud
-       uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
-       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-       with:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          extensions: pcov
+          coverage: pcov
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Copy environment file
+        run: cp .env.example .env || cp .env.ci .env || echo "APP_KEY=base64:$(openssl rand -base64 32)" > .env
+
+      - name: Generate application key
+        run: php artisan key:generate
+
+      - name: Run tests with coverage
+        run: php artisan test --coverage --coverage-clover=coverage.xml
+        continue-on-error: true
+
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+        with:
           # Additional arguments for the SonarScanner CLI
-        args:
+          args: |
             # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
             # mandatory
-          -Dsonar.projectKey=itechaleart_ITechAleart
-          -Dsonar.organization=itechaleart
+            -Dsonar.projectKey=itechaleart_ITechAleart
+            -Dsonar.organization=itechaleart
             # Comma-separated paths to directories containing main source files.
-            #-Dsonar.sources= # optional, default is project base directory
+            -Dsonar.sources=app,resources,config,database
             # Comma-separated paths to directories containing test source files.
-            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
+            -Dsonar.tests=tests
+            # Coverage report path
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            # Exclusions for better coverage
+            -Dsonar.exclusions=vendor/**,storage/**,bootstrap/**,public/**,node_modules/**,tests/**,**/*.config.js,**/*.config.ts
+            # Test inclusions
+            -Dsonar.test.inclusions=tests/**/*.php
             # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
             #-Dsonar.verbose= # optional, default is false
           # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
-        projectBaseDir: .
+          projectBaseDir: .
