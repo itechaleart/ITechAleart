@@ -68,7 +68,7 @@ $metaData = getMeta('home');
                         $bannerImage = get_option('banner_image_'.get_option('theme', THEME_DEFAULT));
                         }
                         @endphp
-                        <img src="{{ getImageFile($bannerImage) }}" alt="hero-img" class="img-fluid">
+                        <img src="{{ getImageFile($bannerImage) }}" alt="hero-img" class="img-fluid" fetchpriority="high">
                     </div>
                 </div>
             </div>
