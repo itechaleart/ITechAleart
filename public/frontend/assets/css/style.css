@@ -2925,7 +2925,6 @@ button:focus {
 
 /*Tab Nav List*/
 .course-single-details-left-content {
-    margin-top: -30px;
     border-radius: 3px 3px 0 0;
 }
 
@@ -3484,7 +3483,6 @@ button:focus {
 
 /* --------course-single-details-right-content css---------- */
 .course-single-details-right-content {
-    margin-top: -300px;
     border-radius: 3px 3px 0 0;
     overflow: hidden;
     margin-left: 26px;
