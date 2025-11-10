@@ -566,10 +566,10 @@ $metaData = getMeta('home');
                         <h3 class="section-heading">{{ Str::limit(__(get_option('become_instructor_video_title')), 100) }}</h3>
                     </div>
 
-                    <div class="video-floating-img-wrap pe-2 position-relative">
+                    <!-- <div class="video-floating-img-wrap pe-2 position-relative">
                         <p>{{ Str::limit(get_option('become_instructor_video_subtitle'), 450) }}</p>
                         <img src="{{ getImageFile(get_option('become_instructor_video_logo')) }}" alt="video" class="position-absolute">
-                    </div>
+                    </div> -->
 
                     <!-- section button start-->
                     <div class="col-12 section-btn">
