@@ -23,6 +23,7 @@ $metaData = getMeta('home');
 <meta name="twitter:image" content="{{ __($metaData['og_image']) }}">
 @if(isAddonInstalled('LMSZAIPRODUCT'))
 <link rel="stylesheet" href="{{ asset('addon/product/css/ecommerce-product.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/assets/css/custom/home_scoped.css') }}">
 @endif
 @endsection
 @section('content')
