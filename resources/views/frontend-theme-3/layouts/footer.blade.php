@@ -26,9 +26,9 @@
                                             data-icon="fa-brands:pinterest-square" data-width="1em"
                                             data-height="1em"></span></a></li>
                                 @endif
-                                @if (get_option('instagram_url'))
-                                <li><a href="{{ get_option('instagram_url') }}"><span class="iconify"
-                                            data-icon="fa-brands:instagram-square" data-width="1em"
+                                @if (get_option('youtube_url'))
+                                <li><a href="{{ get_option('youtube_url') }}"><span class="iconify"
+                                            data-icon="fa-brands:youtube-square" data-width="1em"
                                             data-height="1em"></span></a></li>
                                 @endif
                                 @if (get_option('tiktok_url'))

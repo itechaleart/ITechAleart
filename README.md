@@ -99,8 +99,7 @@ ITechAleart ships with optional AI-powered features and add-ons (when enabled):
 -   Content generation helpers to draft course descriptions, lesson outlines, and promo copy.
 -   Course suggestion engine that uses learner signals and metadata to recommend courses.
 -   Assistant tools in the instructor dashboard to speed up content creation.
-
-These features are gated by configuration flags and rely on environment variables for API keys (e.g., OpenAI or other providers). See the app configuration for `isEnableOpenAI()` and add-on toggles.
+-   Learning paths based on user requirements - personalized 
 
 ## Troubleshooting tips
 

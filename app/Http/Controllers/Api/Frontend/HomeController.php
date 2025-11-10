@@ -171,7 +171,7 @@ class HomeController extends Controller
         $settings['upcoming_course_title'] = ($setting['upcoming_course_title'] ?? '');
         $settings['upcoming_course_subtitle'] = ($setting['upcoming_course_subtitle'] ?? '');
         $settings['upcoming_course_logo'] = asset($setting['upcoming_course_logo'] ?? '');
-        $settings['instagram_url'] = ($setting['instagram_url'] ?? '');
+        $settings['youtube_url'] = ($setting['youtube_url'] ?? '');
         $settings['tiktok_url'] = ($setting['tiktok_url'] ?? '');
         $settings['f6s_url'] = ($setting['f6s_url'] ?? '');
         $settings['crunchbase_url'] = ($setting['crunchbase_url'] ?? '');
