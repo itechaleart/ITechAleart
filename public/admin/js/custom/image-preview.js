@@ -124,7 +124,7 @@ function preview505540DimensionFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg')
+    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type === 'image/webp')
     {
         var img = new Image();
 
@@ -162,7 +162,7 @@ function preview505540DimensionFile(input) {
             }
         }
     } else {
-        alert("Accepted file is jpg/jpeg/png.");
+        alert("Accepted file is jpg/jpeg/png/webp.");
         return
     }
 
@@ -176,7 +176,7 @@ function preview300343DimensionFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg')
+    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type === 'image/webp')
     {
         var img = new Image();
 
@@ -214,7 +214,7 @@ function preview300343DimensionFile(input) {
             }
         }
     } else {
-        alert("Accepted file is jpg/jpeg/png.");
+        alert("Accepted file is jpg/jpeg/png/webp.");
         return
     }
 
@@ -228,7 +228,7 @@ function preview12041DimensionFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg')
+    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type === 'image/webp')
     {
         var img = new Image();
 
@@ -266,7 +266,7 @@ function preview12041DimensionFile(input) {
             }
         }
     } else {
-        alert("Accepted file is jpg/jpeg/png.");
+        alert("Accepted file is jpg/jpeg/png/webp.");
         return
     }
 
