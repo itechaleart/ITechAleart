@@ -112,7 +112,7 @@
                             <div class="col-md-6">
                                 <div class="input__group mb-25">
                                     <label>{{__('Device Limit')}} <span class="text-danger">*</span></label>
-                                    <input type="number" min=1 name="device" value="{{old('device', $subscription->consultancy)}}" placeholder="{{ __('Device Limit') }}" class="form-control" required>
+                                    <input type="number" min=1 name="device" value="{{old('device', $subscription->device)}}" placeholder="{{ __('Device Limit') }}" class="form-control" required>
                                     @if ($errors->has('device'))
                                     <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('device') }}</span>
                                     @endif
@@ -124,8 +124,8 @@
                                     <label class="label-text-title color-heading font-medium font-16 mb-3">{{ __('Show in Home')
                                             }} <span class="text-danger">*</span></label>
                                     <select class="form-control" name="in_home">
-                                        <option value="{{ PACKAGE_STATUS_ACTIVE }}" {{ $subscription->recommended == PACKAGE_STATUS_ACTIVE ? 'selected' : '' }}>{{ __('YES') }}</option>
-                                        <option value="{{ PACKAGE_STATUS_DISABLED }}" {{ $subscription->recommended == PACKAGE_STATUS_DISABLED ? 'selected' : '' }}>{{ __('NO') }}</option>
+                                        <option value="{{ PACKAGE_STATUS_ACTIVE }}" {{ $subscription->in_home == PACKAGE_STATUS_ACTIVE ? 'selected' : '' }}>{{ __('YES') }}</option>
+                                        <option value="{{ PACKAGE_STATUS_DISABLED }}" {{ $subscription->in_home == PACKAGE_STATUS_DISABLED ? 'selected' : '' }}>{{ __('NO') }}</option>
                                     </select>
                                     @if ($errors->has('in_home'))
                                     <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{
