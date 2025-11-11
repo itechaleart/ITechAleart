@@ -20,7 +20,7 @@ class SaasController extends Controller
             if (!auth()->user()->can('manage_saas')) {
                 abort('403');
             } // end permission checking
-            
+
             return $next($request);
         });
 
@@ -36,7 +36,7 @@ class SaasController extends Controller
         $data['saases'] = Package::whereIn('package_type', [PACKAGE_TYPE_SAAS_INSTRUCTOR, PACKAGE_TYPE_SAAS_ORGANIZATION])->orderBy('order', 'ASC')->paginate(10);
         return view('admin.saas.index', $data);
     }
-    
+
     public function purchaseList()
     {
         $data['title'] = __('Manage SaaS Packages');
@@ -46,7 +46,7 @@ class SaasController extends Controller
         $data['userSaases'] = UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('user_packages.status', PACKAGE_STATUS_ACTIVE)->whereIn('packages.package_type', [PACKAGE_TYPE_SAAS_INSTRUCTOR, PACKAGE_TYPE_SAAS_ORGANIZATION])->select('user_packages.*', 'packages.icon',  'packages.title', 'packages.uuid as package_uuid')->paginate(10);
         return view('admin.saas.purchase_list', $data);
     }
-  
+
     public function pendingPurchaseList()
     {
         $data['title'] = __('Manage SaaS Packages');
@@ -85,16 +85,15 @@ class SaasController extends Controller
             'recommended' => 'nullable',
             'in_home' => 'nullable',
             'order' => 'required|min:1',
-            'icon' => 'bail|required|mimes:jpeg,jpg,png|max:300|dimensions:width=80,height=80'
+            'icon' => 'bail|required|mimes:jpeg,jpg,png,webp|max:300|dimensions:width=80,height=80'
         ]);
 
         $slug = Str::slug($request->title);
-        
-        if (Package::where('slug', $slug)->withTrashed()->count() > 0)
-        {
-            $slug = Str::slug($request->title) . '-'. rand(100000, 999999);
+
+        if (Package::where('slug', $slug)->withTrashed()->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(100000, 999999);
         }
-        
+
         $data['icon'] = $request->icon ? $this->saveImage('packages', $request->icon, null, null) :   null;
         $data['slug'] = $slug;
 
@@ -112,7 +111,6 @@ class SaasController extends Controller
         $data['navSaasParentShowClass'] = 'mm-show';
         $data['subNavSaasActiveClass'] = 'mm-active';
         return view('admin.saas.edit', $data);
-
     }
 
     public function update(Request $request, Package $saa)
@@ -135,20 +133,19 @@ class SaasController extends Controller
             'recommended' => 'nullable',
             'in_home' => 'nullable',
             'order' => 'required|min:1',
-            'icon' => 'bail|nullable|mimes:jpeg,jpg,png|max:300|dimensions:width=80,height=80'
+            'icon' => 'bail|nullable|mimes:jpeg,jpg,png,webp|max:300|dimensions:width=80,height=80'
         ]);
 
         $slug = Str::slug($request->title);
-        
-        if (Package::where('slug', $slug)->withTrashed()->count() > 0)
-        {
-            $slug = Str::slug($request->title) . '-'. rand(100000, 999999);
+
+        if (Package::where('slug', $slug)->withTrashed()->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(100000, 999999);
         }
-        
+
         $data['icon'] = $request->icon ? $this->saveImage('packages', $request->icon, null, null) :   $saa->icon;
         $data['slug'] = $slug;
 
-        if($saa->is_default == 1){
+        if ($saa->is_default == 1) {
             unset($data['monthly_price']);
             unset($data['discounted_monthly_price']);
             unset($data['yearly_price']);
@@ -170,16 +167,14 @@ class SaasController extends Controller
         $data['navSaasParentShowClass'] = 'mm-show';
         $data['subNavSaasActiveClass'] = 'mm-active';
         return view('admin.saas.view', $data);
-
     }
 
     public function destroy(Package $saa)
     {
-        if(!$saa->is_default){
-            if($saa->user_package){
+        if (!$saa->is_default) {
+            if ($saa->user_package) {
                 $this->showToastrMessage('error', __('SaaS package has already used. Please deactivate it instead.'));
-            }
-            else{
+            } else {
                 $saa->delete();
                 $this->showToastrMessage('error', __('SaaS package has been deleted'));
             }
@@ -191,7 +186,7 @@ class SaasController extends Controller
     public function changeStatus(Request $request)
     {
         $saa = Package::whereId($request->id)->first();
-        if(!$saa->is_default){
+        if (!$saa->is_default) {
             $saa->update(['status' => $request->status]);
 
             return response()->json([
@@ -199,11 +194,11 @@ class SaasController extends Controller
             ]);
         }
     }
-    
+
     public function changePurchaseStatus(Request $request)
     {
         $saa = UserPackage::whereId($request->id)->firstOrFail();
-        if($request->status == PACKAGE_STATUS_ACTIVE){
+        if ($request->status == PACKAGE_STATUS_ACTIVE) {
             UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', $saa->package->package_type)->where('user_packages.user_id', $saa->user_id)->where('user_packages.status', PACKAGE_STATUS_ACTIVE)->whereDate('enroll_date', '<=', now())->whereDate('expired_date', '>=', now())->update(['user_packages.status' => PACKAGE_STATUS_CANCELED]);
             $saa->payment->update(['payment_status' => 'paid']);
         }
@@ -214,5 +209,4 @@ class SaasController extends Controller
             'data' => 'success',
         ]);
     }
-
 }

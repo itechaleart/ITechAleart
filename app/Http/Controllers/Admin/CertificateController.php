@@ -76,8 +76,8 @@ class CertificateController extends Controller
         // ]);
 
         $request->validate([
-            'background_image' => 'nullable|mimes:jpg,png|file|dimensions:min_width=1030,min_height=734,max_width=1030,max_height=734',
-            'role_1_signature' => 'nullable|mimes:png|file|dimensions:min_width=120,min_height=60,max_width=120,max_height=60',
+            'background_image' => 'nullable|mimes:jpg,png,webp|file|dimensions:min_width=1030,min_height=734,max_width=1030,max_height=734',
+            'role_1_signature' => 'nullable|mimes:png,webp|file|dimensions:min_width=120,min_height=60,max_width=120,max_height=60',
         ]);
 
 
@@ -93,7 +93,7 @@ class CertificateController extends Controller
         if ($request->hasFile('background_image')) {
             $certificate->image = $request->background_image ? $this->saveImage('certificate', $request->background_image, null, null) :   null;
         }
-        
+
         if ($request->hasFile('role_1_signature')) {
             $certificate->role_1_signature = $request->role_1_signature ? $this->saveImage('certificate', $request->role_1_signature, null, null) :   null;
         }
@@ -109,8 +109,7 @@ class CertificateController extends Controller
         if (!$request->final_submit) {
             $certificate = view('admin.certificate.view')->with(['certificate' => $certificate])->render();
             return response()->json(array('success' => true, 'certificate' => $certificate));
-        }
-        else{
+        } else {
             return response()->json(array('success' => true, 'view' => route('certificate.edit', $certificate->uuid)));
         }
     }
@@ -161,8 +160,8 @@ class CertificateController extends Controller
         // ]);
 
         $request->validate([
-            'background_image' => 'nullable|mimes:jpg,png|file|dimensions:min_width=1030,min_height=734,max_width=1030,max_height=734',
-            'role_1_signature' => 'nullable|mimes:png|file|dimensions:min_width=120,min_height=60,max_width=120,max_height=60',
+            'background_image' => 'nullable|mimes:jpg,png,webp|file|dimensions:min_width=1030,min_height=734,max_width=1030,max_height=734',
+            'role_1_signature' => 'nullable|mimes:png,webp|file|dimensions:min_width=120,min_height=60,max_width=120,max_height=60',
         ]);
 
         $certificate = Certificate::whereUuid($uuid)->first();
@@ -182,8 +181,7 @@ class CertificateController extends Controller
         if (!$request->final_submit) {
             $certificate = view('admin.certificate.view')->with(['certificate' => $certificate])->render();
             return response()->json(array('success' => true, 'certificate' => $certificate));
-        }
-        else{
+        } else {
             return response()->json(array('success' => true, 'view' => route('certificate.edit', $certificate->uuid)));
         }
     }

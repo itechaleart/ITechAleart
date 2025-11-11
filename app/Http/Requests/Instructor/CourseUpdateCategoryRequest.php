@@ -29,7 +29,7 @@ class CourseUpdateCategoryRequest extends FormRequest
             'price' => ['required', 'numeric'],
             'course_language_id' => ['required'],
             'difficulty_level_id' => ['required'],
-            'image' => 'mimes:jpeg,png,jpg|file|max:2048',
+            'image' => 'mimes:jpeg,png,jpg,webp|file|max:2048',
         ];
     }
 }

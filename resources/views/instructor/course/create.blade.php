@@ -125,10 +125,12 @@
                                                     required>
                                                     <option value="{{ PACKAGE_STATUS_ACTIVE }}"
                                                         {{old('is_subscription_enable')==PACKAGE_STATUS_ACTIVE ? 'selected' : '' }}>
-                                                        {{ __("Enable") }}</option>
+                                                        {{ __("Enable") }}
+                                                    </option>
                                                     <option value="{{ PACKAGE_STATUS_DISABLED }}"
                                                         {{old('is_subscription_enable')==PACKAGE_STATUS_DISABLED ? 'selected' : '' }}>
-                                                        {{ __("Disabled") }}</option>
+                                                        {{ __("Disabled") }}
+                                                    </option>
                                                 </select>
 
                                                 @if ($errors->has('is_subscription_enable'))
@@ -198,18 +200,18 @@
                                                 <label class="font-medium font-15 color-heading">{{__('Meta Title')}}</label>
                                                 <input type="text" name="meta_title" class="form-control" placeholder="{{ __('Meta Title') }}">
                                                 @if ($errors->has('meta_title'))
-                                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('meta_title') }}</span>
+                                                <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('meta_title') }}</span>
                                                 @endif
-    
+
                                             </div>
                                         </div>
-    
+
                                         <div class="row">
                                             <div class="col-md-12 mb-30">
                                                 <label class="font-medium font-15 color-heading">{{__('Meta Description')}}</label>
                                                 <textarea class="form-control" name="meta_description" id="exampleFormControlTextarea1" rows="3" placeholder="{{ __('Type Meta Description') }}"></textarea>
                                                 @if ($errors->has('meta_description'))
-                                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('meta_description') }}</span>
+                                                <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('meta_description') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -218,12 +220,12 @@
                                                 <label class="font-medium font-15 color-heading">{{__('Meta Keywords')}}</label>
                                                 <input type="text" name="meta_keywords" class="form-control" placeholder="{{ __('Type meta keywords (comma separated)') }}">
                                                 @if ($errors->has('meta_keywords'))
-                                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('meta_keywords') }}</span>
+                                                <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('meta_keywords') }}</span>
                                                 @endif
-    
+
                                             </div>
                                         </div>
-                                        
+
                                         <div class="row">
                                             <div class="col-md-12 mb-30">
                                                 <div class="input__group mb-25">
@@ -237,9 +239,9 @@
                                                         </div>
                                                     </div>
                                                     @if ($errors->has('og_image'))
-                                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('og_image') }}</span>
+                                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('og_image') }}</span>
                                                     @endif
-                                                    <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, JPG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 1200 x 627</p>
+                                                    <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, JPG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 1200 x 627</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,5 +276,5 @@
 @endpush
 
 @push('style')
-    <link rel="stylesheet" href="{{asset('admin/css/custom/image-preview.css')}}">
+<link rel="stylesheet" href="{{asset('admin/css/custom/image-preview.css')}}">
 @endpush

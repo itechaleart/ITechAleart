@@ -48,7 +48,7 @@ class BundleCourseController extends Controller
             'overview' => 'required',
             'price' => 'required',
             'access_period' => 'nullable|min:1',
-            'image' => 'required|mimes:jpg,png,jpeg,gif,svg',
+            'image' => 'required|mimes:jpg,png,jpeg,gif,svg,webp',
         ]);
 
         $bundle = new Bundle();
@@ -99,7 +99,7 @@ class BundleCourseController extends Controller
             'overview' => 'required',
             'price' => 'required',
             'access_period' => 'nullable|min:1',
-            'image' => 'mimes:jpg,png,jpeg,gif,svg'
+            'image' => 'mimes:jpg,png,jpeg,gif,svg,webp'
         ]);
 
         $bundle = Bundle::where('uuid', $uuid)->firstOrfail();

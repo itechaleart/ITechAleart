@@ -49,7 +49,7 @@ class InstructorController extends Controller
         $data['title'] = 'Instructor Profile';
         $data['instructor'] = $this->instructorModel->getRecordByUuid($uuid);
         $userCourseIds = Course::whereUserId($data['instructor']->user->id)->pluck('id')->toArray();
-        if (count($userCourseIds) > 0){
+        if (count($userCourseIds) > 0) {
             $orderItems = Order_item::whereIn('course_id', $userCourseIds)
                 ->whereYear("created_at", now()->year)->whereMonth("created_at", now()->month)
                 ->whereHas('order', function ($q) {
@@ -102,20 +102,18 @@ class InstructorController extends Controller
             $instructor->status = $status;
             $instructor->save();
 
-            if ($status == 1)
-            {
+            if ($status == 1) {
                 $user = User::find($instructor->user_id);
 
-                if(!UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', PACKAGE_TYPE_SAAS_INSTRUCTOR)->where('user_packages.user_id', $user->id)->select('user_packages.*')->first()){
+                if (!UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', PACKAGE_TYPE_SAAS_INSTRUCTOR)->where('user_packages.user_id', $user->id)->select('user_packages.*')->first()) {
                     //set default package
-                    $package = Package::where('id',get_option('default_saas_for_ins'))->first();
+                    $package = Package::where('id', get_option('default_saas_for_ins'))->first();
                     // dd($package);
-                    if(is_null($package) && get_option('saas_mode')){
+                    if (is_null($package) && get_option('saas_mode')) {
                         DB::rollBack();
                         $this->showToastrMessage('error', __("You Don't have default SAAS Package For Instructor"));
                         return redirect()->back();
-                    }
-                    elseif(!is_null($package)){
+                    } elseif (!is_null($package)) {
                         $userPackageData['user_id'] = $user->id;
                         $userPackageData['is_default'] = 1;
                         $userPackageData['package_id'] = $package->id;
@@ -142,12 +140,11 @@ class InstructorController extends Controller
             DB::commit();
             $this->showToastrMessage('success', __('Status has been changed'));
             return redirect()->back();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             $this->showToastrMessage('error', $e->getMessage());
             return redirect()->back();
         }
-
     }
 
     public function create()
@@ -179,14 +176,14 @@ class InstructorController extends Controller
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
         $user = new User();
-        $user->name = $request->first_name . ' '. $request->last_name;
+        $user->name = $request->first_name . ' ' . $request->last_name;
         $user->email = $request->email;
         $user->email_verified_at = now();
-        $user->area_code =  str_replace("+","",$request->area_code);
+        $user->area_code =  str_replace("+", "", $request->area_code);
         $user->mobile_number = $request->phone_number;
         $user->phone_number = $request->phone_number;
         $user->password = Hash::make($request->password);
@@ -210,9 +207,8 @@ class InstructorController extends Controller
 
         $this->studentModel->create($student_data);
 
-        if (Instructor::where('slug', getSlug($user->name))->count() > 0)
-        {
-            $slug = getSlug($user->name) . '-'. rand(100000, 999999);
+        if (Instructor::where('slug', getSlug($user->name))->count() > 0) {
+            $slug = getSlug($user->name) . '-' . rand(100000, 999999);
         } else {
             $slug = getSlug($user->name);
         }
@@ -249,13 +245,11 @@ class InstructorController extends Controller
 
         $data['countries'] = Country::orderBy('country_name', 'asc')->get();
 
-        if (old('country_id'))
-        {
+        if (old('country_id')) {
             $data['states'] = State::where('country_id', old('country_id'))->orderBy('name', 'asc')->get();
         }
 
-        if (old('state_id'))
-        {
+        if (old('state_id')) {
             $data['cities'] = City::where('state_id', old('state_id'))->orderBy('name', 'asc')->get();
         }
 
@@ -268,14 +262,14 @@ class InstructorController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$instructor->user_id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $instructor->user_id],
             'professional_title' => 'required',
             'area_code' => 'required',
-            'phone_number' => 'bail|numeric|unique:users,mobile_number,'.$instructor->user_id,
+            'phone_number' => 'bail|numeric|unique:users,mobile_number,' . $instructor->user_id,
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
 
@@ -285,12 +279,12 @@ class InstructorController extends Controller
             return redirect()->back();
         }
 
-        $user->name = $request->first_name . ' '. $request->last_name;
+        $user->name = $request->first_name . ' ' . $request->last_name;
         $user->email = $request->email;
-        $user->area_code =  str_replace("+","",$request->area_code);
+        $user->area_code =  str_replace("+", "", $request->area_code);
         $user->mobile_number = $request->phone_number;
         $user->phone_number = $request->phone_number;
-        if ($request->password){
+        if ($request->password) {
             $request->validate([
                 'password' => 'required|string|min:6'
             ]);
@@ -299,9 +293,8 @@ class InstructorController extends Controller
         $user->image =  $request->image ? $this->saveImage('user', $request->image, null, null) :   $user->image;
         $user->save();
 
-        if (Instructor::where('slug', getSlug($user->name))->count() > 0)
-        {
-            $slug = getSlug($user->name) . '-'. rand(100000, 999999);
+        if (Instructor::where('slug', getSlug($user->name))->count() > 0) {
+            $slug = getSlug($user->name) . '-' . rand(100000, 999999);
         } else {
             $slug = getSlug($user->name);
         }
@@ -338,10 +331,10 @@ class InstructorController extends Controller
         $instructor = $this->instructorModel->getRecordByUuid($uuid);
         $user = User::findOrfail($instructor->user_id);
 
-        if ($instructor && $user){
+        if ($instructor && $user) {
             //Start:: Course Delete
             $courses = Course::whereUserId($user->id)->get();
-            if(count($courses)){
+            if (count($courses)) {
                 return response()->json(['message' =>  __('This user have courses. Please delete those course before delete the user.'), 'status' => false], 200);
             }
 
@@ -420,7 +413,7 @@ class InstructorController extends Controller
             'data' => 'success',
         ]);
     }
-    
+
     public function changeAutoContentStatus(Request $request)
     {
         $instructor = Instructor::findOrFail($request->id);

@@ -28,7 +28,7 @@ class ProfileRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:100'],
             'mobile_number' => ['required'],
             'gender' => ['required', 'string'],
-            'image' => 'mimes:jpeg,png,jpg|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ];
     }
 }

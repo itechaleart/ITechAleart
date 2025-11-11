@@ -114,7 +114,7 @@ class OrganizationController extends Controller
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
         try {
@@ -173,16 +173,15 @@ class OrganizationController extends Controller
 
             Organization::create($organization_data);
 
-            if(!UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', PACKAGE_TYPE_SAAS_ORGANIZATION)->where('user_packages.user_id', $user->id)->select('user_packages.*')->first()){
+            if (!UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', PACKAGE_TYPE_SAAS_ORGANIZATION)->where('user_packages.user_id', $user->id)->select('user_packages.*')->first()) {
                 //set default package
-                $package = Package::where('id',get_option('default_saas_for_org'))->first();
+                $package = Package::where('id', get_option('default_saas_for_org'))->first();
                 // dd($package);
-                if(is_null($package) && get_option('saas_mode')){
+                if (is_null($package) && get_option('saas_mode')) {
                     DB::rollBack();
                     $this->showToastrMessage('error', __("You Don't have default SAAS Package For Organization"));
                     return redirect()->back();
-                }
-                elseif(!is_null($package)){
+                } elseif (!is_null($package)) {
                     $userPackageData['user_id'] = $user->id;
                     $userPackageData['is_default'] = 1;
                     $userPackageData['package_id'] = $package->id;
@@ -244,7 +243,7 @@ class OrganizationController extends Controller
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
 
@@ -309,7 +308,7 @@ class OrganizationController extends Controller
         if ($organization && $user) {
             //Start:: Course Delete
             $courses = Course::whereUserId($user->id)->get();
-            if(count($courses)){
+            if (count($courses)) {
                 return response()->json(['message' =>  __('This user have courses. Please delete those course before delete the user.'), 'status' => false], 200);
             }
             // foreach ($courses as $course) {
@@ -383,19 +382,17 @@ class OrganizationController extends Controller
         }
         try {
             DB::beginTransaction();
-            if ($request->status == STATUS_APPROVED)
-            {
+            if ($request->status == STATUS_APPROVED) {
                 $user = $organization->user;
-                if(!UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', PACKAGE_TYPE_SAAS_ORGANIZATION)->where('user_packages.user_id', $user->id)->select('user_packages.*')->first()){
+                if (!UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', PACKAGE_TYPE_SAAS_ORGANIZATION)->where('user_packages.user_id', $user->id)->select('user_packages.*')->first()) {
                     //set default package
-                    $package = Package::where('id',get_option('default_saas_for_org'))->first();
+                    $package = Package::where('id', get_option('default_saas_for_org'))->first();
                     // dd($package);
-                    if(is_null($package) && get_option('saas_mode')){
+                    if (is_null($package) && get_option('saas_mode')) {
                         DB::rollBack();
                         $this->showToastrMessage('error', __("You Don't have default SAAS Package For Organization"));
                         return redirect()->back();
-                    }
-                    elseif(!is_null($package)){
+                    } elseif (!is_null($package)) {
                         $userPackageData['user_id'] = $user->id;
                         $userPackageData['is_default'] = 1;
                         $userPackageData['package_id'] = $package->id;
@@ -425,7 +422,7 @@ class OrganizationController extends Controller
             $organization->save();
             DB::commit();
             return response()->json(['message' => __('Organization status has been updated'), 'status' => true]);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             $this->showToastrMessage('error', $e->getMessage());
             return redirect()->back();

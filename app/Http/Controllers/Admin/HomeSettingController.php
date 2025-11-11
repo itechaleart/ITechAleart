@@ -27,7 +27,7 @@ class HomeSettingController extends Controller
 
         return view('admin.application_settings.home.theme-settings', $data);
     }
-    
+
     public function sectionSettings()
     {
         if (!Auth::user()->can('home_setting')) {
@@ -82,7 +82,7 @@ class HomeSettingController extends Controller
         } // end permission checking
 
         $request->validate([
-            'banner_image' => 'mimes:png,svg|file|max:1024'
+            'banner_image' => 'mimes:png,svg,webp|file|max:1024'
         ]);
 
         $home = Home::first();
@@ -91,7 +91,6 @@ class HomeSettingController extends Controller
             if ($request->hasFile('banner_image')) {
                 $home->banner_image = $this->saveImage('home', $request->banner_image, 'null', 'null');
             }
-
         } else {
             if ($request->hasFile('banner_image')) {
                 $home->banner_image = $this->updateImage('home', $request->banner_image, $home->banner_image, 'null', 'null');
@@ -113,23 +112,23 @@ class HomeSettingController extends Controller
         $home->save();
 
         // for demo 
-        
-        if(env('IS_LOCAL', 0)){
+
+        if (env('IS_LOCAL', 0)) {
             if ($request->hasFile('banner_image')) {
                 $request->validate([
-                    'banner_image' => 'mimes:png,svg'
+                    'banner_image' => 'mimes:png,svg,webp'
                 ]);
-                $option = Setting::firstOrCreate(['option_key' => 'banner_image_'.get_option('theme', THEME_DEFAULT)]);
+                $option = Setting::firstOrCreate(['option_key' => 'banner_image_' . get_option('theme', THEME_DEFAULT)]);
                 $option->option_value = $this->saveImage('setting', $request->banner_image, null, null);
                 $option->save();
             }
         }
 
         //for theme 3
-        if(get_option('theme', THEME_DEFAULT) == THEME_THREE){
+        if (get_option('theme', THEME_DEFAULT) == THEME_THREE) {
             if ($request->hasFile('banner_right_card_icon')) {
                 $request->validate([
-                    'banner_right_card_icon' => 'mimes:png,svg'
+                    'banner_right_card_icon' => 'mimes:png,svg,webp'
                 ]);
                 $option = Setting::firstOrCreate(['option_key' => 'banner_right_card_icon']);
                 $option->option_value = $this->saveImage('setting', $request->banner_right_card_icon, null, null);
@@ -137,7 +136,7 @@ class HomeSettingController extends Controller
             }
             if ($request->hasFile('banner_left_card_icon')) {
                 $request->validate([
-                    'banner_left_card_icon' => 'mimes:png,svg'
+                    'banner_left_card_icon' => 'mimes:png,svg,webp'
                 ]);
                 $option = Setting::firstOrCreate(['option_key' => 'banner_left_card_icon']);
                 $option->option_value = $this->saveImage('setting', $request->banner_left_card_icon, null, null);
@@ -216,7 +215,7 @@ class HomeSettingController extends Controller
 
         return view('admin.application_settings.home.upcoming-course-section', $data);
     }
-   
+
     public function productSection()
     {
         if (!Auth::user()->can('home_setting')) {

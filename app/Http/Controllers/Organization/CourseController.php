@@ -281,7 +281,7 @@ class CourseController extends Controller
 
         if ($request->image) {
             $request->validate([
-                'image' => 'mimes:jpg,png,jpeg,gif,svg'
+                'image' => 'mimes:jpg,png,jpeg,gif,svg,webp'
             ]);
             $this->deleteFile($course->image); // delete file from server
             $image = $this->saveImage('course', $request->image, null, null); // new file upload into server

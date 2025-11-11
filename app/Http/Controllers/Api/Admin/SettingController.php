@@ -29,14 +29,14 @@ class SettingController extends Controller
             $option = Setting::firstOrCreate(['option_key' => $key]);
             if ($request->hasFile('app_logo') && $key == 'app_logo') {
                 $request->validate([
-                    'app_logo' => 'mimes:png,svg|file'
+                    'app_logo' => 'mimes:png,svg,webp|file'
                 ]);
                 $this->deleteFile(get_option('app_logo'));
                 $option->option_value = $this->saveImage('setting', $request->app_logo, null, null);
                 $option->save();
             } elseif ($request->hasFile('app_fav_icon') && $key == 'app_fav_icon') {
                 $request->validate([
-                    'app_fav_icon' => 'mimes:png,svg|file'
+                    'app_fav_icon' => 'mimes:png,svg,webp|file'
                 ]);
                 $this->deleteFile(get_option('app_fav_icon'));
                 $option->option_value = $this->saveImage('setting', $request->app_fav_icon, null, null);
@@ -50,14 +50,14 @@ class SettingController extends Controller
                 $option->save();
             } elseif ($request->hasFile('app_preloader') && $key == 'app_preloader') {
                 $request->validate([
-                    'app_preloader' => 'mimes:png,svg|file'
+                    'app_preloader' => 'mimes:png,svg,webp|file'
                 ]);
                 $this->deleteFile(get_option('app_preloader'));
                 $option->option_value = $this->saveImage('setting', $request->app_preloader, null, null);
                 $option->save();
             } elseif ($request->hasFile('faq_image') && $key == 'faq_image') {
                 $request->validate([
-                    'faq_image' => 'mimes:png,jpg,jpeg|file|dimensions:min_width=650,min_height=650,max_width=650,max_height=650'
+                    'faq_image' => 'mimes:png,jpg,jpeg,webp|file|dimensions:min_width=650,min_height=650,max_width=650,max_height=650'
                 ]);
                 $this->deleteFile('faq_image');
                 $option->option_value = $this->saveImage('setting', $request->faq_image, null, null);
@@ -155,7 +155,7 @@ class SettingController extends Controller
                 $option->save();
             } elseif ($request->hasFile('sign_up_left_image') && $key == 'sign_up_left_image') {
                 $request->validate([
-                    'sign_up_left_image' => 'mimes:png,svg|file'
+                    'sign_up_left_image' => 'mimes:png,svg,webp|file'
                 ]);
                 $this->deleteFile(get_option('sign_up_left_image'));
                 $option->option_value = $this->saveImage('setting', $request->sign_up_left_image, null, null);

@@ -49,15 +49,15 @@ class AboutUsController extends Controller
         $about->gallery_area_subtitle = $request->gallery_area_subtitle;
 
 
-        if ($request->file('gallery_first_image')){
+        if ($request->file('gallery_first_image')) {
             $about->gallery_first_image = $this->updateImage('about_us_general', $request->gallery_first_image, $about->gallery_first_image, 'null', 'null');
         }
 
-        if ($request->file('gallery_second_image')){
-            $about->gallery_second_image= $this->updateImage('about_us_general', $request->gallery_second_image, $about->gallery_second_image, 'null', 'null');
+        if ($request->file('gallery_second_image')) {
+            $about->gallery_second_image = $this->updateImage('about_us_general', $request->gallery_second_image, $about->gallery_second_image, 'null', 'null');
         }
 
-        if ($request->file('gallery_third_image')){
+        if ($request->file('gallery_third_image')) {
             $about->gallery_third_image = $this->updateImage('about_us_general', $request->gallery_third_image, $about->gallery_third_image, 'null', 'null');
         }
 
@@ -96,7 +96,7 @@ class AboutUsController extends Controller
         if ($request['our_histories']) {
             if (count($request['our_histories']) > 0) {
                 foreach ($request['our_histories'] as $ourHistory) {
-                    if ($ourHistory['year'] || $ourHistory['title'] || $ourHistory['subtitle']){
+                    if ($ourHistory['year'] || $ourHistory['title'] || $ourHistory['subtitle']) {
                         if (@$ourHistory['id']) {
                             $history = OurHistory::find($ourHistory['id']);
                             $history->updated_at = $now;
@@ -112,7 +112,7 @@ class AboutUsController extends Controller
                     }
                 }
             }
-            OurHistory::whereNotIn('id',$notInId)->delete();
+            OurHistory::whereNotIn('id', $notInId)->delete();
         }
 
         OurHistory::where('updated_at', '!=', $now)->delete();
@@ -136,7 +136,7 @@ class AboutUsController extends Controller
     public function upgradeSkillUpdate(Request $request)
     {
         $request->validate([
-            'upgrade_skill_logo' => 'mimes:jpg,jpeg,png|file|dimensions:min_width=505,min_height=540,max_width=505,max_height=540',
+            'upgrade_skill_logo' => 'mimes:jpg,jpeg,png,webp|file|dimensions:min_width=505,min_height=540,max_width=505,max_height=540',
         ]);
         $about = AboutUsGeneral::first();
         if (!$about) {
@@ -174,7 +174,7 @@ class AboutUsController extends Controller
         $request->validate([
             'team_member_title' => 'required|max:255',
             'team_member_subtitle' => 'required',
-            'team_member_logo' => 'mimes:png|file|dimensions:min_width=70,min_height=70,max_width=70,max_height=70',
+            'team_member_logo' => 'mimes:png,webp|file|dimensions:min_width=70,min_height=70,max_width=70,max_height=70',
         ]);
 
         $about = AboutUsGeneral::first();
@@ -194,7 +194,7 @@ class AboutUsController extends Controller
         if ($request['team_members']) {
             if (count(@$request['team_members']) > 0) {
                 foreach ($request['team_members'] as $team_member) {
-                    if (@$team_member['name'] || @$team_member['designation']  || @$team_member['image']){
+                    if (@$team_member['name'] || @$team_member['designation']  || @$team_member['image']) {
                         if (@$team_member['id']) {
                             $team = TeamMember::find($team_member['id']);
                             if (@$team_member['image']) {
@@ -256,9 +256,10 @@ class AboutUsController extends Controller
         if ($request['instructor_supports']) {
             if (count(@$request['instructor_supports']) > 0) {
                 foreach ($request['instructor_supports'] as $instructor_support) {
-                    if (@$instructor_support['logo'] || @$instructor_support['title'] || @$instructor_support['subtitle'] ||
-                        @$instructor_support['button_name'])
-                    {
+                    if (
+                        @$instructor_support['logo'] || @$instructor_support['title'] || @$instructor_support['subtitle'] ||
+                        @$instructor_support['button_name']
+                    ) {
                         if (@$instructor_support['id']) {
                             $instructor = InstructorSupport::find($instructor_support['id']);
                             if (@$instructor_support['logo']) {
@@ -308,7 +309,7 @@ class AboutUsController extends Controller
         if ($request['client_details']) {
             if (count(@$request['client_details']) > 0) {
                 foreach ($request['client_details'] as $client_detail) {
-                    if (@$client_detail['name'] || @$client_detail['logo']){
+                    if (@$client_detail['name'] || @$client_detail['logo']) {
                         if (@$client_detail['id']) {
                             $client_logo = ClientLogo::find($client_detail['id']);
                             if (@$client_detail['logo']) {
@@ -336,6 +337,4 @@ class AboutUsController extends Controller
         $this->showToastrMessage('success', __('Updated Successful'));
         return redirect()->back();
     }
-
-
 }

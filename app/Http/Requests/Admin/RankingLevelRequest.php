@@ -32,14 +32,14 @@ class RankingLevelRequest extends FormRequest
             'serial_no' => 'nullable',
             'earning' => 'nullable',
             'student' => 'nullable',
-            'badge_image' => 'bail|required|mimes:png,jpg|file|dimensions:width=30,height=30|max:100'
+            'badge_image' => 'bail|required|mimes:png,jpg,webp|file|dimensions:width=30,height=30|max:100'
         ];
 
         if($id){
-            $rules['badge_image'] = 'bail|nullable|mimes:png,jpg|file|dimensions:width=30,height=30|max:100';
+            $rules['badge_image'] = 'bail|nullable|mimes:png,jpg,webp|file|dimensions:width=30,height=30|max:100';
         }
         else{
-            $rules['badge_image'] = 'bail|required|mimes:png,jpg|file|dimensions:width=30,height=30|max:100';
+            $rules['badge_image'] = 'bail|required|mimes:png,jpg,webp|file|dimensions:width=30,height=30|max:100';
         }
 
         return $rules;

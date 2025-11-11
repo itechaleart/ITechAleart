@@ -28,7 +28,7 @@ class TicketRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255'],
             'subject' => ['required', 'string', 'max:100'],
             'message' => ['required', 'string'],
-            'file' => 'mimes:jpeg,jpg,png,gif|max:10000'
+            'file' => 'mimes:jpeg,jpg,png,gif,webp|max:10000'
         ];
     }
 }

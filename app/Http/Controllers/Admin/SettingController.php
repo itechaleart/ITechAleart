@@ -68,28 +68,28 @@ class SettingController extends Controller
             $option = Setting::firstOrCreate(['option_key' => $key]);
             if ($request->hasFile('app_logo') && $key == 'app_logo') {
                 $request->validate([
-                    'app_logo' => 'mimes:png,svg'
+                    'app_logo' => 'mimes:png,webp,svg'
                 ]);
                 $this->deleteFile(get_option('app_logo'));
                 $option->option_value = $this->saveImage('setting', $request->app_logo, null, null);
                 $option->save();
-            }elseif ($request->hasFile('app_black_logo') && $key == 'app_black_logo') {
+            } elseif ($request->hasFile('app_black_logo') && $key == 'app_black_logo') {
                 $request->validate([
-                    'app_black_logo' => 'mimes:png,svg'
+                    'app_black_logo' => 'mimes:png,webp,svg'
                 ]);
                 $this->deleteFile(get_option('app_black_logo'));
                 $option->option_value = $this->saveImage('setting', $request->app_black_logo, null, null);
                 $option->save();
             } elseif ($request->hasFile('app_fav_icon') && $key == 'app_fav_icon') {
                 $request->validate([
-                    'app_fav_icon' => 'mimes:png,svg'
+                    'app_fav_icon' => 'mimes:png,webp,svg'
                 ]);
                 $this->deleteFile(get_option('app_fav_icon'));
                 $option->option_value = $this->saveImage('setting', $request->app_fav_icon, null, null);
                 $option->save();
             } elseif ($request->hasFile('app_footer_payment_image') && $key == 'app_footer_payment_image') {
                 $request->validate([
-                    'app_footer_payment_image' => 'mimes:png,svg'
+                    'app_footer_payment_image' => 'mimes:png,webp,svg'
                 ]);
                 $this->deleteFile(get_option('app_footer_payment_image'));
                 $option->option_value = $this->saveImage('setting', $request->app_footer_payment_image, null, null);
@@ -103,14 +103,14 @@ class SettingController extends Controller
                 $option->save();
             } elseif ($request->hasFile('app_preloader') && $key == 'app_preloader') {
                 $request->validate([
-                    'app_preloader' => 'mimes:png,svg'
+                    'app_preloader' => 'mimes:png,webp,svg'
                 ]);
                 $this->deleteFile(get_option('app_preloader'));
                 $option->option_value = $this->saveImage('setting', $request->app_preloader, null, null);
                 $option->save();
             } elseif ($request->hasFile('faq_image') && $key == 'faq_image') {
                 $request->validate([
-                    'faq_image' => 'mimes:png,jpg,jpeg|dimensions:min_width=650,min_height=650,max_width=650,max_height=650'
+                    'faq_image' => 'mimes:png,webp,jpg,jpeg|dimensions:min_width=650,min_height=650,max_width=650,max_height=650'
                 ]);
                 $this->deleteFile('faq_image');
                 $option->option_value = $this->saveImage('setting', $request->faq_image, null, null);
@@ -257,7 +257,7 @@ class SettingController extends Controller
                 $option->save();
             } elseif ($request->hasFile('sign_up_left_image') && $key == 'sign_up_left_image') {
                 $request->validate([
-                    'sign_up_left_image' => 'mimes:png,svg'
+                    'sign_up_left_image' => 'mimes:png,webp,svg'
                 ]);
                 $this->deleteFile(get_option('sign_up_left_image'));
                 $option->option_value = $this->saveImage('setting', $request->sign_up_left_image, null, null);
@@ -292,7 +292,7 @@ class SettingController extends Controller
                 $option->option_value = $file_details['path'];
                 $option->save();
             } elseif ($key == 'TIMEZONE') {
-              
+
                 setEnvironmentValue('TIMEZONE', $request->TIMEZONE);
 
                 $option->option_value = $request->TIMEZONE;
@@ -323,7 +323,7 @@ class SettingController extends Controller
         $this->showToastrMessage('success', __('Successfully Updated'));
         Artisan::call('optimize:clear');
 
-        if(get_option('pwa_enable')){
+        if (get_option('pwa_enable')) {
             updateManifest();
         }
 
@@ -347,7 +347,7 @@ class SettingController extends Controller
         $data['siteMapApiKeyActiveClass'] = 'active';
         return view('admin.application_settings.general.map-api-key', $data);
     }
-   
+
     public function reCaptchaKey()
     {
         $data['title'] = 're-Captcha Setting';
@@ -356,7 +356,7 @@ class SettingController extends Controller
         $data['siteRecaptchaKeyActiveClass'] = 'active';
         return view('admin.application_settings.general.re-captcha', $data);
     }
-    
+
     public function googleAnalytics()
     {
         $data['title'] = 'Google Analytics Setting';
@@ -469,7 +469,7 @@ class SettingController extends Controller
         $this->showToastrMessage('success', 'Successfully Updated');
         return redirect()->back();
     }
-   
+
     public function agoraSettings()
     {
         $data['title'] = 'Agora Setting';
@@ -759,7 +759,7 @@ class SettingController extends Controller
             'meta_keyword' => $request->meta_keyword
         ];
 
-        if($request->hasFile('og_image')){
+        if ($request->hasFile('og_image')) {
             $data['og_image'] = $this->saveImage('meta', $request->og_image, null, null);
         }
 
@@ -1078,7 +1078,7 @@ class SettingController extends Controller
 
         return view('admin.application_settings.maintenance-mode', $data);
     }
-   
+
     public function comingSoonMode()
     {
         $data['title'] = 'Coming Soon Mode Settings';
@@ -1130,14 +1130,14 @@ class SettingController extends Controller
 
         return view('admin.application_settings.saas', $data);
     }
-    
+
     public function rewardPoints()
     {
         $data['title'] = 'Reward Points Settings';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['rewardPointActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.reward_points', $data);
     }
     public function registrationBonus()
@@ -1146,7 +1146,7 @@ class SettingController extends Controller
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['registrationSystemActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.registration_system', $data);
     }
     public function refundSystem()
@@ -1155,7 +1155,7 @@ class SettingController extends Controller
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['refundSystemActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.refund_system', $data);
     }
     public function cashbackSettings()
@@ -1164,47 +1164,47 @@ class SettingController extends Controller
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['cashbackSettingActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.cashbook_setting', $data);
     }
-    
+
     public function chatSystem()
     {
         $data['title'] = 'Chat Settings';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['chatSettingActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.chat_setting', $data);
     }
-   
+
     public function courseGiftSystem()
     {
         $data['title'] = 'Course Gift System';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['courseGiftSettingActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.course_gift_setting', $data);
     }
-   
+
     public function walletCheckoutSystem()
     {
         $data['title'] = 'Wallet Checkout System';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['walletCheckoutEnableSettingActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.wallet_checkout_enable', $data);
     }
-   
+
     public function walletRechargeSystem()
     {
         $data['title'] = 'Wallet Recharge System';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGlobalSettingsActiveClass'] = 'mm-active';
         $data['walletRechargeSettingActiveClass'] = 'active';
-        
+
         return view('admin.application_settings.wallet_recharge_system', $data);
     }
 
@@ -1282,13 +1282,13 @@ class SettingController extends Controller
             $keys[$k] = $k;
         }
 
-        try{
+        try {
             foreach ($inputs as $key => $value) {
                 $option = Setting::firstOrCreate(['option_key' => $key]);
                 $option->option_value = $value;
                 $option->save();
             }
-        }finally{
+        } finally {
             if ($request->coming_soon_mode == 1) {
                 Artisan::call('up');
                 Artisan::call('optimize:clear');
@@ -1310,11 +1310,10 @@ class SettingController extends Controller
                 $option->save();
                 Artisan::call('up');
             }
-    
+
             $this->showToastrMessage('success', __('Coming Soon Mode has been changed'));
             return redirect()->back();
         }
-
     }
 
     public function deviceControlChange(Request $request)
@@ -1359,7 +1358,7 @@ class SettingController extends Controller
             $option->option_value = $value;
             $option->save();
         }
-        
+
         $this->showToastrMessage('success', 'Subscription mode has been changed');
         return redirect()->back();
     }
@@ -1458,12 +1457,12 @@ class SettingController extends Controller
         $this->showToastrMessage('success', __('Migrated successfully.'));
         return redirect()->back();
     }
-   
+
     public function generateSiteMap()
     {
         set_time_limit(1200);
         SitemapGenerator::create(url(''))->writeToFile(public_path('uploads/sitemap.xml'));
         $filepath = public_path('uploads/sitemap.xml');
-        return Response::download($filepath); 
+        return Response::download($filepath);
     }
 }

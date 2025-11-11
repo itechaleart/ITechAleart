@@ -199,7 +199,7 @@
                                 @if ($errors->has('app_preloader'))
                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('app_preloader') }}</span>
                                 @endif
-                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 118 x 40</p>
+                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 118 x 40</p>
                             </div>
                         </div>
                         <div class="row input__group mb-25">
@@ -220,7 +220,7 @@
                                 @if ($errors->has('app_logo'))
                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('app_logo') }}</span>
                                 @endif
-                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 140 x 40</p>
+                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 140 x 40</p>
                             </div>
                         </div>
 
@@ -242,7 +242,7 @@
                                 @if ($errors->has('app_black_logo'))
                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('app_black_logo') }}</span>
                                 @endif
-                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 140 x 40</p>
+                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 140 x 40</p>
                             </div>
                         </div>
 
@@ -265,7 +265,7 @@
                                 @if ($errors->has('app_fav_icon'))
                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('app_fav_icon') }}</span>
                                 @endif
-                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 16 x 16</p>
+                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 16 x 16</p>
                             </div>
                         </div>
 
@@ -287,7 +287,7 @@
                                 @if ($errors->has('app_footer_payment_image'))
                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('app_footer_payment_image') }}</span>
                                 @endif
-                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span>206 × 22 px</p>
+                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span>206 × 22 px</p>
                             </div>
                         </div>
 
@@ -360,7 +360,7 @@
                                 @if ($errors->has('sign_up_left_image'))
                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('sign_up_left_image') }}</span>
                                 @endif
-                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 800 x 540 (1MB)</p>
+                                <p><span class="text-black">{{ __('Accepted Files') }}:</span> PNG, WEBP, SVG <br> <span class="text-black">{{ __('Recommend Size') }}:</span> 800 x 540 (1MB)</p>
                             </div>
                         </div>
 
