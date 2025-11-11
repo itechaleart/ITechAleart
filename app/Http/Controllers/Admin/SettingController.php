@@ -110,7 +110,7 @@ class SettingController extends Controller
                 $option->save();
             } elseif ($request->hasFile('faq_image') && $key == 'faq_image') {
                 $request->validate([
-                    'faq_image' => 'mimes:png,webp,jpg,jpeg|dimensions:min_width=650,min_height=650,max_width=650,max_height=650'
+                    'faq_image' => 'mimes:png,webp,jpg,jpeg|dimensions:max_width=650,max_height=650'
                 ]);
                 $this->deleteFile('faq_image');
                 $option->option_value = $this->saveImage('setting', $request->faq_image, null, null);
