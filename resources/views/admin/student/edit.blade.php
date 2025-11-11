@@ -89,7 +89,7 @@
                                     @endif
                                 </div>
                             </div>
-                        
+
                             <div class="col-md-6">
                                 <div class="input__group mb-25">
                                     <label>{{ __('Address') }} <span class="text-danger">*</span></label>
@@ -122,7 +122,7 @@
                                             {{old('country_id')==$country->id ? 'selected' : '' }}
                                             @else
                                             {{$student->country_id == $country->id ? 'selected' : '' }}
-                                            @endif >{{$country->country_name}}</option>
+                                            @endif>{{$country->country_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -134,14 +134,13 @@
                                         <option value="">{{__('Select State')}}</option>
                                         @if(old('country_id'))
                                         @foreach($states as $state)
-                                        <option value="{{$state->id}}" {{old('state_id')==$state->id ? 'selected' : ''}}
-                                            >{{$state->name}}</option>
+                                        <option value="{{$state->id}}" {{old('state_id')==$state->id ? 'selected' : ''}}>{{$state->name}}</option>
                                         @endforeach
                                         @else
                                         @if($student->country)
                                         @foreach($student->country->states as $selected_state)
                                         <option value="{{$selected_state->id}}" {{$student->state_id ==
-                                            $selected_state->id ? 'selected' : '' }} >{{$selected_state->name}}</option>
+                                            $selected_state->id ? 'selected' : '' }}>{{$selected_state->name}}</option>
                                         @endforeach
                                         @endif
                                         @endif
@@ -155,14 +154,13 @@
                                         <option value="">{{__('Select City')}}</option>
                                         @if(old('state_id'))
                                         @foreach($cities as $city)
-                                        <option value="{{$city->id}}" {{old('city_id')==$city->id ? 'selected' : '' }}
-                                            >{{$city->name}}</option>
+                                        <option value="{{$city->id}}" {{old('city_id')==$city->id ? 'selected' : '' }}>{{$city->name}}</option>
                                         @endforeach
                                         @else
                                         @if($student->state)
                                         @foreach($student->state->cities as $selected_city)
                                         <option value="{{$selected_city->id}}" {{$student->city_id == $selected_city->id
-                                            ? 'selected' : '' }} >{{$selected_city->name}}</option>
+                                            ? 'selected' : '' }}>{{$selected_city->name}}</option>
                                         @endforeach
                                         @endif
                                         @endif
@@ -174,11 +172,11 @@
                                     <label>{{__('Gender')}}<span class="text-danger">*</span></label>
                                     <select name="gender" id="gender" class="form-select" required>
                                         <option value="">{{__('Select Option')}}</option>
-                                        <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }} >{{
+                                        <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>{{
                                             __('Male') }}</option>
-                                        <option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }} >{{
+                                        <option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>{{
                                             __('Female') }}</option>
-                                        <option value="Others" {{ $student->gender == 'Others' ? 'selected' : '' }} >{{
+                                        <option value="Others" {{ $student->gender == 'Others' ? 'selected' : '' }}>{{
                                             __('Others') }}</option>
                                     </select>
                                 </div>
@@ -216,7 +214,7 @@
                             <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{
                                 $errors->first('image') }}</span>
                             @endif
-                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG <br> {{ __('Accepted Size') }}: 300 x
+                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG, WEBP <br> {{ __('Accepted Size') }}: 300 x
                                 300 (1MB)</p>
                         </div>
 

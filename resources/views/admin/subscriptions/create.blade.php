@@ -215,7 +215,7 @@
                             <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{
                                 $errors->first('icon') }}</span>
                             @endif
-                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG <br> {{ __('Accepted Size') }}: 80 x
+                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG, WEBP <br> {{ __('Accepted Size') }}: 80 x
                                 80 (300KB)</p>
                         </div>
 

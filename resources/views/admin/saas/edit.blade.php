@@ -136,7 +136,7 @@
                                     <label>{{__('Student Limit')}} <span class="text-danger">*</span></label>
                                     <input type="number" min=0 name="student" value="{{old('student', $saas->student)}}" placeholder="{{ __('student Limit') }}" class="form-control" required>
                                     @if ($errors->has('student'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('student') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('student') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -290,7 +290,7 @@
                             <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{
                                 $errors->first('icon') }}</span>
                             @endif
-                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG <br> {{ __('Accepted Size') }}: 80 x
+                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG, WEBP <br> {{ __('Accepted Size') }}: 80 x
                                 80 (300KB)</p>
                         </div>
 
@@ -317,11 +317,14 @@
 @push('script')
 <script src="{{asset('admin/js/custom/image-preview.js')}}"></script>
 <script>
-    $(document).on('change', ':input[name=package_type]', function(){
-        if($(this).val() == {{ PACKAGE_TYPE_SAAS_INSTRUCTOR }}){
+    $(document).on('change', ':input[name=package_type]', function() {
+        if ($(this).val() == {
+                {
+                    PACKAGE_TYPE_SAAS_INSTRUCTOR
+                }
+            }) {
             $(document).find('.organization-block').addClass('d-none');
-        }
-        else{
+        } else {
             $(document).find('.organization-block').removeClass('d-none');
         }
     });

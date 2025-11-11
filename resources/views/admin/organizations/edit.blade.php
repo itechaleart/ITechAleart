@@ -1,31 +1,31 @@
 @extends('layouts.admin')
 
 @section('content')
-    <!-- Page content area start -->
-    <div class="page-content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb__content">
-                        <div class="breadcrumb__content__left">
-                            <div class="breadcrumb__title">
-                                <h2>{{ __('Edit Organization') }}</h2>
-                            </div>
+<!-- Page content area start -->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb__content">
+                    <div class="breadcrumb__content__left">
+                        <div class="breadcrumb__title">
+                            <h2>{{ __('Edit Organization') }}</h2>
                         </div>
-                        <div class="breadcrumb__content__right">
-                            <nav aria-label="breadcrumb">
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('Dashboard')}}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Edit Organization') }}</li>
-                                </ul>
-                            </nav>
-                        </div>
+                    </div>
+                    <div class="breadcrumb__content__right">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('Dashboard')}}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ __('Edit Organization') }}</li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="customers__area bg-style mb-30">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="customers__area bg-style mb-30">
                     <div class="item-title d-flex justify-content-between">
                         <h2>{{ __('Edit Organization') }}</h2>
                     </div>
@@ -38,7 +38,7 @@
                                     <label>{{__('First Name')}} <span class="text-danger">*</span></label>
                                     <input type="text" name="first_name" value="{{ $organization->first_name }}" placeholder="{{__('First Name')}} " class="form-control" required>
                                     @if ($errors->has('first_name'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('first_name') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('first_name') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                                     <label>{{__('Last Name')}} <span class="text-danger">*</span></label>
                                     <input type="text" name="last_name" value="{{$organization->last_name}}" placeholder="{{__('Last Name')}}" class="form-control" required>
                                     @if ($errors->has('last_name'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('last_name') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('last_name') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     <label>{{__('Email')}} <span class="text-danger">*</span></label>
                                     <input type="email" name="email" value="{{@$organization->user->email}}" placeholder="{{__('Email')}}" class="form-control" required>
                                     @if ($errors->has('email'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('email') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                     <label>{{ __('Password') }} </label>
                                     <input type="password" name="password" value="" placeholder="{{ __('Password') }}" class="form-control">
                                     @if ($errors->has('password'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('password') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('password') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -73,9 +73,9 @@
                                 <div class="input__group mb-25">
                                     <label>{{__('Professional Title')}} <span class="text-danger">*</span></label>
                                     <input type="text" name="professional_title" value="{{$organization->professional_title}}" placeholder="{{__('Professional Title')}}" class="form-control"
-                                           required>
+                                        required>
                                     @if ($errors->has('professional_title'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('professional_title') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('professional_title') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                     <select class="form-control" name="area_code">
                                         <option value>{{ __("Select Code") }}</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country->phonecode }}" @if(old('area_code', @$organization->user->area_code)==$country->phonecode) selected @endif>{{ $country->short_name.'('.$country->phonecode.')' }}</option>
+                                        <option value="{{ $country->phonecode }}" @if(old('area_code', @$organization->user->area_code)==$country->phonecode) selected @endif>{{ $country->short_name.'('.$country->phonecode.')' }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('area_code'))
@@ -101,7 +101,7 @@
                                     <label>{{__('Mobile Number')}}<span class="text-danger">*</span></label>
                                     <input type="text" name="phone_number" value="{{$organization->user->mobile_number}}" placeholder="{{__('Mobile Number')}}" class="form-control">
                                     @if ($errors->has('phone_number'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('phone_number') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('phone_number') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -109,9 +109,9 @@
                                 <div class="input__group mb-25">
                                     <label>{{ __('Address') }} <span class="text-danger">*</span></label>
                                     <input type="text" name="address" value="{{$organization->address}}" placeholder="{{ __('Address') }}" class="form-control"
-                                           required>
+                                        required>
                                     @if ($errors->has('address'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('address') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('address') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -119,9 +119,9 @@
                                 <div class="input__group mb-25">
                                     <label>{{ __('Postal Code') }} <span class="text-danger">*</span></label>
                                     <input type="text" name="postal_code" value="{{$organization->postal_code}}" placeholder="{{ __('Postal Code') }}" class="form-control"
-                                           required>
+                                        required>
                                     @if ($errors->has('postal_code'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('postal_code') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('postal_code') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -131,11 +131,11 @@
                                     <select name="country_id" id="country_id" class="form-select">
                                         <option value="">{{__('Select Country')}}</option>
                                         @foreach($countries as $country)
-                                            <option value="{{$country->id}}" @if(old('country_id'))
-                                                {{old('country_id') == $country->id ? 'selected' : '' }}
-                                                @else
-                                                {{$organization->country_id == $country->id ? 'selected' : '' }}
-                                                @endif >{{$country->country_name}}</option>
+                                        <option value="{{$country->id}}" @if(old('country_id'))
+                                            {{old('country_id') == $country->id ? 'selected' : '' }}
+                                            @else
+                                            {{$organization->country_id == $country->id ? 'selected' : '' }}
+                                            @endif>{{$country->country_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -146,16 +146,16 @@
                                     <select name="state_id" id="state_id" class="form-select">
                                         <option value="">{{__('Select State')}}</option>
                                         @if(old('country_id'))
-                                            @foreach($states as $state)
-                                                <option value="{{$state->id}}" {{old('state_id') == $state->id ? 'selected' : ''}} >{{$state->name}}</option>
-                                            @endforeach
+                                        @foreach($states as $state)
+                                        <option value="{{$state->id}}" {{old('state_id') == $state->id ? 'selected' : ''}}>{{$state->name}}</option>
+                                        @endforeach
                                         @else
-                                            @if($organization->country)
-                                                @foreach($organization->country->states as $selected_state)
-                                                    <option
-                                                        value="{{$selected_state->id}}" {{$organization->state_id == $selected_state->id ? 'selected' : '' }} >{{$selected_state->name}}</option>
-                                                @endforeach
-                                            @endif
+                                        @if($organization->country)
+                                        @foreach($organization->country->states as $selected_state)
+                                        <option
+                                            value="{{$selected_state->id}}" {{$organization->state_id == $selected_state->id ? 'selected' : '' }}>{{$selected_state->name}}</option>
+                                        @endforeach
+                                        @endif
                                         @endif
                                     </select>
                                 </div>
@@ -166,15 +166,15 @@
                                     <select name="city_id" id="city_id" class="form-select">
                                         <option value="">{{__('Select City')}}</option>
                                         @if(old('state_id'))
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}" {{old('city_id') == $city->id ? 'selected' : '' }} >{{$city->name}}</option>
-                                            @endforeach
+                                        @foreach($cities as $city)
+                                        <option value="{{$city->id}}" {{old('city_id') == $city->id ? 'selected' : '' }}>{{$city->name}}</option>
+                                        @endforeach
                                         @else
-                                            @if($organization->state)
-                                                @foreach($organization->state->cities as $selected_city)
-                                                    <option value="{{$selected_city->id}}" {{$organization->city_id == $selected_city->id ? 'selected' : '' }} >{{$selected_city->name}}</option>
-                                                @endforeach
-                                            @endif
+                                        @if($organization->state)
+                                        @foreach($organization->state->cities as $selected_city)
+                                        <option value="{{$selected_city->id}}" {{$organization->city_id == $selected_city->id ? 'selected' : '' }}>{{$selected_city->name}}</option>
+                                        @endforeach
+                                        @endif
                                         @endif
                                     </select>
                                 </div>
@@ -184,41 +184,41 @@
                                     <label>{{__('Gender')}}<span class="text-danger">*</span></label>
                                     <select name="gender" id="gender" class="form-select" required>
                                         <option value="">{{__('Select Option')}}</option>
-                                        <option value="Male" {{ $organization->gender == 'Male' ? 'selected' : '' }} >{{ __('Male') }}</option>
-                                        <option value="Female" {{ $organization->gender == 'Female' ? 'selected' : '' }} >{{ __('Female') }}</option>
-                                        <option value="Others" {{ $organization->gender == 'Others' ? 'selected' : '' }} >{{ __('Others') }}</option>
+                                        <option value="Male" {{ $organization->gender == 'Male' ? 'selected' : '' }}>{{ __('Male') }}</option>
+                                        <option value="Female" {{ $organization->gender == 'Female' ? 'selected' : '' }}>{{ __('Female') }}</option>
+                                        <option value="Others" {{ $organization->gender == 'Others' ? 'selected' : '' }}>{{ __('Others') }}</option>
                                     </select>
                                 </div>
                             </div>
                             @php
-                                $social_link = json_decode($organization->social_link);
+                            $social_link = json_decode($organization->social_link);
                             @endphp
                             <div class="col-md-6">
                                 <div class="input__group mb-25">
                                     <label>{{ __('Facebook') }} <span class="text-danger">*</span></label>
                                     <input type="text" name="social_link[facebook]" value="{{$organization->social_link ? $social_link->facebook : ''}}" class="form-control"
-                                    placeholder="https://facebook.com">
+                                        placeholder="https://facebook.com">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input__group mb-25">
                                     <label>{{ __('Twitter') }}</label>
                                     <input type="text" name="social_link[twitter]" value="{{$organization->social_link ? $social_link->twitter : ''}}" class="form-control"
-                               placeholder="https://twitter.com">
+                                        placeholder="https://twitter.com">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input__group mb-25">
                                     <label>{{ __('Linkedin') }}</label>
                                     <input type="text" name="social_link[linkedin]" value="{{$organization->social_link ? $social_link->linkedin : ''}}" class="form-control"
-                               placeholder="https://linkedin.com">
+                                        placeholder="https://linkedin.com">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input__group mb-25">
                                     <label>{{ __('Pinterest') }}</label>
                                     <input type="text" name="social_link[pinterest]" value="{{$organization->social_link ? $social_link->pinterest : ''}}" class="form-control"
-                               placeholder="https://pinterest.com">
+                                        placeholder="https://pinterest.com">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -226,7 +226,7 @@
                                     <label>{{ __('About Organizartion') }} <span class="text-danger">*</span></label>
                                     <textarea name="about_me" id="" cols="15" rows="5" required>{{ $organization->about_me }}</textarea>
                                     @if ($errors->has('about_me'))
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('about_me') }}</span>
+                                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('about_me') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -235,9 +235,9 @@
                             <div class="col-md-3">
                                 <div class="upload-img-box mb-25">
                                     @if(@$organization->user->image)
-                                        <img src="{{asset(@$organization->user->image_path)}}" alt="img">
+                                    <img src="{{asset(@$organization->user->image_path)}}" alt="img">
                                     @else
-                                        <img src="" alt="No img">
+                                    <img src="" alt="No img">
                                     @endif
                                     <input type="file" name="image" id="image" accept="image/*" onchange="previewFile(this)">
                                     <div class="upload-img-box-icon">
@@ -247,9 +247,9 @@
                                 </div>
                             </div>
                             @if ($errors->has('image'))
-                                <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('image') }}</span>
+                            <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{ $errors->first('image') }}</span>
                             @endif
-                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG <br> {{ __('Accepted Size') }}: 300 x 300 (1MB)</p>
+                            <p>{{ __('Accepted Image Files') }}: JPEG, JPG, PNG, WEBP <br> {{ __('Accepted Size') }}: 300 x 300 (1MB)</p>
                         </div>
 
                         <div class="row mb-3">
@@ -259,18 +259,18 @@
                         </div>
                     </form>
                 </div>
-                </div>
             </div>
         </div>
     </div>
-    <!-- Page content area end -->
+</div>
+<!-- Page content area end -->
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{asset('admin/css/custom/image-preview.css')}}">
+<link rel="stylesheet" href="{{asset('admin/css/custom/image-preview.css')}}">
 @endpush
 
 @push('script')
-    <script src="{{asset('admin/js/custom/image-preview.js')}}"></script>
-    <script src="{{asset('admin/js/custom/admin-profile.js')}}"></script>
+<script src="{{asset('admin/js/custom/image-preview.js')}}"></script>
+<script src="{{asset('admin/js/custom/admin-profile.js')}}"></script>
 @endpush
