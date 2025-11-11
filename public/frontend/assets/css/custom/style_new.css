@@ -2838,7 +2838,6 @@ button:focus {
     object-fit: contain;
     transition: transform 0.4s ease;
 }
-
 .hm-instructor-overlay {
     opacity: 0;
     transition: opacity 0.4s ease;
