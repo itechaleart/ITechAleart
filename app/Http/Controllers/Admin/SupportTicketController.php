@@ -23,7 +23,7 @@ class SupportTicketController extends Controller
 
     protected $modalTicket, $modelTicketDepartment, $modelTicketPriority, $modelTicketService;
 
-    public function __construct(Ticket $modalTicket,TicketDepartment $modelTicketDepartment, TicketPriority $modelTicketPriority, TicketRelatedService $modelTicketService)
+    public function __construct(Ticket $modalTicket, TicketDepartment $modelTicketDepartment, TicketPriority $modelTicketPriority, TicketRelatedService $modelTicketService)
     {
         $this->modalTicket = new CRUD($modalTicket);
         $this->modelTicketDepartment = new CRUD($modelTicketDepartment);
@@ -116,7 +116,7 @@ class SupportTicketController extends Controller
 
         $request->validate([
             'message' => 'required',
-            'file' => 'mimes:jpeg,jpg,png,gif|max:10000'
+            'file' => 'mimes:jpeg,jpg,png,gif,webp|max:10000'
         ]);
 
         $message = new TicketMessages();
@@ -167,7 +167,6 @@ class SupportTicketController extends Controller
                 $item = new TicketDepartment();
                 $msg = 'Created Successful';
             }
-
         } else {
             $item = new TicketDepartment();
             $msg = 'Created Successful';
@@ -223,7 +222,6 @@ class SupportTicketController extends Controller
                 $item = new TicketPriority();
                 $msg = 'Created Successful';
             }
-
         } else {
             $item = new TicketPriority();
             $msg = 'Created Successful';
@@ -280,7 +278,6 @@ class SupportTicketController extends Controller
                 $item = new TicketRelatedService();
                 $msg = 'Created Successful';
             }
-
         } else {
             $item = new TicketRelatedService();
             $msg = 'Created Successful';

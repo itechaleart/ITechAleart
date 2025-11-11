@@ -24,7 +24,7 @@ class StudentController extends Controller
     use General, ImageSaveTrait;
 
     protected $studentModel;
-    public function __construct( Student $student)
+    public function __construct(Student $student)
     {
         $this->studentModel = new Crud($student);
     }
@@ -34,7 +34,7 @@ class StudentController extends Controller
         $data['students'] = $this->studentModel->getOrderById('DESC', 25);
         return view('admin.student.list', $data);
     }
-    
+
     public function pending_list()
     {
         $data['title'] = 'Pending Student';
@@ -69,13 +69,13 @@ class StudentController extends Controller
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
         $user = new User();
-        $user->name = $request->first_name . ' '. $request->last_name;
+        $user->name = $request->first_name . ' ' . $request->last_name;
         $user->email = $request->email;
-        $user->area_code =  str_replace("+","",$request->area_code);
+        $user->area_code =  str_replace("+", "", $request->area_code);
         $user->mobile_number = $request->phone_number;
         $user->phone_number = $request->phone_number;
         $user->email_verified_at = now();
@@ -121,13 +121,11 @@ class StudentController extends Controller
 
         $data['countries'] = Country::orderBy('country_name', 'asc')->get();
 
-        if (old('country_id'))
-        {
+        if (old('country_id')) {
             $data['states'] = State::where('country_id', old('country_id'))->orderBy('name', 'asc')->get();
         }
 
-        if (old('state_id'))
-        {
+        if (old('state_id')) {
             $data['cities'] = City::where('state_id', old('state_id'))->orderBy('name', 'asc')->get();
         }
 
@@ -141,13 +139,13 @@ class StudentController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$student->user_id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $student->user_id],
             'area_code' => 'required',
-            'phone_number' => 'bail|numeric|unique:users,mobile_number,'.$student->user_id,
+            'phone_number' => 'bail|numeric|unique:users,mobile_number,' . $student->user_id,
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
 
@@ -157,15 +155,15 @@ class StudentController extends Controller
             return redirect()->back();
         }
 
-        $user->name = $request->first_name . ' '. $request->last_name;
+        $user->name = $request->first_name . ' ' . $request->last_name;
         $user->email = $request->email;
-        if ($request->password){
+        if ($request->password) {
             $request->validate([
                 'password' => 'required|string|min:6'
             ]);
             $user->password = Hash::make($request->password);
         }
-        $user->area_code =  str_replace("+","",$request->area_code);
+        $user->area_code =  str_replace("+", "", $request->area_code);
         $user->mobile_number = $request->phone_number;
         $user->phone_number = $request->phone_number;
         $user->image =  $request->image ? $this->saveImage('user', $request->image, null, null) :   $user->image;
@@ -195,11 +193,11 @@ class StudentController extends Controller
     {
         $student = $this->studentModel->getRecordByUuid($uuid);
         $instructor = Instructor::whereUserId($student->user_id)->first();
-        if ($instructor){
+        if ($instructor) {
             $this->showToastrMessage('error', __('You can`t delete it. Because this user already an instructor. If you want to delete, at first you delete from instructor.'));
             return redirect()->back();
         }
-        if ($student){
+        if ($student) {
             $this->deleteFile(@$student->user->image);
         }
         User::find($student->user_id)->delete();
@@ -219,7 +217,7 @@ class StudentController extends Controller
             'data' => 'success',
         ]);
     }
-   
+
     public function changeEnrollmentStatus(Request $request)
     {
         $enrollment = Enrollment::findOrFail($request->id);

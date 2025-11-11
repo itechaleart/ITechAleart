@@ -35,9 +35,9 @@ class AboutUsController extends Controller
         $request->validate([
             'gallery_area_title' => 'required|max:255',
             'gallery_area_subtitle' => 'required',
-            'gallery_first_image' => 'mimes:jpg|file|dimensions:min_width=536,min_height=644,max_width=536,max_height=644',
-            'gallery_second_image' => 'mimes:jpg|file|dimensions:min_width=536,min_height=309,max_width=536,max_height=309',
-            'gallery_third_image' => 'mimes:jpg|file|dimensions:min_width=536,min_height=309,max_width=536,max_height=309'
+            'gallery_first_image' => 'mimes:jpg,webp|file|dimensions:min_width=536,min_height=644,max_width=536,max_height=644',
+            'gallery_second_image' => 'mimes:jpg,webp|file|dimensions:min_width=536,min_height=309,max_width=536,max_height=309',
+            'gallery_third_image' => 'mimes:jpg,webp|file|dimensions:min_width=536,min_height=309,max_width=536,max_height=309'
         ]);
 
         $about = AboutUsGeneral::first();

@@ -38,7 +38,7 @@ class InstructorController extends Controller
         if (!Auth::user()->hasPermissionTo('all_instructor', 'web')) {
             return $this->error([], 'Unauthorize access', 403);
         } // end permission checking
-        
+
         $data['instructors'] = $this->instructorModel->getOrderById('DESC', 25);
         return $this->success($data);
     }
@@ -46,12 +46,12 @@ class InstructorController extends Controller
     public function view($uuid)
     {
         $data['instructor'] = Instructor::where('uuid', $uuid)->with(['city', 'state', 'country', 'certificates', 'awards'])->first();
-        if(is_null($data['instructor'])){
+        if (is_null($data['instructor'])) {
             return $this->error([], __('Not Found'), 404);
         }
 
         $userCourseIds = Course::whereUserId($data['instructor']->user->id)->pluck('id')->toArray();
-        if (count($userCourseIds) > 0){
+        if (count($userCourseIds) > 0) {
             $orderItems = Order_item::whereIn('course_id', $userCourseIds)
                 ->whereYear("created_at", now()->year)->whereMonth("created_at", now()->month)
                 ->whereHas('order', function ($q) {
@@ -123,27 +123,27 @@ class InstructorController extends Controller
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
-        try{
+        try {
             DB::beginTransaction();
             //Create credentials object
             $data = $request->only('email', 'password');
 
-            $data['name'] = $request->first_name.' '.$request->last_name;
+            $data['name'] = $request->first_name . ' ' . $request->last_name;
             // $data['phone_number'] = $request->area_code.$request->phone_number;
             //Register User in cognito
             if ($cognitoRegistered = $this->createCognitoUser(collect($data), null, config('cognito.default_user_group'))) {
 
                 $confirmPassword = app()->make(AwsCognitoClient::class)->setUserPassword($request->email, $request->password, true);
-                
+
                 //If successful, create the user in local db
                 $user = new User();
-                $user->name = $request->first_name . ' '. $request->last_name;
+                $user->name = $request->first_name . ' ' . $request->last_name;
                 $user->email = $request->email;
                 $user->email_verified_at = now();
-                $user->area_code =  str_replace("+","",$request->area_code);
+                $user->area_code =  str_replace("+", "", $request->area_code);
                 $user->mobile_number = $request->phone_number;
                 $user->phone_number = $request->phone_number;
                 $user->password = Hash::make($request->password);
@@ -167,9 +167,8 @@ class InstructorController extends Controller
 
                 $this->studentModel->create($student_data);
 
-                if (Instructor::where('slug', getSlug($user->name))->count() > 0)
-                {
-                    $slug = getSlug($user->name) . '-'. rand(100000, 999999);
+                if (Instructor::where('slug', getSlug($user->name))->count() > 0) {
+                    $slug = getSlug($user->name) . '-' . rand(100000, 999999);
                 } else {
                     $slug = getSlug($user->name);
                 }
@@ -195,7 +194,7 @@ class InstructorController extends Controller
                 $this->instructorModel->create($instructor_data);
 
                 DB::commit();
-                return $this->success([] , __('Instructor created successfully'));
+                return $this->success([], __('Instructor created successfully'));
             } else {
                 DB::rollBack();
                 return $this->failed();
@@ -214,31 +213,30 @@ class InstructorController extends Controller
             'last_name' => ['required', 'string', 'max:100'],
             'professional_title' => 'required',
             'area_code' => 'required',
-            'phone_number' => 'bail|numeric|unique:users,mobile_number,'.$instructor->user_id,
+            'phone_number' => 'bail|numeric|unique:users,mobile_number,' . $instructor->user_id,
             'address' => 'required',
             'gender' => 'required',
             'about_me' => 'required',
-            'image' => 'mimes:jpeg,png,jpg|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
+            'image' => 'mimes:jpeg,png,jpg,webp|file|dimensions:min_width=300,min_height=300,max_width=300,max_height=300|max:1024'
         ]);
 
 
-        try{
+        try {
             DB::beginTransaction();
             $user = User::find($instructor->user_id);
-            if(is_null(($user))){
+            if (is_null(($user))) {
                 return $this->error([], __("Instructor not found"), 404);
             }
-            $user->name = $request->first_name . ' '. $request->last_name;
-            $user->area_code =  str_replace("+","",$request->area_code);
+            $user->name = $request->first_name . ' ' . $request->last_name;
+            $user->area_code =  str_replace("+", "", $request->area_code);
             $user->mobile_number = $request->phone_number;
             $user->phone_number = $request->phone_number;
-            
+
             $user->image =  $request->image ? $this->saveImage('user', $request->image, null, null) :   $user->image;
             $user->save();
 
-            if (Instructor::where('slug', getSlug($user->name))->count() > 0)
-            {
-                $slug = getSlug($user->name) . '-'. rand(100000, 999999);
+            if (Instructor::where('slug', getSlug($user->name))->count() > 0) {
+                $slug = getSlug($user->name) . '-' . rand(100000, 999999);
             } else {
                 $slug = getSlug($user->name);
             }
@@ -263,7 +261,7 @@ class InstructorController extends Controller
             $this->instructorModel->updateByUuid($instructor_data, $uuid);
 
             DB::commit();
-            return $this->success([] , __('Instructor Updated successfully'));
+            return $this->success([], __('Instructor Updated successfully'));
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->failed([], $e->getMessage());

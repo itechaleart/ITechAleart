@@ -47,12 +47,13 @@
                                                     <div class="d-flex">
                                                         <div
                                                             class="label-text-title color-heading font-medium font-16 mb-3 mr-15">
-                                                            {{ __('Type') }}: </div>
+                                                            {{ __('Type') }}:
+                                                        </div>
                                                         <div>
                                                             <label class="mr-15"><input type="radio" name="type" value="video" checked class="lecture-type"> {{ __('Upload Video') }}</label>
                                                             <label class="mr-15"><input type="radio" name="type" value="youtube" class="lecture-type" id="lectureTypeYoutube"> {{ __('Youtube') }} </label>
                                                             @if(env('VIMEO_STATUS') == 'active')
-                                                            <label class="mr-15"><input type="radio" name="type" value="vimeo" class="lecture-type">  {{ __('Vimeo') }}</label>
+                                                            <label class="mr-15"><input type="radio" name="type" value="vimeo" class="lecture-type"> {{ __('Vimeo') }}</label>
                                                             @endif
                                                             <label class="mr-15"><input type="radio" name="type" value="text" class="lecture-type" id="lectureTypeText"> {{ __('Text') }} </label>
                                                             <label class="mr-15"><input type="radio" name="type" value="image" class="lecture-type" id="lectureTypeImage"> {{ __('Image') }} </label>
@@ -141,7 +142,7 @@
                                                     <div class="row mb-30">
                                                         <div class="col-md-12">
                                                             <label class="label-text-title color-heading font-medium font-16 mb-3">{{ __('Lesson File Duration') }} (00:00) <span class="text-danger">*</span></label>
-                                                            <input type="text" name="vimeo_file_duration" value="{{old('vimeo_file_duration')}}" class="form-control customVimeoFileDuration" placeholder="{{ __('Type file duration') }}" >
+                                                            <input type="text" name="vimeo_file_duration" value="{{old('vimeo_file_duration')}}" class="form-control customVimeoFileDuration" placeholder="{{ __('Type file duration') }}">
                                                             @if ($errors->has('vimeo_file_duration'))
                                                             <span class="text-danger"><i
                                                                     class="fas fa-exclamation-triangle"></i> {{
@@ -187,7 +188,7 @@
                                                     </div>
                                                     <div class="col-md-6 mb-30">
                                                         <p class="font-14 color-gray">{{ __('Preferable image size:') }} (1MB)</p>
-                                                        <p class="font-14 color-gray">{{ __('Preferable filetype:') }} jpg, jpeg, png</p>
+                                                        <p class="font-14 color-gray">{{ __('Preferable filetype:') }} jpg, jpeg, png, webp</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,7 +298,7 @@
                                                         <div class="row mb-30 d-none" id="fileDuration">
                                                             <div class="col-md-12">
                                                                 <label class="label-text-title color-heading font-medium font-16 mb-3">{{ __('Lesson File Duration') }} (00:00) <span class="text-danger">*</span></label>
-                                                                <input type="text" name="youtube_file_duration" value="{{old('file_duration')}}" class="form-control customFileDuration" placeholder="{{ __('First file duration') }}" >
+                                                                <input type="text" name="youtube_file_duration" value="{{old('file_duration')}}" class="form-control customFileDuration" placeholder="{{ __('First file duration') }}">
                                                                 @if ($errors->has('youtube_file_duration'))
                                                                 <span class="text-danger"><i
                                                                         class="fas fa-exclamation-triangle"></i> {{
@@ -353,7 +354,7 @@
                                                                         @foreach ($pr_lesson->lectures as $pr_lecture)
                                                                         <option value="{{ $pr_lecture->id }}">{{ $pr_lecture->title }}</option>
                                                                         @endforeach
-                                                                      </optgroup>
+                                                                    </optgroup>
                                                                     @endforeach
                                                                 </select>
 
@@ -416,7 +417,9 @@
 <script>
     $(document).ready(function() {
         $('.select2').select2();
-        $("#summernote").summernote({dialogsInBody: true});
+        $("#summernote").summernote({
+            dialogsInBody: true
+        });
         $('.dropdown-toggle').dropdown();
     });
 </script>

@@ -66,10 +66,12 @@
                                 required>
                                 <option value="{{ PACKAGE_STATUS_ACTIVE }}"
                                     {{old('is_subscription_enable')==PACKAGE_STATUS_ACTIVE ? 'selected' : '' }}>
-                                    {{ __("Enable") }}</option>
+                                    {{ __("Enable") }}
+                                </option>
                                 <option value="{{ PACKAGE_STATUS_DISABLED }}"
                                     {{old('is_subscription_enable')==PACKAGE_STATUS_DISABLED ? 'selected' : '' }}>
-                                    {{ __("Disabled") }}</option>
+                                    {{ __("Disabled") }}
+                                </option>
                             </select>
 
                             @if ($errors->has('is_subscription_enable'))
@@ -82,7 +84,8 @@
                     <div class="row mb-30">
                         <div class="col-md-12">
                             <div class="label-text-title color-heading font-medium font-16 mb-3">{{ __('Overview') }}
-                                <span class="text-danger">*</span></div>
+                                <span class="text-danger">*</span>
+                            </div>
                             <textarea class="form-control" required name="overview" cols="30" rows="10"
                                 placeholder="Write your bundles courses overview">{{ old('overview') }}</textarea>
                         </div>
@@ -131,7 +134,7 @@
                         <div class="col-md-6 mb-30">
                             <p class="font-14 color-gray">{{ __('Recomended image format & size') }}: 575px X 450px (1MB)
                             </p>
-                            <p class="font-14 color-gray">{{ __('Accepted filetype') }}: jpg, jpeg, png</p>
+                            <p class="font-14 color-gray">{{ __('Accepted filetype') }}: jpg, jpeg, png, webp</p>
                         </div>
                     </div>
 

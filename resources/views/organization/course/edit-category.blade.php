@@ -62,7 +62,7 @@
                                                     <option value="{{$category->id}}" @if(old('category_id'))
                                                         {{old('category_id')==$category->id ? 'selected' : '' }} @else
                                                         {{ $course->category_id == $category->id ? 'selected' : '' }}
-                                                        @endif >{{$category->name}}</option>
+                                                        @endif>{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -90,8 +90,7 @@
                                                     <option value="">{{ __('Select Subcategory') }}</option>
                                                     @foreach($subcategories as $subcategory)
                                                     <option value="{{$subcategory->id}}" {{$subcategory->id ==
-                                                        $course->subcategory_id ? 'selected' : '' }}
-                                                        >{{$subcategory->name}}</option>
+                                                        $course->subcategory_id ? 'selected' : '' }}>{{$subcategory->name}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -133,14 +132,14 @@
                                         <div class="upload-course-item-block-title mb-3">
                                             <h6 class="font-20">{{ __('Learners Accessibility & others') }}</h6>
                                         </div>
-                                        
+
                                         <div class="row">
                                             <div class="col-md-12 mb-30">
                                                 <label class="label-text-title color-heading font-medium font-16 mb-3">{{ __('Request course as') }}
                                                 </label>
                                                 <select name="status" class="form-select status" required>
                                                     @php
-                                                        $status = old('status', $course->status);
+                                                    $status = old('status', $course->status);
                                                     @endphp
                                                     <option value="{{ STATUS_UPCOMING_REQUEST }}" {{ (in_array($status, [STATUS_UPCOMING_REQUEST, STATUS_UPCOMING_APPROVED])) ? 'selected' : '' }}>{{ __('Upcoming') }}</option>
                                                     <option value="{{ STATUS_APPROVED }}" {{ (in_array($status, [STATUS_APPROVED,STATUS_REJECTED,STATUS_HOLD,STATUS_SUSPENDED,STATUS_DELETED])) ? 'selected' : '' }}>{{ __('Publish') }}</option>
@@ -209,8 +208,7 @@
                                                 <input type="number" name="access_period"
                                                     value="{{old('access_period', $course->access_period)}}" min="0"
                                                     class="form-control"
-                                                    placeholder="{{  __('If there is no expiry duration, leave the field blank.')}} "
-                                                    >
+                                                    placeholder="{{  __('If there is no expiry duration, leave the field blank.')}} ">
 
                                                 @if ($errors->has('access_period'))
                                                 <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> {{
@@ -240,11 +238,11 @@
                                                     <option value="paid" @if(old('learner_accessibility'))
                                                         {{old('learner_accessibility')=='paid' ? 'selected' : '' }}
                                                         @else {{ $course->learner_accessibility == 'paid' ? 'selected' :
-                                                        '' }} @endif >{{__('Paid')}}</option>
+                                                        '' }} @endif>{{__('Paid')}}</option>
                                                     <option value="free" @if(old('learner_accessibility'))
                                                         {{old('learner_accessibility')=='free' ? 'selected' : '' }}
                                                         @else {{ $course->learner_accessibility == 'free' ? 'selected' :
-                                                        '' }} @endif >{{__('Free')}}</option>
+                                                        '' }} @endif>{{__('Free')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -315,8 +313,7 @@
                                                         @if(old('course_language_id'))
                                                         {{old('course_language_id')==$course_language->id ? 'selected' :
                                                         '' }} @else {{ $course->course_language_id ==
-                                                        $course_language->id ? 'selected' : '' }} @endif
-                                                        >{{$course_language->name}}</option>
+                                                        $course_language->id ? 'selected' : '' }} @endif>{{$course_language->name}}</option>
                                                     @endforeach
                                                 </select>
                                                 @if ($errors->has('course_language_id'))
@@ -345,8 +342,7 @@
                                                         @if(old('difficulty_level_id'))
                                                         {{old('difficulty_level_id')==$difficulty_level->id ? 'selected'
                                                         : '' }} @else {{ $course->difficulty_level_id ==
-                                                        $difficulty_level->id ? 'selected' : '' }} @endif
-                                                        >{{$difficulty_level->name}}</option>
+                                                        $difficulty_level->id ? 'selected' : '' }} @endif>{{$difficulty_level->name}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -394,7 +390,7 @@
                                                 <p class="font-14 color-gray">{{ __('Recomended image format & size') }}:
                                                     575px X 450px (1MB)</p>
                                                 <p class="font-14 color-gray">{{ __('Accepted image filetype') }}: jpg,
-                                                    jpeg, png</p>
+                                                    jpeg, png, webp</p>
                                             </div>
                                         </div>
                                         <div class="row align-items-center">
@@ -418,7 +414,7 @@
                                                         data-poster="{{ getImageFile(@$course->image) }}"
                                                         controlsList="nodownload">
                                                         <source src="{{ getVideoFile(@$course->video) }}"
-                                                            type="video/mp4" >
+                                                            type="video/mp4">
                                                     </video>
                                                 </div>
                                             </div>
@@ -483,47 +479,47 @@
 
 <script>
     "use strict"
-        $(function (){
-            var intro_video_check = "{{ $course->intro_video_check }}";
-            console.log(intro_video_check)
-            introVideoCheck(intro_video_check);
-        })
-        $(".intro_video_check").click(function(){
-            var intro_video_check = $("input[name='intro_video_check']:checked").val();
-            introVideoCheck(intro_video_check);
-        });
+    $(function() {
+        var intro_video_check = "{{ $course->intro_video_check }}";
+        console.log(intro_video_check)
+        introVideoCheck(intro_video_check);
+    })
+    $(".intro_video_check").click(function() {
+        var intro_video_check = $("input[name='intro_video_check']:checked").val();
+        introVideoCheck(intro_video_check);
+    });
 
-        function introVideoCheck(intro_video_check){
-            if(intro_video_check == 1){
-                $('#video').removeClass('d-none');
-                $('.videoSource').removeClass('d-none');
-                $('.videoSourceYoutube').addClass('d-none');
-                $('#youtube_video_id').addClass('d-none');
-            }
-
-            if(intro_video_check == 2){
-                $('#video').addClass('d-none');
-                $('.videoSource').addClass('d-none');
-                $('.videoSourceYoutube').removeClass('d-none');
-                $('#youtube_video_id').removeClass('d-none');
-            }
+    function introVideoCheck(intro_video_check) {
+        if (intro_video_check == 1) {
+            $('#video').removeClass('d-none');
+            $('.videoSource').removeClass('d-none');
+            $('.videoSourceYoutube').addClass('d-none');
+            $('#youtube_video_id').addClass('d-none');
         }
 
+        if (intro_video_check == 2) {
+            $('#video').addClass('d-none');
+            $('.videoSource').addClass('d-none');
+            $('.videoSourceYoutube').removeClass('d-none');
+            $('#youtube_video_id').removeClass('d-none');
+        }
+    }
 
-        $(document).on('change', ':input[name=drip_content]', function(){
-            let dripValue = $(':input[name=drip_content]').val();
-            $('.drip-help-text').addClass('d-none');
-            $('#drip-help-text-'+dripValue).removeClass('d-none');
-        });
 
-        $(':input[name=drip_content]').trigger('change');
+    $(document).on('change', ':input[name=drip_content]', function() {
+        let dripValue = $(':input[name=drip_content]').val();
+        $('.drip-help-text').addClass('d-none');
+        $('#drip-help-text-' + dripValue).removeClass('d-none');
+    });
+
+    $(':input[name=drip_content]').trigger('change');
 </script>
 
 <!-- Video Player js -->
 <script src="{{ asset('frontend/assets/vendor/video-player/plyr.js') }}"></script>
 <script>
     const aysha_player = new Plyr('#player');
-        const aysha_player2 = new Plyr('#youtubePlayer');
+    const aysha_player2 = new Plyr('#youtubePlayer');
 </script>
 <!-- Video Player js -->
 @endpush

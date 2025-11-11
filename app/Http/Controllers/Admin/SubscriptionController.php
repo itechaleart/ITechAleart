@@ -20,7 +20,7 @@ class SubscriptionController extends Controller
             if (!auth()->user()->can('manage_subscriptions')) {
                 abort('403');
             } // end permission checking
-            
+
             return $next($request);
         });
 
@@ -36,7 +36,7 @@ class SubscriptionController extends Controller
         $data['subscriptions'] = Package::where('package_type', PACKAGE_TYPE_SUBSCRIPTION)->orderBy('order', 'ASC')->paginate(10);
         return view('admin.subscriptions.index', $data);
     }
-    
+
     public function purchaseList()
     {
         $data['title'] = __('Subscription Package Purchase List');
@@ -46,7 +46,7 @@ class SubscriptionController extends Controller
         $data['userSubscriptions'] = UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('user_packages.status', PACKAGE_STATUS_ACTIVE)->where('packages.package_type', PACKAGE_TYPE_SUBSCRIPTION)->select('user_packages.*', 'packages.icon', 'packages.title', 'packages.uuid as package_uuid')->paginate(10);
         return view('admin.subscriptions.purchase_list', $data);
     }
-   
+
     public function pendingPurchaseList()
     {
         $data['title'] = __('Subscription Package Purchase Pending List');
@@ -81,16 +81,15 @@ class SubscriptionController extends Controller
             'recommended' => 'nullable',
             'in_home' => 'nullable',
             'order' => 'required|min:1',
-            'icon' => 'bail|required|mimes:jpeg,jpg,png|max:300|dimensions:width=80,height=80'
+            'icon' => 'bail|required|mimes:jpeg,jpg,png,webp|max:300|dimensions:width=80,height=80'
         ]);
 
         $slug = Str::slug($request->title);
-        
-        if (Package::where('slug', $slug)->withTrashed()->count() > 0)
-        {
-            $slug = Str::slug($request->title) . '-'. rand(100000, 999999);
+
+        if (Package::where('slug', $slug)->withTrashed()->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(100000, 999999);
         }
-        
+
         $data['icon'] = $request->icon ? $this->saveImage('packages', $request->icon, null, null) :   null;
         $data['package_type'] = PACKAGE_TYPE_SUBSCRIPTION;
         $data['slug'] = $slug;
@@ -109,7 +108,6 @@ class SubscriptionController extends Controller
         $data['navSubscriptionParentShowClass'] = 'mm-show';
         $data['subNavSubscriptionActiveClass'] = 'mm-active';
         return view('admin.subscriptions.edit', $data);
-
     }
 
     public function update(Request $request, Package $subscription)
@@ -128,20 +126,19 @@ class SubscriptionController extends Controller
             'recommended' => 'nullable',
             'in_home' => 'nullable',
             'order' => 'required|min:1',
-            'icon' => 'bail|nullable|mimes:jpeg,jpg,png|max:300|dimensions:width=80,height=80'
+            'icon' => 'bail|nullable|mimes:jpeg,jpg,png,webp|max:300|dimensions:width=80,height=80'
         ]);
 
         $slug = Str::slug($request->title);
-        
-        if (Package::where('slug', $slug)->withTrashed()->count() > 0)
-        {
-            $slug = Str::slug($request->title) . '-'. rand(100000, 999999);
+
+        if (Package::where('slug', $slug)->withTrashed()->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(100000, 999999);
         }
-        
+
         $data['icon'] = $request->icon ? $this->saveImage('packages', $request->icon, null, null) :   $subscription->icon;
         $data['slug'] = $slug;
 
-        if($subscription->is_default == 1){
+        if ($subscription->is_default == 1) {
             unset($data['monthly_price']);
             unset($data['discounted_monthly_price']);
             unset($data['yearly_price']);
@@ -164,16 +161,14 @@ class SubscriptionController extends Controller
         $data['navSubscriptionParentShowClass'] = 'mm-show';
         $data['subNavSubscriptionActiveClass'] = 'mm-active';
         return view('admin.subscriptions.view', $data);
-
     }
 
     public function destroy(Package $subscription)
     {
-        if(!$subscription->is_default){
-            if($subscription->user_package){
+        if (!$subscription->is_default) {
+            if ($subscription->user_package) {
                 $this->showToastrMessage('error', __('Subscription package has already used. Please deactivate it instead.'));
-            }
-            else{
+            } else {
                 $subscription->delete();
                 $this->showToastrMessage('error', __('Subscription package has been deleted'));
             }
@@ -185,7 +180,7 @@ class SubscriptionController extends Controller
     public function changeStatus(Request $request)
     {
         $subscription = Package::whereId($request->id)->first();
-        if(!$subscription->is_default){
+        if (!$subscription->is_default) {
             $subscription->update(['status' => $request->status]);
 
             return response()->json([
@@ -197,7 +192,7 @@ class SubscriptionController extends Controller
     public function changePurchaseStatus(Request $request)
     {
         $subscription = UserPackage::whereId($request->id)->first();
-        if($request->status == PACKAGE_STATUS_ACTIVE){
+        if ($request->status == PACKAGE_STATUS_ACTIVE) {
             UserPackage::join('packages', 'packages.id', '=', 'user_packages.package_id')->where('package_type', $subscription->package->package_type)->where('user_packages.user_id', auth()->id())->where('user_packages.status', PACKAGE_STATUS_ACTIVE)->whereDate('enroll_date', '<=', now())->whereDate('expired_date', '>=', now())->update(['user_packages.status' => PACKAGE_STATUS_CANCELED]);
             $subscription->payment->update(['payment_status' => 'paid']);
         }
@@ -208,5 +203,4 @@ class SubscriptionController extends Controller
             'data' => 'success',
         ]);
     }
-
 }
