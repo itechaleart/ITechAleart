@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:120'],
-            'image' => 'mimes:png|file|dimensions:min_width=60,min_height=60,max_width=60,max_height=60'
+            'image' => 'mimes:png,webp|file|dimensions:min_width=60,min_height=60,max_width=60,max_height=60'
         ];
     }
 }

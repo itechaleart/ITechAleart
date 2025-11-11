@@ -346,10 +346,9 @@ function get_instructor_ranking_level($badges)
 
 function getImageFile($file)
 {
-    if($file != ''){
+    if ($file != '') {
         return asset($file);
-    }
-    else{
+    } else {
         return asset('frontend/assets/img/no-image.png');
     }
 }
@@ -366,8 +365,7 @@ function getVideoFile($file)
                 $storage = Storage::disk(env('STORAGE_DRIVER'));
                 return $storage->url($file);
             }
-        }
-        else{
+        } else {
             return asset($file);
         }
     } catch (Exception $e) {
@@ -694,19 +692,19 @@ function distributeCommission($order)
                 }
             }
 
-            if(get_option('cashback_system_mode')){
+            if (get_option('cashback_system_mode')) {
                 $unitPrice = $order_item->unit_price;
                 $unit = $order_item->unit;
-                $amount = $unit*$unitPrice;
-                if($cashbackType == 1){
-                    $totalCashback += ($amount/100)*$cashbackAmount;
-                }else{
+                $amount = $unit * $unitPrice;
+                if ($cashbackType == 1) {
+                    $totalCashback += ($amount / 100) * $cashbackAmount;
+                } else {
                     $totalCashback += $cashbackAmount;
                 }
             }
 
             //setCashback
-            if($totalCashback > 0){
+            if ($totalCashback > 0) {
                 $order->user->increment('balance', decimal_to_int($totalCashback));
                 createTransaction($order->user_id, $totalCashback, TRANSACTION_CASHBACK, 'Cashback', 'Order_item (' . $order_item->id . ')', $order_item->id);
             }
@@ -809,11 +807,10 @@ if (!function_exists('setEnrollment')) {
     {
         $enrollment = new Enrollment();
         $enrollment->order_id = $item->order_id;
-        if(is_array($item->receiver_info) && count($item->receiver_info)){
+        if (is_array($item->receiver_info) && count($item->receiver_info)) {
             $user = User::where('email', $item->receiver_info['receiver_email'])->first();
             $enrollment->user_id = $user->id;
-        }
-        else{
+        } else {
             $enrollment->user_id = $item->user_id;
         }
 
@@ -837,10 +834,9 @@ if (!function_exists('setEnrollment')) {
             $enrollment->end_date = ($item->bundle->access_period) ? Carbon::now()->addDays($item->bundle->access_period) : MAX_EXPIRED_DATE;
         } else {
             $enrollment->start_date = now();
-            if(!is_null($expiredDays)){
+            if (!is_null($expiredDays)) {
                 $enrollment->end_date = Carbon::now()->addDays($expiredDays);
-            }
-            else{
+            } else {
                 $enrollment->end_date = ($item->course->access_period) ? Carbon::now()->addDays($item->course->access_period) : MAX_EXPIRED_DATE;
             }
         }
@@ -926,9 +922,9 @@ if (!function_exists('setBadge')) {
             foreach ($typeArray as $type => $value) {
                 $rule = $badges->where('type', $type)->where('from', '<=', $value)->where('to', '>=', $value)->first();
                 $maxRule = $badges->where('type', $type)->where('to', '<=', $value)->sortByDesc('to')->first();
-                Log::info('value'.$value);
-                Log::info('rule'.$rule);
-                Log::info('maxRule'.$maxRule);
+                Log::info('value' . $value);
+                Log::info('rule' . $rule);
+                Log::info('maxRule' . $maxRule);
                 $ranking_level_id = NULL;
                 if (!is_null($rule)) {
                     $ranking_level_id = $rule->id;
@@ -936,7 +932,7 @@ if (!function_exists('setBadge')) {
                     $ranking_level_id = $maxRule->id;
                 }
 
-                if(!is_null($ranking_level_id)){
+                if (!is_null($ranking_level_id)) {
                     UserBadge::create(['user_id' => $user->id, 'ranking_level_id' => $ranking_level_id]);
                 }
             }
@@ -1042,11 +1038,11 @@ if (!function_exists('getBeneficiaryAccountDetails')) {
         $returnData = '';
         if (!is_null($item)) {
             if ($item->type == BENEFICIARY_BANK) {
-                $returnData .= $item->bank_account_name.' - '.$item->bank_name.'['.$item->bank_account_number.']';
+                $returnData .= $item->bank_account_name . ' - ' . $item->bank_name . '[' . $item->bank_account_number . ']';
             } elseif ($item->type == BENEFICIARY_CARD) {
-                $returnData .= $item->card_holder_name.' - '.$item->card_number;
+                $returnData .= $item->card_holder_name . ' - ' . $item->card_number;
             } elseif ($item->type == BENEFICIARY_PAYPAL) {
-                $returnData .= 'Paypal - '.$item->paypal_email;
+                $returnData .= 'Paypal - ' . $item->paypal_email;
             }
         }
 
@@ -1058,7 +1054,7 @@ if (!function_exists('updateEnv')) {
     {
         if (count($values) > 0) {
             foreach ($values as $envKey => $envValue) {
-                setEnvironmentValue($envKey,$envValue);
+                setEnvironmentValue($envKey, $envValue);
             }
             return true;
         }
@@ -1079,7 +1075,7 @@ if (!function_exists('updateManifest')) {
                 [
                     "src" => getImageFile(get_option('app_pwa_icon')),
                     "sizes" => "512x512",
-                    "type" => "image/png",
+                    "type" => ["image/png", "image/jpg", "image/jpeg", "image/gif", "image/webp"],
                     "purpose" => "any maskable"
                 ]
             ]
@@ -1095,7 +1091,7 @@ function setEnvironmentValue($envKey, $envValue)
         $str = file_get_contents($envFile);
         $str .= "\n"; // In case the searched variable is in the last line without \n
         $keyPosition = strpos($str, "{$envKey}=");
-        if($keyPosition) {
+        if ($keyPosition) {
             if (PHP_OS_FAMILY === 'Windows') {
                 $endOfLinePosition = strpos($str, "\n", $keyPosition);
             } else {
@@ -1112,7 +1108,7 @@ function setEnvironmentValue($envKey, $envValue)
                 fwrite($fp, $str);
                 fclose($fp);
             }
-        }else if(strtoupper($envKey) == $envKey){
+        } else if (strtoupper($envKey) == $envKey) {
             $envValue = str_replace(chr(92), "\\\\", $envValue);
             $envValue = str_replace('"', '\"', $envValue);
             $newLine = "{$envKey}=\"{$envValue}\"\n";
@@ -1123,11 +1119,9 @@ function setEnvironmentValue($envKey, $envValue)
             fclose($fp);
         }
         return true;
-    }catch (\Exception $e){
+    } catch (\Exception $e) {
         return false;
     }
-
-
 }
 
 if (!function_exists('getTimeZone')) {
@@ -1144,9 +1138,9 @@ if (!function_exists('calculateCashback')) {
     {
         $cashbackType = get_option('cashback_type');
         $cashbackAmount = get_option('cashback_amount');
-        if($cashbackType == 1){
-            return ($amount/100)*$cashbackAmount;
-        }else{
+        if ($cashbackType == 1) {
+            return ($amount / 100) * $cashbackAmount;
+        } else {
             return $cashbackAmount;
         }
     }
@@ -1239,7 +1233,7 @@ if (!function_exists('isEnableOpenAI')) {
     function isEnableOpenAI()
     {
         $role = auth()->user()?->role;
-        return isAddonInstalled('LMSZAIAI') && in_array($role, [USER_ROLE_INSTRUCTOR,USER_ROLE_ORGANIZATION, USER_ROLE_ADMIN]) && get_option('open_ai_system');
+        return isAddonInstalled('LMSZAIAI') && in_array($role, [USER_ROLE_INSTRUCTOR, USER_ROLE_ORGANIZATION, USER_ROLE_ADMIN]) && get_option('open_ai_system');
     }
 }
 
@@ -1260,9 +1254,9 @@ if (!function_exists('getMeta')) {
             'og_image',
         ])->first();
 
-        if(!is_null($meta)){
-                $metaData = $meta->toArray();
-        }else{
+        if (!is_null($meta)) {
+            $metaData = $meta->toArray();
+        } else {
             $meta = Meta::where('slug', 'default')->select([
                 'meta_title',
                 'meta_description',
@@ -1270,7 +1264,7 @@ if (!function_exists('getMeta')) {
                 'og_image',
             ])->first();
 
-            if(!is_null($meta)){
+            if (!is_null($meta)) {
                 $metaData = $meta->toArray();
             }
         }
@@ -1288,10 +1282,10 @@ if (!function_exists('getThemePath')) {
     function getThemePath()
     {
         $theme = get_option('theme', THEME_DEFAULT);
-        if($theme == THEME_DEFAULT){
+        if ($theme == THEME_DEFAULT) {
             return 'frontend';
         }
 
-        return 'frontend-theme-'.$theme;
+        return 'frontend-theme-' . $theme;
     }
 }
