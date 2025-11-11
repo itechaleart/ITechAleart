@@ -34,7 +34,7 @@ class ForumCategoryController extends Controller
         $request->validate([
             'title' => 'required|unique:forum_categories,title',
             'subtitle' => 'required',
-            'logo' => 'mimes:png,webp|file|dimensions:min_width=60,min_height=60,max_width=60,max_height=60'
+            'logo' => 'mimes:png,webp|file'
         ]);
 
         $data = [
@@ -57,7 +57,7 @@ class ForumCategoryController extends Controller
         $request->validate([
             'title' => 'required|unique:forum_categories,title,' . $forumCategory->id,
             'subtitle' => 'required',
-            'logo' => 'mimes:png,webp|file|dimensions:min_width=60,min_height=60,max_width=60,max_height=60'
+            'logo' => 'mimes:png,webp|file'
         ]);
 
         if ($request->logo) {
@@ -70,9 +70,8 @@ class ForumCategoryController extends Controller
 
         $slug = getSlug($request->title);
 
-        if (ForumCategory::where('slug', $slug)->where('uuid', '!=', $uuid)->count() > 0)
-        {
-            $slug = getSlug($request->title) . '-'. rand(100000, 999999);
+        if (ForumCategory::where('slug', $slug)->where('uuid', '!=', $uuid)->count() > 0) {
+            $slug = getSlug($request->title) . '-' . rand(100000, 999999);
         }
 
         $data = [

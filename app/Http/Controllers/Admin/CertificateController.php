@@ -76,8 +76,8 @@ class CertificateController extends Controller
         // ]);
 
         $request->validate([
-            'background_image' => 'nullable|mimes:jpg,png,webp|file|max_width=1030,max_height=734',
-            'role_1_signature' => 'nullable|mimes:png,webp|file|max_width=120,max_height=60',
+            'background_image' => 'nullable|mimes:jpg,png,webp|file',
+            'role_1_signature' => 'nullable|mimes:png,webp|file',
         ]);
 
 
@@ -160,8 +160,8 @@ class CertificateController extends Controller
         // ]);
 
         $request->validate([
-            'background_image' => 'nullable|mimes:jpg,png,webp|file|dimensions:min_width=1030,min_height=734,max_width=1030,max_height=734',
-            'role_1_signature' => 'nullable|mimes:png,webp|file|dimensions:min_width=120,min_height=60,max_width=120,max_height=60',
+            'background_image' => 'nullable|mimes:jpg,png,webp|file',
+            'role_1_signature' => 'nullable|mimes:png,webp|file',
         ]);
 
         $certificate = Certificate::whereUuid($uuid)->first();
