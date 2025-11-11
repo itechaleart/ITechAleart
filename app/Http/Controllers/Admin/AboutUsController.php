@@ -35,9 +35,9 @@ class AboutUsController extends Controller
         $request->validate([
             'gallery_area_title' => 'required|max:255',
             'gallery_area_subtitle' => 'required',
-            'gallery_first_image' => 'mimes:jpg,webp|file|dimensions:min_width=536,min_height=644,max_width=536,max_height=644',
-            'gallery_second_image' => 'mimes:jpg,webp|file|dimensions:min_width=536,min_height=309,max_width=536,max_height=309',
-            'gallery_third_image' => 'mimes:jpg,webp|file|dimensions:min_width=536,min_height=309,max_width=536,max_height=309'
+            'gallery_first_image' => 'mimes:jpg,webp|file|max_width=536,max_height=644',
+            'gallery_second_image' => 'mimes:jpg,webp|file|max_width=536,max_height=309',
+            'gallery_third_image' => 'mimes:jpg,webp|file|max_width=536,max_height=309'
         ]);
 
         $about = AboutUsGeneral::first();
@@ -136,7 +136,7 @@ class AboutUsController extends Controller
     public function upgradeSkillUpdate(Request $request)
     {
         $request->validate([
-            'upgrade_skill_logo' => 'mimes:jpg,jpeg,png,webp|file|dimensions:min_width=505,min_height=540,max_width=505,max_height=540',
+            'upgrade_skill_logo' => 'mimes:jpg,jpeg,png,webp|file|max_width=505,max_height=540',
         ]);
         $about = AboutUsGeneral::first();
         if (!$about) {
@@ -174,7 +174,7 @@ class AboutUsController extends Controller
         $request->validate([
             'team_member_title' => 'required|max:255',
             'team_member_subtitle' => 'required',
-            'team_member_logo' => 'mimes:png,webp|file|dimensions:min_width=70,min_height=70,max_width=70,max_height=70',
+            'team_member_logo' => 'mimes:png,webp|file|max_width=70,max_height=70',
         ]);
 
         $about = AboutUsGeneral::first();
