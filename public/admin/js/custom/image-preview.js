@@ -5,10 +5,10 @@ function previewFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if(input.files[0].size > 1000000){
+    if (input.files[0].size > 1000000) {
         alert("Maximum file size is 1MB!");
     } else {
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             preview.src = reader.result;
         };
 
@@ -27,37 +27,34 @@ function preview86DimensionsFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type !== 'image/png')
-    {
+    if (file.type !== "image/png") {
         alert("Accepted file is png.");
-        return
+        return;
     }
 
     var img = new Image();
-    img.src = window.URL.createObjectURL( file );
-    img.onload = function()
-    {
+    img.src = window.URL.createObjectURL(file);
+    img.onload = function () {
         var width = this.naturalWidth,
             height = this.naturalHeight;
 
-        if (height !== 86){
+        if (height !== 86) {
             preview.src = "";
             alert("Need to height is 86!");
-            return
+            return;
         }
 
-        if (width !== 86){
+        if (width !== 86) {
             preview.src = "";
             alert("Need to width is 86!");
             return;
         }
-
     };
 
-    if(input.files[0].size > 1000000){
+    if (input.files[0].size > 1000000) {
         alert("Maximum file size is 1MB!");
-    }else {
-        reader.onloadend = function() {
+    } else {
+        reader.onloadend = function () {
             preview.src = reader.result;
         };
 
@@ -75,37 +72,34 @@ function preview148DimensionsFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type !== 'image/png')
-    {
+    if (file.type !== "image/png") {
         alert("Accepted file is png.");
-        return
+        return;
     }
 
     var img = new Image();
-    img.src = window.URL.createObjectURL( file );
-    img.onload = function()
-    {
+    img.src = window.URL.createObjectURL(file);
+    img.onload = function () {
         var width = this.naturalWidth,
             height = this.naturalHeight;
 
-        if (height !== 148){
+        if (height !== 148) {
             preview.src = "";
             alert("Need to height is 148!");
-            return
+            return;
         }
 
-        if (width !== 148){
+        if (width !== 148) {
             preview.src = "";
             alert("Need to width is 148!");
             return;
         }
-
     };
 
-    if(input.files[0].size > 1000000){
+    if (input.files[0].size > 1000000) {
         alert("Maximum file size is 1MB!");
-    }else {
-        reader.onloadend = function() {
+    } else {
+        reader.onloadend = function () {
             preview.src = reader.result;
         };
 
@@ -124,34 +118,36 @@ function preview505540DimensionFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type === 'image/webp')
-    {
+    if (
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg" ||
+        file.type === "image/webp"
+    ) {
         var img = new Image();
 
-        img.src = window.URL.createObjectURL( file );
-        img.onload = function()
-        {
+        img.src = window.URL.createObjectURL(file);
+        img.onload = function () {
             var width = this.naturalWidth,
                 height = this.naturalHeight;
 
-            if (width !== 505){
+            if (width !== 505) {
                 preview.src = "";
                 alert("Need to width is 505!");
-                return
+                return;
             }
 
-            if (height !== 540){
+            if (height !== 540) {
                 preview.src = "";
                 alert("Need to height is 540!");
                 return;
             }
-
         };
 
-        if(input.files[0].size > 1000000){
+        if (input.files[0].size > 1000000) {
             alert("Maximum file size is 1MB!");
-        }else {
-            reader.onloadend = function() {
+        } else {
+            reader.onloadend = function () {
                 preview.src = reader.result;
             };
 
@@ -163,10 +159,8 @@ function preview505540DimensionFile(input) {
         }
     } else {
         alert("Accepted file is jpg/jpeg/png/webp.");
-        return
+        return;
     }
-
-
 }
 
 function preview300343DimensionFile(input) {
@@ -176,34 +170,36 @@ function preview300343DimensionFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type === 'image/webp')
-    {
+    if (
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg" ||
+        file.type === "image/webp"
+    ) {
         var img = new Image();
 
-        img.src = window.URL.createObjectURL( file );
-        img.onload = function()
-        {
+        img.src = window.URL.createObjectURL(file);
+        img.onload = function () {
             var width = this.naturalWidth,
                 height = this.naturalHeight;
 
-            if (width !== 300){
+            if (width !== 300) {
                 preview.src = "";
                 alert("Need to width is 300!");
-                return
+                return;
             }
 
-            if (height !== 343){
+            if (height !== 343) {
                 preview.src = "";
                 alert("Need to height is 343!");
                 return;
             }
-
         };
 
-        if(input.files[0].size > 1000000){
+        if (input.files[0].size > 1000000) {
             alert("Maximum file size is 1MB!");
-        }else {
-            reader.onloadend = function() {
+        } else {
+            reader.onloadend = function () {
                 preview.src = reader.result;
             };
 
@@ -215,10 +211,8 @@ function preview300343DimensionFile(input) {
         }
     } else {
         alert("Accepted file is jpg/jpeg/png/webp.");
-        return
+        return;
     }
-
-
 }
 
 function preview12041DimensionFile(input) {
@@ -228,34 +222,36 @@ function preview12041DimensionFile(input) {
     var file = input.files[0];
     var reader = new FileReader();
 
-    if (file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type === 'image/webp')
-    {
+    if (
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg" ||
+        file.type === "image/webp"
+    ) {
         var img = new Image();
 
-        img.src = window.URL.createObjectURL( file );
-        console.log(window.URL.createObjectURL( file ))
-        img.onload = function()
-        {
+        img.src = window.URL.createObjectURL(file);
+        console.log(window.URL.createObjectURL(file));
+        img.onload = function () {
             var width = this.naturalWidth,
                 height = this.naturalHeight;
 
-            if (width !== 120){
+            if (width !== 120) {
                 alert("Need to width is 120!");
-                return
+                return;
             }
 
-            if (height !== 41){
+            if (height !== 41) {
                 preview.src = "";
                 alert("Need to height is 41!");
                 return;
             }
-
         };
 
-        if(input.files[0].size > 1000000){
+        if (input.files[0].size > 1000000) {
             alert("Maximum file size is 1MB!");
-        }else {
-            reader.onloadend = function() {
+        } else {
+            reader.onloadend = function () {
                 preview.src = reader.result;
             };
 
@@ -267,8 +263,6 @@ function preview12041DimensionFile(input) {
         }
     } else {
         alert("Accepted file is jpg/jpeg/png/webp.");
-        return
+        return;
     }
-
-
 }
