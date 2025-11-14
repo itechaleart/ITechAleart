@@ -155,15 +155,15 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
                                     @if($recommendedPackage->package_type == PACKAGE_TYPE_SUBSCRIPTION)
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
-                                        <span class="feature-text">{{ __('Unlimited access to').' '. $recommendedPackage->course. __(' courses') }}</span>
+                                        <span class="feature-text">{{ __('Access to').' '. ($recommendedPackage->course >= 100 ? __('unlimited') : $recommendedPackage->course). __(' courses') }}</span>
                                     </li>
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
-                                        <span class="feature-text">{{ __('Access to').' '. $recommendedPackage->bundle_course.' '.__('bundle courses') }}</span>
+                                        <span class="feature-text">{{ __('Access to').' '. ($recommendedPackage->bundle_course >= 100 ? __('unlimited') : $recommendedPackage->bundle_course).' '.__('bundle courses') }}</span>
                                     </li>
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
-                                        <span class="feature-text">{{ __('Buy').' '. $recommendedPackage->consultancy.' '.__('consultancy hours') }}</span>
+                                        <span class="feature-text">{{ __('Access to').' '. ($recommendedPackage->consultancy >= 100 ? __('unlimited') : $recommendedPackage->consultancy).' '.__('consultancy hours') }}</span>
                                     </li>
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
@@ -172,11 +172,11 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
                                     @elseif($recommendedPackage->package_type == PACKAGE_TYPE_SAAS_INSTRUCTOR)
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
-                                        <span class="feature-text">{{ __('Create unlimited').' '. $recommendedPackage->course. ' '.__('courses') }}</span>
+                                        <span class="feature-text">{{ __('Create unlimited').' '. ($recommendedPackage->course >= 100 ? __('unlimited') : $recommendedPackage->course). ' '.__('courses') }}</span>
                                     </li>
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
-                                        <span class="feature-text">{{ __('Create').' '. $recommendedPackage->bundle_course.' '.__('bundle courses') }}</span>
+                                        <span class="feature-text">{{ __('Create').' '. ($recommendedPackage->bundle_course >= 100 ? __('unlimited') : $recommendedPackage->bundle_course).' '.__('bundle courses') }}</span>
                                     </li>
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
@@ -184,7 +184,7 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
                                     </li>
                                     <li class="feature-item">
                                         <span class="feature-icon">✓</span>
-                                        <span class="feature-text">{{ $recommendedPackage->consultancy.' '.__('consultancy hours') }}</span>
+                                        <span class="feature-text">{{ ($recommendedPackage->consultancy >= 100 ? __('unlimited') : $recommendedPackage->consultancy).' '.__('consultancy hours') }}</span>
                                     </li>
                                     @elseif($recommendedPackage->package_type == PACKAGE_TYPE_SAAS_ORGANIZATION)
                                     <li class="feature-item">
@@ -209,8 +209,76 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
                             <div class="benefits-section">
                                 <h4 class="benefits-title">{{ __('Why Choose This Plan?') }}</h4>
                                 <div class="benefits-content">
+                                    @php $planOrder = $currentPlanIndex + 1; @endphp
+                                    @if($planOrder == 1)
                                     <div class="benefit-highlight">
-                                        <div class="highlight-icon">🚀</div>
+                                        <div class="highlight-icon">🤖</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('AI-Enhanced Learning') }}</h5>
+                                            <p>{{ __('Personalized recommendations powered by intelligent algorithms.') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">📊</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Guided Progress') }}</h5>
+                                            <p>{{ __('Track your improvement with real-time performance insights.') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">�</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Affordable Entry') }}</h5>
+                                            <p>{{ __('Ideal for small teams getting started with AI-powered learning.') }}</p>
+                                        </div>
+                                    </div>
+                                    @elseif($planOrder == 2)
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">📈</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Data-Driven Insights') }}</h5>
+                                            <p>{{ __('Unlock detailed analytics on learner engagement and progress.') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">🎯</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Adaptive Learning') }}</h5>
+                                            <p>{{ __('AI tailors the course path to match each learner\'s performance.') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">👥</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Team Collaboration') }}</h5>
+                                            <p>{{ __('Perfect for training teams and small institutions seeking measurable results.') }}</p>
+                                        </div>
+                                    </div>
+                                    @elseif($planOrder == 3)
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">🏢</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Enterprise-Level Control') }}</h5>
+                                            <p>{{ __('Centralize learning, analytics, and automation under one intelligent dashboard.') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">⚡</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Scalable Infrastructure') }}</h5>
+                                            <p>{{ __('Seamlessly expand as your organization grows—without limits.') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">🔮</div>
+                                        <div class="highlight-text">
+                                            <h5>{{ __('Strategic Insights') }}</h5>
+                                            <p>{{ __('Leverage predictive analytics to boost learning outcomes and ROI.') }}</p>
+                                        </div>
+                                    </div>
+                                    @else
+                                    <div class="benefit-highlight">
+                                        <div class="highlight-icon">�🚀</div>
                                         <div class="highlight-text">
                                             <h5>{{ __('Premium Access') }}</h5>
                                             <p>{{ __('Get unlimited access to all premium content and features') }}</p>
@@ -230,6 +298,7 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
                                             <p>{{ __('Accelerate your learning journey with structured content') }}</p>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
 
                                 <div class="cta-section">
@@ -315,7 +384,8 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
             create: "{{ __('Create') }}",
             enable: "{{ __('Enable') }}",
             subscriptionCourses: "{{ __('subscription courses') }}",
-            free: "{{ __('Free') }}"
+            free: "{{ __('Free') }}",
+            unlimited: "{{ __('unlimited') }}"
         };
 
         // Add common period translations used in price blocks
@@ -328,191 +398,374 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
         const currencySymbolJs = "{{ $currencySymbol ?? get_currency_symbol() }}";
 
         document.addEventListener('DOMContentLoaded', function() {
-            const toggle = document.getElementById('pricing-toggle');
-            const monthlyLabels = document.querySelectorAll('.monthly-label');
-            const yearlyLabels = document.querySelectorAll('.yearly-label');
-            const monthlyPrices = document.querySelectorAll('.monthly-price');
-            const yearlyPrices = document.querySelectorAll('.yearly-price');
-            const monthlyInput = document.getElementById('monthly-input');
-            const subscriptionContent = document.querySelector('.subscription-content-card');
+                    const toggle = document.getElementById('pricing-toggle');
+                    const monthlyLabels = document.querySelectorAll('.monthly-label');
+                    const yearlyLabels = document.querySelectorAll('.yearly-label');
+                    const monthlyPrices = document.querySelectorAll('.monthly-price');
+                    const yearlyPrices = document.querySelectorAll('.yearly-price');
+                    const monthlyInput = document.getElementById('monthly-input');
+                    const subscriptionContent = document.querySelector('.subscription-content-card');
 
-            // Toggle between monthly and yearly
-            toggle.addEventListener('change', function() {
-                const isYearly = this.checked;
+                    // Toggle between monthly and yearly
+                    toggle.addEventListener('change', function() {
+                        const isYearly = this.checked;
 
-                // Update labels
-                monthlyLabels.forEach(label => label.classList.toggle('active', !isYearly));
-                yearlyLabels.forEach(label => label.classList.toggle('active', isYearly));
+                        // Update labels
+                        monthlyLabels.forEach(label => label.classList.toggle('active', !isYearly));
+                        yearlyLabels.forEach(label => label.classList.toggle('active', isYearly));
 
-                // Update prices
-                monthlyPrices.forEach(price => price.classList.toggle('active', !isYearly));
-                yearlyPrices.forEach(price => price.classList.toggle('active', isYearly));
+                        // Update prices
+                        monthlyPrices.forEach(price => price.classList.toggle('active', !isYearly));
+                        yearlyPrices.forEach(price => price.classList.toggle('active', isYearly));
 
-                // Update form input
-                monthlyInput.value = isYearly ? '0' : '1';
+                        // Update form input
+                        monthlyInput.value = isYearly ? '0' : '1';
 
-                // Update current plan display
-                updateCurrentPlanDisplay();
-                // Ensure main content price blocks are in sync with toggle state
-                const contentCard = document.querySelector('.subscription-content-card');
-                if (contentCard) {
-                    const monthlyWrap = contentCard.querySelector('.price-display.monthly-price');
-                    const yearlyWrap = contentCard.querySelector('.price-display.yearly-price');
-                    if (monthlyWrap && yearlyWrap) {
-                        monthlyWrap.classList.toggle('active', !isYearly);
-                        monthlyWrap.classList.toggle('hidden', isYearly);
-                        yearlyWrap.classList.toggle('active', isYearly);
-                        yearlyWrap.classList.toggle('hidden', !isYearly);
-                    }
-                }
-            });
-
-            // Plan switching functionality - both desktop and mobile buttons
-            const planButtons = document.querySelectorAll('.plan-button, .plan-button-mobile');
-            planButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const planId = this.dataset.plan;
-                    const planData = {
-                        title: this.dataset.title,
-                        icon: this.dataset.icon,
-                        monthlyPrice: this.dataset.monthlyPrice,
-                        yearlyPrice: this.dataset.yearlyPrice,
-                        originalMonthly: this.dataset.originalMonthly,
-                        originalYearly: this.dataset.originalYearly,
-                        course: this.dataset.course,
-                        bundle: this.dataset.bundle,
-                        consultancy: this.dataset.consultancy,
-                        device: this.dataset.device,
-                        type: this.dataset.type
-                    };
-
-                    // Update active button for both desktop and mobile
-                    planButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // Update main content
-                    updateSubscriptionContent(planId, planData);
-                });
-            });
-
-            function updateSubscriptionContent(planId, data) {
-                const contentCard = document.querySelector('.subscription-content-card');
-                contentCard.setAttribute('data-plan', planId);
-
-                // Update icon
-                contentCard.querySelector('.plan-icon img').src = data.icon;
-                contentCard.querySelector('.plan-icon img').alt = data.title;
-
-                // Update title
-                contentCard.querySelector('.plan-title').textContent = data.title;
-
-                // Update prices (fully replace the inner markup of the main price-display blocks)
-                const monthlyWrap = contentCard.querySelector('.price-display.monthly-price');
-                const yearlyWrap = contentCard.querySelector('.price-display.yearly-price');
-                const monthlyVal = Number(data.monthlyPrice || 0);
-                const yearlyVal = Number(data.yearlyPrice || 0);
-
-                if (monthlyWrap) {
-                    let monthlyHtml = '';
-                    if (monthlyVal < 1) {
-                        monthlyHtml = `<div class="price-free"><span class="price-amount">${translations.free}</span></div>`;
-                    } else {
-                        monthlyHtml = `<div class="price-amount">${data.monthlyPrice}<span class="currency">${currencySymbolJs}</span></div>`;
-                        monthlyHtml += `<div class="price-period">${translations.perMonth}</div>`;
-                        if (data.originalMonthly && Number(data.originalMonthly) > monthlyVal) {
-                            monthlyHtml += `<div class="original-price">${data.originalMonthly}${currencySymbolJs}</div>`;
+                        // Update current plan display
+                        updateCurrentPlanDisplay();
+                        // Ensure main content price blocks are in sync with toggle state
+                        const contentCard = document.querySelector('.subscription-content-card');
+                        if (contentCard) {
+                            const monthlyWrap = contentCard.querySelector('.price-display.monthly-price');
+                            const yearlyWrap = contentCard.querySelector('.price-display.yearly-price');
+                            if (monthlyWrap && yearlyWrap) {
+                                monthlyWrap.classList.toggle('active', !isYearly);
+                                monthlyWrap.classList.toggle('hidden', isYearly);
+                                yearlyWrap.classList.toggle('active', isYearly);
+                                yearlyWrap.classList.toggle('hidden', !isYearly);
+                            }
                         }
-                    }
-                    monthlyWrap.innerHTML = monthlyHtml;
-                }
+                    });
 
-                if (yearlyWrap) {
-                    let yearlyHtml = '';
-                    if (yearlyVal < 1) {
-                        yearlyHtml = `<div class="price-free"><span class="price-amount">${translations.free}</span></div>`;
-                    } else {
-                        yearlyHtml = `<div class="price-amount">${data.yearlyPrice}<span class="currency">${currencySymbolJs}</span></div>`;
-                        yearlyHtml += `<div class="price-period">${translations.perYear}</div>`;
-                        if (data.originalYearly && Number(data.originalYearly) > yearlyVal) {
-                            yearlyHtml += `<div class="original-price">${data.originalYearly}${currencySymbolJs}</div>`;
+                    // Plan switching functionality - both desktop and mobile buttons
+                    const planButtons = document.querySelectorAll('.plan-button, .plan-button-mobile');
+                    planButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            const planId = this.dataset.plan;
+                            const planIndex = this.dataset.index;
+                            const planData = {
+                                title: this.dataset.title,
+                                icon: this.dataset.icon,
+                                monthlyPrice: this.dataset.monthlyPrice,
+                                yearlyPrice: this.dataset.yearlyPrice,
+                                originalMonthly: this.dataset.originalMonthly,
+                                originalYearly: this.dataset.originalYearly,
+                                course: this.dataset.course,
+                                bundle: this.dataset.bundle,
+                                consultancy: this.dataset.consultancy,
+                                device: this.dataset.device,
+                                type: this.dataset.type,
+                                index: planIndex
+                            };
+
+                            // Update active button for both desktop and mobile
+                            planButtons.forEach(btn => btn.classList.remove('active'));
+                            this.classList.add('active');
+
+                            // Update main content
+                            updateSubscriptionContent(planId, planData);
+                        });
+                    });
+
+                    function updateSubscriptionContent(planId, data) {
+                        const contentCard = document.querySelector('.subscription-content-card');
+                        contentCard.setAttribute('data-plan', planId);
+
+                        // Update icon
+                        contentCard.querySelector('.plan-icon img').src = data.icon;
+                        contentCard.querySelector('.plan-icon img').alt = data.title;
+
+                        // Update title
+                        contentCard.querySelector('.plan-title').textContent = data.title;
+
+                        // Update prices (fully replace the inner markup of the main price-display blocks)
+                        const monthlyWrap = contentCard.querySelector('.price-display.monthly-price');
+                        const yearlyWrap = contentCard.querySelector('.price-display.yearly-price');
+                        const monthlyVal = Number(data.monthlyPrice || 0);
+                        const yearlyVal = Number(data.yearlyPrice || 0);
+
+                        if (monthlyWrap) {
+                            let monthlyHtml = '';
+                            if (monthlyVal < 1) {
+                                monthlyHtml = `<div class="price-free"><span class="price-amount">${translations.free}</span></div>`;
+                            } else {
+                                monthlyHtml = `<div class="price-amount">${data.monthlyPrice}<span class="currency">${currencySymbolJs}</span></div>`;
+                                monthlyHtml += `<div class="price-period">${translations.perMonth}</div>`;
+                                if (data.originalMonthly && Number(data.originalMonthly) > monthlyVal) {
+                                    monthlyHtml += `<div class="original-price">${data.originalMonthly}${currencySymbolJs}</div>`;
+                                }
+                            }
+                            monthlyWrap.innerHTML = monthlyHtml;
                         }
+
+                        if (yearlyWrap) {
+                            let yearlyHtml = '';
+                            if (yearlyVal < 1) {
+                                yearlyHtml = `<div class="price-free"><span class="price-amount">${translations.free}</span></div>`;
+                            } else {
+                                yearlyHtml = `<div class="price-amount">${data.yearlyPrice}<span class="currency">${currencySymbolJs}</span></div>`;
+                                yearlyHtml += `<div class="price-period">${translations.perYear}</div>`;
+                                if (data.originalYearly && Number(data.originalYearly) > yearlyVal) {
+                                    yearlyHtml += `<div class="original-price">${data.originalYearly}${currencySymbolJs}</div>`;
+                                }
+                            }
+                            yearlyWrap.innerHTML = yearlyHtml;
+                        }
+
+                        // Sync which price block should be visible according to toggle state
+                        const isYearlySelected = toggle.checked;
+                        if (monthlyWrap && yearlyWrap) {
+                            monthlyWrap.classList.toggle('active', !isYearlySelected);
+                            monthlyWrap.classList.toggle('hidden', isYearlySelected);
+                            yearlyWrap.classList.toggle('active', isYearlySelected);
+                            yearlyWrap.classList.toggle('hidden', !isYearlySelected);
+                        }
+
+                        // Update features based on package type
+                        const featuresList = contentCard.querySelector('.features-list');
+                        featuresList.innerHTML = generateFeaturesHTML(data);
+
+                        // Update benefits based on plan order
+                        const benefitsContent = contentCard.querySelector('.benefits-content');
+                        benefitsContent.innerHTML = generateBenefitsHTML(data.index);
+
+                        // Show/hide recommended badge depending on selected plan
+                        const badge = contentCard.querySelector('.plan-badge');
+                        if (badge) {
+                            if (String(planId) === String(recommendedId)) {
+                                badge.style.display = 'inline-block';
+                            } else {
+                                badge.style.display = 'none';
+                            }
+                        }
+
+                        // Update form action
+                        const form = contentCard.querySelector('.subscription-form');
+                        // Note: Would need to get the UUID for the specific plan, this is a placeholder
+                        // form.action = `/subscription/checkout/${planId}`;
                     }
-                    yearlyWrap.innerHTML = yearlyHtml;
-                }
 
-                // Sync which price block should be visible according to toggle state
-                const isYearlySelected = toggle.checked;
-                if (monthlyWrap && yearlyWrap) {
-                    monthlyWrap.classList.toggle('active', !isYearlySelected);
-                    monthlyWrap.classList.toggle('hidden', isYearlySelected);
-                    yearlyWrap.classList.toggle('active', isYearlySelected);
-                    yearlyWrap.classList.toggle('hidden', !isYearlySelected);
-                }
+                    function generateFeaturesHTML(data) {
+                        let features = '';
 
-                // Update features based on package type
-                const featuresList = contentCard.querySelector('.features-list');
-                featuresList.innerHTML = generateFeaturesHTML(data);
+                        if (data.type == 1) { // PACKAGE_TYPE_SUBSCRIPTION
+                            const courseDisplay = parseInt(data.course) >= 100 ? translations.unlimited : data.course;
+                            const bundleDisplay = parseInt(data.bundle) >= 100 ? translations.unlimited : data.bundle;
+                            const consultancyDisplay = parseInt(data.consultancy) >= 100 ? translations.unlimited : data.consultancy;
 
-                // Show/hide recommended badge depending on selected plan
-                const badge = contentCard.querySelector('.plan-badge');
-                if (badge) {
-                    if (String(planId) === String(recommendedId)) {
-                        badge.style.display = 'inline-block';
-                    } else {
-                        badge.style.display = 'none';
-                    }
-                }
-
-                // Update form action
-                const form = contentCard.querySelector('.subscription-form');
-                // Note: Would need to get the UUID for the specific plan, this is a placeholder
-                // form.action = `/subscription/checkout/${planId}`;
-            }
-
-            function generateFeaturesHTML(data) {
-                let features = '';
-
-                if (data.type == 1) { // PACKAGE_TYPE_SUBSCRIPTION
-                    features += `
+                            features += `
                         <li class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span class="feature-text">${translations.unlimitedAccessTo} ${data.course} ${translations.courses}</span>
+                            <span class="feature-text">${translations.unlimitedAccessTo} ${courseDisplay} ${translations.courses}</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span class="feature-text">${translations.accessTo} ${data.bundle} ${translations.bundleCourses}</span>
+                            <span class="feature-text">${translations.accessTo} ${bundleDisplay} ${translations.bundleCourses}</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-icon">✓</span>
-                            <span class="feature-text">${translations.buy} ${data.consultancy} ${translations.consultancyHours}</span>
+                            <span class="feature-text">${translations.buy} ${consultancyDisplay} ${translations.consultancyHours}</span>
                         </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span class="feature-text">${data.device} ${translations.deviceAccess}</span>
-                        </li>
-                    `;
+                    `; <
+                            span class = "feature-icon" > ✓ < /span> <
+                            span class = "feature-text" > $ {
+                                data.device
+                            }
+                            $ {
+                                translations.deviceAccess
+                            } < /span> <
+                            /li>
+                            `;
                 } else if (data.type == 2) { // PACKAGE_TYPE_SAAS_INSTRUCTOR
-                    features += `
-                        <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span class="feature-text">${translations.createUnlimited} ${data.course} ${translations.courses}</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span class="feature-text">${translations.create} ${data.bundle} ${translations.bundleCourses}</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span class="feature-text">${translations.enable} ${data.subscription_course} ${translations.subscriptionCourses}</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            <span class="feature-text">${data.consultancy} ${translations.consultancyHours}</span>
-                        </li>
-                    `;
+                    const courseDisplay = parseInt(data.course) >= 100 ? translations.unlimited : data.course;
+                    const bundleDisplay = parseInt(data.bundle) >= 100 ? translations.unlimited : data.bundle;
+                    const consultancyDisplay = parseInt(data.consultancy) >= 100 ? translations.unlimited : data.consultancy;
+
+                    features += ` <
+                            li class = "feature-item" >
+                            <
+                            span class = "feature-icon" > ✓ < /span> <
+                            span class = "feature-text" > $ {
+                                translations.createUnlimited
+                            }
+                            $ {
+                                courseDisplay
+                            }
+                            $ {
+                                translations.courses
+                            } < /span> <
+                            /li> <
+                            li class = "feature-item" >
+                            <
+                            span class = "feature-icon" > ✓ < /span> <
+                            span class = "feature-text" > $ {
+                                translations.create
+                            }
+                            $ {
+                                bundleDisplay
+                            }
+                            $ {
+                                translations.bundleCourses
+                            } < /span> <
+                            /li> <
+                            li class = "feature-item" >
+                            <
+                            span class = "feature-icon" > ✓ < /span> <
+                            span class = "feature-text" > $ {
+                                translations.enable
+                            }
+                            $ {
+                                data.subscription_course
+                            }
+                            $ {
+                                translations.subscriptionCourses
+                            } < /span> <
+                            /li> <
+                            li class = "feature-item" >
+                            <
+                            span class = "feature-icon" > ✓ < /span> <
+                            span class = "feature-text" > $ {
+                                consultancyDisplay
+                            }
+                            $ {
+                                translations.consultancyHours
+                            } < /span> <
+                            /li>
+                            `;
                 }
 
                 return features;
+            }
+
+            function generateBenefitsHTML(planIndex) {
+                const order = parseInt(planIndex) + 1; // Convert to 1-based order
+                let benefits = '';
+
+                if (order === 1) {
+                    benefits = ` <
+                            div class = "benefit-highlight" >
+                            <
+                            div class = "highlight-icon" > 🤖 < /div> <
+                            div class = "highlight-text" >
+                            <
+                            h5 > AI - Enhanced Learning < /h5> <
+                                p > Personalized recommendations powered by intelligent algorithms. < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 📊 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Guided Progress < /h5> <
+                                p > Track your improvement with real - time performance insights. < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 💰 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Affordable Entry < /h5> <
+                                p > Ideal
+                            for small teams getting started with AI - powered learning. < /p> <
+                                /div> <
+                                /div>
+                            `;
+                } else if (order === 2) {
+                    benefits = ` <
+                            div class = "benefit-highlight" >
+                            <
+                            div class = "highlight-icon" > 📈 < /div> <
+                            div class = "highlight-text" >
+                            <
+                            h5 > Data - Driven Insights < /h5> <
+                                p > Unlock detailed analytics on learner engagement and progress. < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 🎯 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Adaptive Learning < /h5> <
+                                p > AI tailors the course path to match each learner 's performance.</p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 👥 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Team Collaboration < /h5> <
+                                p > Perfect
+                            for training teams and small institutions seeking measurable results. < /p> <
+                                /div> <
+                                /div>
+                            `;
+                } else if (order === 3) {
+                    benefits = ` <
+                            div class = "benefit-highlight" >
+                            <
+                            div class = "highlight-icon" > 🏢 < /div> <
+                            div class = "highlight-text" >
+                            <
+                            h5 > Enterprise - Level Control < /h5> <
+                                p > Centralize learning, analytics, and automation under one intelligent dashboard. < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > ⚡ < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Scalable Infrastructure < /h5> <
+                                p > Seamlessly expand as your organization grows— without limits. < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 🔮 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Strategic Insights < /h5> <
+                                p > Leverage predictive analytics to boost learning outcomes and ROI. < /p> <
+                                /div> <
+                                /div>
+                            `;
+                } else {
+                    benefits = ` <
+                            div class = "benefit-highlight" >
+                            <
+                            div class = "highlight-icon" > 🚀 < /div> <
+                            div class = "highlight-text" >
+                            <
+                            h5 > Premium Access < /h5> <
+                                p > Get unlimited access to all premium content and features < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 💡 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Expert Support < /h5> <
+                                p > 24 / 7 customer support from our expert team < /p> <
+                                /div> <
+                                /div> <
+                                div class = "benefit-highlight" >
+                                <
+                                div class = "highlight-icon" > 📈 < /div> <
+                                div class = "highlight-text" >
+                                <
+                                h5 > Career Growth < /h5> <
+                                p > Accelerate your learning journey with structured content < /p> <
+                                /div> <
+                                /div>
+                            `;
+                }
+
+                return benefits;
             }
 
             function updateCurrentPlanDisplay() {
