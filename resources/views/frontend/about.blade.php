@@ -104,8 +104,8 @@ $metaData = getMeta('about_us');
                     <li>
                         <h6 class="history-year">{{ $ourHistory->year }}</h6>
                         <div class="history-content">
-                            <h6 class="h6 fw-bold font-18">{{ Str::limit($ourHistory->title, 23) }}</h6>
-                            <p class="font-15 pt-1">{{ Str::limit($ourHistory->subtitle, 100) }}</p>
+                            <h6 class="h6 fw-bold font-18">{{ $ourHistory->title }}</h6>
+                            <p class="font-15 pt-1">{{ $ourHistory->subtitle }}</p>
                         </div>
                     </li>
                     @endforeach
@@ -201,8 +201,8 @@ $metaData = getMeta('about_us');
                     <div class="instructor-support-img-wrap">
                         <img src="{{ getImageFile($instructorSupport->image_path) }}" alt="support">
                     </div>
-                    <h6>{{ Str::limit($instructorSupport->title, 20) }}</h6>
-                    <p>{{ Str::limit($instructorSupport->subtitle, 60) }} </p>
+                    <h6>{{ $instructorSupport->title }}</h6>
+                    <p>{{ $instructorSupport->subtitle }} </p>
                     <a href="{{ $instructorSupport->button_link ?? '#' }}" class="theme-btn theme-button1 theme-button3">{{ __($instructorSupport->button_name) }} <i data-feather="arrow-right"></i></a>
                 </div>
             </div>
