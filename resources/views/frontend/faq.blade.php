@@ -61,12 +61,11 @@ $metaData = getMeta('faq');
             </div>
 
             <!-- Tab panel nav list -->
-            <div class="faq-tab-nav-wrap d-flex justify-content-between">
+            <!-- <div class="faq-tab-nav-wrap d-flex justify-content-between">
                 <ul class="nav nav-tabs tab-nav-list border-0 row" id="myTab" role="tablist">
 
                     <li class="nav-item col-md-3" role="presentation">
                         <a class="nav-link text-center active" id="Support-tab" data-bs-toggle="tab" href="#Support" role="tab" aria-controls="Support" aria-selected="true">
-                            <!-- faq tab nav Item start-->
                             <div class="faq-tab-nav-item bg-white">
                                 <h6>{{ Str::limit(get_option('faq_tab_first_title'), 22) }}</h6>
                                 <div class="faq-tab-nav-img-wrap">
@@ -74,12 +73,10 @@ $metaData = getMeta('faq');
                                 </div>
                                 <p>{{ Str::limit(get_option('faq_tab_first_subtitle'), 80) }}</p>
                             </div>
-                            <!-- faq tab nav Item End-->
                         </a>
                     </li>
                     <li class="nav-item col-md-3" role="presentation">
                         <a class="nav-link" id="Licensing-tab" data-bs-toggle="tab" href="#Licensing" role="tab" aria-controls="Licensing" aria-selected="false">
-                            <!-- faq tab nav Item start-->
                             <div class="">
                                 <div class="faq-tab-nav-item bg-white">
                                     <h6>{{ Str::limit(get_option('faq_tab_sec_title'), 22) }}</h6>
@@ -89,12 +86,10 @@ $metaData = getMeta('faq');
                                     <p>{{ Str::limit(get_option('faq_tab_sec_subtitle'), 80) }}</p>
                                 </div>
                             </div>
-                            <!-- faq tab nav Item End-->
                         </a>
                     </li>
                     <li class="nav-item col-md-3" role="presentation">
                         <a class="nav-link" id="Account-tab" data-bs-toggle="tab" href="#Account" role="tab" aria-controls="Account" aria-selected="false">
-                            <!-- faq tab nav Item start-->
                             <div class="">
                                 <div class="faq-tab-nav-item bg-white">
                                     <h6>{{ Str::limit(get_option('faq_tab_third_title'), 22) }}</h6>
@@ -104,12 +99,10 @@ $metaData = getMeta('faq');
                                     <p>{{ Str::limit(get_option('faq_tab_third_subtitle'), 80) }}</p>
                                 </div>
                             </div>
-                            <!-- faq tab nav Item End-->
                         </a>
                     </li>
                     <li class="nav-item col-md-3" role="presentation">
                         <a class="nav-link" id="Tax-tab" data-bs-toggle="tab" href="#Tax" role="tab" aria-controls="Tax" aria-selected="false">
-                            <!-- faq tab nav Item start-->
                             <div class="">
                                 <div class="faq-tab-nav-item bg-white">
                                     <h6>{{ Str::limit(get_option('faq_tab_four_title'), 22) }}</h6>
@@ -119,11 +112,10 @@ $metaData = getMeta('faq');
                                     <p>{{ Str::limit(get_option('faq_tab_four_subtitle'), 80) }}</p>
                                 </div>
                             </div>
-                            <!-- faq tab nav Item End-->
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
             <!-- Tab panel nav list -->
 
             <div class="row align-items-center">
