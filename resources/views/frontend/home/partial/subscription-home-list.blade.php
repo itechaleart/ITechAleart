@@ -10,8 +10,8 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
         <div class="row">
             <div class="col-12">
                 <div class="section-title text-center mb-50">
-                    <h3 class="section-heading">{{ __('Subscribe Now!') }}</h3>
-                    <p class="section-sub-heading">{{ __('#Choose a subscription plan and save money!') }}</p>
+                    <h3 class="section-heading">{{ __('Transform Education with AI Intelligence') }}</h3>
+                    <p class="section-sub-heading">{{ __('Choose your subscription plan and bring personalized, automated learning to your classrooms.') }}</p>
                 </div>
             </div>
         </div>
