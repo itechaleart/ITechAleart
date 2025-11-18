@@ -22,7 +22,7 @@ $recommendedPackage = $subscriptions->where('recommended', 1)->first() ?? $subsc
                 <div class="pricing-toggle-wrapper">
                     <div class="pricing-toggle-container">
                         <span class="toggle-label monthly-label {{ $subscriptions->first() && $subscriptions->first()->monthly_price > 0 ? 'active' : '' }}">{{ __('Monthly') }}</span>
-                        <label class="pricing-toggle">
+                        <label class="pricing-toggle" for="pricing-toggle">
                             <input type="checkbox" id="pricing-toggle" {{ $subscriptions->first() && $subscriptions->first()->yearly_price > 0 ? 'checked' : '' }}>
                             <span class="toggle-slider"></span>
                         </label>

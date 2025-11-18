@@ -10,35 +10,35 @@
                         <div class="footer-social mt-30">
                             <ul class="d-flex align-items-center">
                                 @if (get_option('facebook_url'))
-                                <li><a href="{{ get_option('facebook_url') }}" target="_blank"><span class="iconify"
+                                <li><a href="{{ get_option('facebook_url') }}" target="_blank" aria-label="Facebook"><span class="iconify"
                                             data-icon="ant-design:facebook-filled"></span></a></li>
                                 @endif
                                 @if (get_option('twitter_url'))
-                                <li><a href="{{ get_option('twitter_url') }}" target="_blank"><span class="iconify"
+                                <li><a href="{{ get_option('twitter_url') }}" target="_blank" aria-label="Twitter"><span class="iconify"
                                             data-icon="streamline-logos:x-twitter-logo-block"></span></a></li>
                                 @endif
                                 @if (get_option('linkedin_url'))
-                                <li><a href="{{ get_option('linkedin_url') }}" target="_blank"><span class="iconify"
+                                <li><a href="{{ get_option('linkedin_url') }}" target="_blank" aria-label="LinkedIn"><span class="iconify"
                                             data-icon="ant-design:linkedin-filled"></span></a></li>
                                 @endif
                                 @if (get_option('pinterest_url'))
-                                <li><a href="{{ get_option('pinterest_url') }}" target="_blank"><span class="iconify"
+                                <li><a href="{{ get_option('pinterest_url') }}" target="_blank" aria-label="Pinterest"><span class="iconify"
                                             data-icon="fa-brands:pinterest-square" data-width="1em"
                                             data-height="1em"></span></a></li>
                                 @endif
                                 @if (get_option('youtube_url'))
-                                <li><a href="{{ get_option('youtube_url') }}" target="_blank"><span class="iconify"
+                                <li><a href="{{ get_option('youtube_url') }}" target="_blank" aria-label="YouTube"><span class="iconify"
                                             data-icon="fa-brands:youtube-square" data-width="1em"
                                             data-height="1em"></span></a></li>
                                 @endif
                                 @if (get_option('tiktok_url'))
-                                <li><a href="{{ get_option('tiktok_url') }}" target="_blank"><span class="iconify"
+                                <li><a href="{{ get_option('tiktok_url') }}" target="_blank" aria-label="TikTok"><span class="iconify"
                                             data-icon="iconoir:tiktok" data-width="1em"
                                             data-height="1em"></span></a></li>
                                 @endif
                                 @if (get_option('f6s_url'))
                                 <li>
-                                    <a href="{{ get_option('f6s_url') }}" target="_blank">
+                                    <a href="{{ get_option('f6s_url') }}" target="_blank" aria-label="F6S">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="100 100 600 600" class="w-6 h-6 iconify" style="width:1em;height:1em;">
                                             <path fill="currentColor" d="M156.9 180.1h136.8v57.8h-79.1v124.9h45.8v57.8h-45.8v199.3h-57.8V180.1z" />
                                             <path fill="currentColor" d="M372.4 237.9v124.9h68.5c16.6 0 31.1 14.5 31.1 31v194.7c0 16.7-14.5 31.4-31.1 31.4h-95c-16.6 0-31.1-14.3-31.1-30.6V212.3c0-16.8 14.4-32.2 30.3-32.2h95.9c16.6 0 31.1 14.5 31.1 31v72.7h-57.8v-45.8zm0 182.7v141.5h41.9V420.6h-41.9z" />
@@ -49,7 +49,7 @@
                                 @endif
                                 @if (get_option('crunchbase_url'))
                                 <li>
-                                    <a href="{{ get_option('crunchbase_url') }}" target="_blank">
+                                    <a href="{{ get_option('crunchbase_url') }}" target="_blank" aria-label="Crunchbase">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" class="w-6 h-6 iconify" style="width:1em;height:1em;">
                                             <path fill="currentColor" d="M13.94 33.658a2.962 2.962 0 110.034-2.44h2.296a5.167 5.167 0 100 2.44h-2.296zM23.51 27.257h-.379a5.098 5.098 0 00-2.526.89v-5.752h-2.095v14.794h2.107v-.54a5.167 5.167 0 102.893-9.392zm2.962 5.534v.092a2.94 2.94 0 01-.08.362 2.934 2.934 0 01-.144.373v.046a2.98 2.98 0 01-2.072 1.625l-.281.046h-.063a2.916 2.916 0 01-.322 0 2.962 2.962 0 01-.402-.029h-.057a2.934 2.934 0 01-.752-.23h-.057a2.974 2.974 0 01-.666-.447 2.991 2.991 0 01-.522-.626 2.962 2.962 0 01-.19-.367 2.945 2.945 0 01.035-2.44 2.968 2.968 0 012.377-1.682 2.934 2.934 0 01.304 0 2.968 2.968 0 012.928 2.882 2.957 2.957 0 010 .396z" transform="matrix(3 0 0 3 -17 -60)" />
                                         </svg>
